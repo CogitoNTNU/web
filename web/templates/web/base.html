@@ -1,10 +1,19 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Cogito NTNU{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'web/semantic/semantic.min.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'web/semantic/semantic.min.js' %}"></script>
+
 </head>
 <body>
-
+    {% block header %}{% include 'web/header.html' %}{% endblock header %}
+    {% block body %}{% endblock body %}
+    {% block footer %}{% include 'web/footer.html' %}{% endblock footer %}
 </body>
 </html>
