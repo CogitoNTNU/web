@@ -1,27 +1,19 @@
-#header {
-    height: 300px;
-    width: 100%;
-    background-color: #ffffff;
-    margin-left: 350px;
+p, a, h1, h2, h3, h4, h5 {
+    font-family: 'Noto Sans', sans-serif !important;
 }
 
-#navbar {
-    height: 50px;
-    width: 100%;
-    background-color: #ffffff;
-    border-bottom: solid #490160 1px;
-    border-top: solid #490160 1px;
-    margin-left: 400px;
-    margin-right: 400px;
+.cogito_bg_blue {
+    background-color: rgb(34, 181, 225);
 }
 
-.title{
-    font-size: 150px;
-    text-align: left;
-    color: #490160;
-    margin-left: 50px;
-    margin-top: 100px !important;
-    font-family: 'Roboto', sans-serif;
-    /*font-weight: lighter;*/
-    opacity: 0.1;
+.cogito_bg_turquoise {
+    background-color: rgb(53, 232, 167);
+}
+
+.cogito_col_blue {
+    color: rgb(34, 181, 225);
+}
+
+.cogito_col_turquoise {
+    color: rgb(53, 232, 167);
 }
