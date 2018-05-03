@@ -2,18 +2,29 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>{% block title %}Cogito NTNU{% endblock %}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'web/semantic/semantic.min.css' %}">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="{% static 'web/semantic/semantic.min.js' %}"></script>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Cogito NTNU{% endblock %}</title>
 
-</head>
-<body>
-    {% block header %}{% include 'web/header.html' %}{% endblock header %}
-    {% block body %}{% endblock body %}
-    {% block footer %}{% include 'web/footer.html' %}{% endblock footer %}
-</body>
+        <meta property="og:title" content="{% block og_title %}Cogito NTNU{% endblock og_title %}"/>
+        <meta property="og:site_name" content="Cogito NTNU"/>
+        <meta property="og:image" content="http://makentnu.no{% block og_image %}{% static "web/img/cogito_thumb.jpg" %}{% endblock og_image %}"/>
+        <meta property="og:description" content="{% block og_description %}{% endblock og_description %}"/>
+        <meta property="description" content="{% block description %}{% endblock description %}"/>
+        <meta property="og:url" content="http://cogito-ntnu.no/"/>
+        <meta property="og:locale" content="nb-NO" />
+
+        <link rel="shortcut icon" type="image/png" href="{% static "web/img/favicon.png" %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static 'web/semantic/semantic.min.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{% static 'web/css/style.css' %}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="{% static 'web/semantic/semantic.min.js' %}"></script>
+    </head>
+
+    <body>
+        {% block header %}{% include 'web/header.html' %}{% endblock header %}
+        {% block body %}{% endblock body %}
+        {% block footer %}{% include 'web/footer.html' %}{% endblock footer %}
+    </body>
 </html>
