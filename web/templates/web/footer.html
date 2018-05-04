@@ -1,0 +1,39 @@
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'web/css/footer.css' %}">
+
+<div class="footer cogito_bg_dkgray">
+    <div class="ui container">
+        <div class="logo">
+            <img src="{% static "web/img/logo_white.svg" %}">
+            <div class="ui large white header">Cogito NTNU</div>
+        </div>
+        <div class="ui social list">
+            <div class="item">
+                <i class="mail icon"></i>
+                <div class="content">
+                    <a href="mailto:styret@cogito-ntnu.no">styret@cogito-ntnu.no</a>
+                </div>
+            </div>
+            <div class="item">
+                <i class="facebook icon"></i>
+                <div class="content">
+                    <a href="https://www.facebook.com/CogitoNTNU/" target="_blank">Facebook</a>
+                </div>
+            </div>
+            <div class="item">
+                <i class="slack icon"></i>
+                <div class="content">
+                    <a href="https://cogito-ntnu.slack.com/messages/general/" target="_blank">Slack</a>
+                </div>
+            </div>
+            <div class="item">
+                <i class="github icon"></i>
+                <div class="content">
+                    <a href="https://github.com/CogitoNTNU" target="_blank">GitHub</a>
+                </div>
+            </div>
+        </div>
+        <div class="copyright">© {% now "Y" %} Cogito NTNU</div>
+    </div>
+</div>
