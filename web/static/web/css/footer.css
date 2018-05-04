@@ -12,6 +12,10 @@
     margin-top: 10px;
 }
 
+.footer .name {
+    font-size: 26px;
+}
+
 .footer .container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -38,7 +42,22 @@
 
 .footer .copyright {
     grid-column-start: 1;
-    grid-column-end: 4;
+    grid-column-end: 3;
     justify-self: center;
     margin-bottom: 20px;
+}
+
+@media screen and (max-width: 500px) {
+    .footer .container {
+        grid-template-columns: 1fr;
+        grid-gap: 20px;
+    }
+
+    .footer .copyright {
+        grid-column-end: 2;
+    }
+
+    .footer .social, .footer .logo {
+        justify-self: center;
+    }
 }
