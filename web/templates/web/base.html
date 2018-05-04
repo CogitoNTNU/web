@@ -9,7 +9,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=0.8">
         <meta property="og:title" content="{% block og_title %}Cogito NTNU{% endblock og_title %}"/>
         <meta property="og:site_name" content="Cogito NTNU"/>
-        <meta property="og:image" content="http://makentnu.no{% block og_image %}{% static "web/img/cogito_thumb.jpg" %}{% endblock og_image %}"/>
+        <meta property="og:image" content="http://{{ request.META.HTTP_HOST }}{% block og_image %}{% static "web/img/cogito_thumb.jpg" %}{% endblock og_image %}"/>
         <meta property="og:description" content="{% block og_description %}{% endblock og_description %}"/>
         <meta property="description" content="{% block description %}{% endblock description %}"/>
         <meta property="og:url" content="http://cogito-ntnu.no/"/>
