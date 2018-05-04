@@ -6,6 +6,7 @@
         <meta charset="UTF-8">
         <title>{% block title %}Cogito NTNU{% endblock %}</title>
 
+        <meta name="viewport" content="width=device-width, initial-scale=0.8">
         <meta property="og:title" content="{% block og_title %}Cogito NTNU{% endblock og_title %}"/>
         <meta property="og:site_name" content="Cogito NTNU"/>
         <meta property="og:image" content="http://makentnu.no{% block og_image %}{% static "web/img/cogito_thumb.jpg" %}{% endblock og_image %}"/>
@@ -24,7 +25,9 @@
 
     <body>
         {% block header %}{% include 'web/header.html' %}{% endblock header %}
-        {% block body %}{% endblock body %}
+        <div style="height: {% block content_padding_top %}40px{% endblock %};"></div>
+        <div class="content">{% block body %}{% endblock body %}</div>
+        <div style="height: {% block content_padding_bottom %}40px{% endblock %};"></div>
         {% block footer %}{% include 'web/footer.html' %}{% endblock footer %}
     </body>
 </html>

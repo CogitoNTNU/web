@@ -1,5 +1,19 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.content {
+    flex: 1;
+}
+
 p, a, h1, h2, h3, h4, h5 {
     font-family: 'Noto Sans', sans-serif !important;
+}
+
+.white.header {
+    color: #ffffff;
 }
 
 .cogito_bg_blue {
@@ -10,10 +24,34 @@ p, a, h1, h2, h3, h4, h5 {
     background-color: rgb(53, 232, 167);
 }
 
+.cogito_bg_yellow {
+    background-color: rgb(249, 248, 113);
+}
+
+.cogito_bg_gray {
+    background-color: rgb(152, 175, 186);
+}
+
+.cogito_bg_dkgray {
+    background-color: rgb(52, 74, 83);
+}
+
 .cogito_col_blue {
     color: rgb(34, 181, 225);
 }
 
 .cogito_col_turquoise {
     color: rgb(53, 232, 167);
+}
+
+.cogito_col_yellow {
+    color: rgb(249, 248, 113);
+}
+
+.cogito_col_gray {
+    color: rgb(152, 175, 186);
+}
+
+.cogito_col_dkgray {
+    color: rgb(52, 74, 83);
 }
