@@ -4,8 +4,11 @@
 
 <div class="nav">
     <div class="ui container">
+        <div class="burger">
+            <i class="sidebar icon cogito_col_dkgray"></i>
+        </div>
         <a class="logo" href="{% url "home" %}"><img class="logo" src="{% static "web/img/logo.svg" %}"></a>
-        <a class="name" href="{% url "home" %}">Cogito NTNU</a>
+        <a class="name cogito_col_dkgray" href="{% url "home" %}">Cogito NTNU</a>
         <div class="ui secondary menu">
             <a class="item">
                 Arrangementer
@@ -19,3 +22,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('.burger').click(function () {
+            $('.nav').toggleClass('active');
+        });
+    });
+</script>
