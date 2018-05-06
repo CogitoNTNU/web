@@ -1,0 +1,27 @@
+{% if form.concurrency_key.errors %}
+    <button class="ui red override button">Override</button>
+    <script>
+        $('.override.button').click(function () {
+            $('form').attr('action', '?override_save=true').submit();
+        });
+        $('.errorlist li:contains("Concurrency conflict")').each(function () {
+            $(`
+                <h1>Concurrency conflict</h1>
+                <p>
+                    {% if object.concurrency_key %}
+                        {% if object.concurrency_user and not object.concurrency_user.is_anonymous %}
+                            {{ object.concurrency_user }}
+                        {% else %}
+                            Someone
+                        {% endif %}
+                        started modifying "{{ object }}" {{ object.concurrency_time|timesince }} ago.
+                    {% else %}
+                        Someone has modified "{{ object }}".
+                    {% endif %}
+                    You were either overridden or your used more than {{ view.timeout }} minutes.
+                </p>
+            `).insertBefore('input[type=submit]');
+            $(this).remove();
+        });
+    </script>
+{% endif %}
