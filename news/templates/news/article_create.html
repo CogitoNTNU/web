@@ -1,0 +1,16 @@
+{% extends 'web/base.html' %}
+
+{% block title %}New article{% endblock %}
+{% block og_title %}New article{% endblock %}
+
+{% block body %}
+    <div class="ui text container">
+        <h1>New article</h1>
+        <form class="ui form" action="" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <input class="ui blue button" type="submit" value="Submit"/>
+            <a class="ui cancel button" href="{% url 'articles' %}">Cancel</a>
+        </form>
+    </div>
+{% endblock %}
