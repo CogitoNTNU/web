@@ -1,5 +1,3 @@
-import uuid
-
 from datetime import timedelta
 from django.db.models import Q
 from django import forms
@@ -8,12 +6,11 @@ from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import UpdateView
 
+from concurrency.models import ConcurrentModel
+
 
 class ConcurrentUpdate(UpdateView):
     timeout = 30
-
-    def generate_key(self):
-        return str(uuid.uuid4()).replace('-', '')
 
     def get(self, request, *args, **kwargs):
         if request.GET.get('override_edit', 'false') == 'true':
@@ -24,7 +21,7 @@ class ConcurrentUpdate(UpdateView):
         access = self.model.objects.filter(
             pk=self.kwargs['pk']
         ).filter(q).update(
-            concurrency_key=self.generate_key(),
+            concurrency_key=ConcurrentModel.generate_key(),
             concurrency_time=timezone.now(),
             concurrency_user=request.user,
         )

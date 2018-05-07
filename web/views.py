@@ -1,5 +1,8 @@
-from django.views.generic import TemplateView
+from django.views.generic import ListView
+
+from news.models import Article
 
 
-class Home(TemplateView):
-    template_name = "web/index.html"
+class Home(ListView):
+    model = Article
+    template_name = 'news/articles.html'
