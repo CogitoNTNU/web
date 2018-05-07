@@ -8,7 +8,7 @@
         <h1>New article</h1>
         <form class="ui form" action="" method="post">
             {% csrf_token %}
-            {{ form }}
+            {{ form.as_p }}
             <input class="ui blue button" type="submit" value="Submit"/>
             <a class="ui cancel button" href="{% url 'articles' %}">Cancel</a>
         </form>
