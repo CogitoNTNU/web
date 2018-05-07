@@ -25,9 +25,9 @@
 
     <body>
         {% block header %}{% include 'web/header.html' %}{% endblock header %}
-        <div style="height: {% block content_padding_top %}40px{% endblock %};"></div>
+        <div style="min-height: {% block content_padding_top %}40px{% endblock %};"></div>
         <div class="content">{% block body %}{% endblock body %}</div>
-        <div style="height: {% block content_padding_bottom %}40px{% endblock %};"></div>
+        <div style="min-height: {% block content_padding_bottom %}40px{% endblock %};"></div>
         {% block footer %}{% include 'web/footer.html' %}{% endblock footer %}
     </body>
 </html>
