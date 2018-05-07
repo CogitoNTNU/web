@@ -1,0 +1,20 @@
+{% extends 'web/base.html' %}
+
+{% block body %}
+    <div class="ui text container">
+        <h1>Concurrency conflict</h1>
+        <p>
+            {% if object.concurrency_user and not object.concurrency_user.is_anonymous %}
+                {{ object.concurrency_user }}
+            {% else %}
+                Someone
+            {% endif %}
+            started modifying "{{ object }}" {{ object.concurrency_time|timesince }} ago.
+            Wait until the current user saves or override them and ignore all their modifications.
+        </p>
+        <p>
+            <a class="ui red button" href="?override_edit=true">Override</a>
+            <button class="ui gray button" onclick="window.history.back();">Back</button>
+        </p>
+    </div>
+{% endblock %}
