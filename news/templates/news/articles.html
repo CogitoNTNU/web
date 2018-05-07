@@ -25,7 +25,7 @@
                     <a href="{% url "article-delete" pk=article.pk %}" style="font-size: 14px">Delete</a>
                 {% endif %}
             </h1>
-            {{ article.content|safe }}
+            <p>{{ article.ingress|default:"" }}</p>
         {% endfor %}
     </div>
 {% endblock %}
