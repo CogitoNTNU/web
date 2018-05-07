@@ -13,8 +13,7 @@ class ArticleTest(TestCase):
 
     def setUp(self):
         self.article = Article.objects.create(
-            title='Title',
-            content=' '
+            title='TITLE',
         )
         self.username = 'TEST_USER'
         self.password = 'TEST_PASS'
@@ -57,9 +56,10 @@ class ConcurrencyTest(TestCase):
         user.user_permissions.add(permission)
 
     def setUp(self):
+        self.old_title = 'TITLE'
+        self.new_title = 'NEW_TITLE'
         self.article = Article.objects.create(
-            title='Title',
-            content=' '
+            title=self.old_title,
         )
         self.username = 'TEST_USER'
         self.usernameB = self.username + '_B'
@@ -75,16 +75,40 @@ class ConcurrencyTest(TestCase):
     def test_concurrent_edit(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         data = response.context[0].dicts[3]['form'].initial
+        data['title'] = self.new_title
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
         response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.templates[0].name, 'concurrency/access_denied.html')
         self.client.post(reverse('article-update', args=(self.article.pk,)), data)
+        self.article = Article.objects.get(pk=self.article.pk)
+        self.assertEqual(self.article.title, self.new_title)
         response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
 
     def test_concurrent_edit_override(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
-        data = response.context[0].dicts[3]['form'].initial
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
         response = self.clientB.get(reverse('article-update', args=(self.article.pk,)) + '?override_edit=true')
+        self.assertEqual(response.templates[0].name, 'news/article_update.html')
+
+    def test_concurrent_cancel(self):
+        response = self.client.get(reverse('article-update', args=(self.article.pk,)))
+        data = response.context[0].dicts[3]['form'].initial
+        data['title'] = self.new_title
+        self.assertEqual(response.templates[0].name, 'news/article_update.html')
+        self.client.post(reverse('article-update', args=(self.article.pk,)) + '?cancel=true', data)
+        self.article = Article.objects.get(pk=self.article.pk)
+        self.assertEqual(self.article.title, self.old_title)
+        response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
+        self.assertEqual(response.templates[0].name, 'news/article_update.html')
+
+    def test_concurrent_save(self):
+        response = self.client.get(reverse('article-update', args=(self.article.pk,)))
+        data = response.context[0].dicts[3]['form'].initial
+        data['concurrency_key'] = ''
+        response = self.clientB.post(reverse('article-update', args=(self.article.pk,)), data)
+        self.assertEqual(response.templates[0].name, 'news/article_update.html')
+
+    def test_invalid_form(self):
+        response = self.client.post(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
