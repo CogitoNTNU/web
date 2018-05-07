@@ -1,7 +1,14 @@
 {% extends 'web/base.html' %}
+{% load staticfiles %}
 
 {% block title %}Articles{% endblock %}
 {% block og_title %}Articles{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-forest.light.css' %}"/>
+    <script src="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/highlight.pack.js' %}"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+{% endblock %}
 
 {% block body %}
     <div class="ui text container">
@@ -18,7 +25,7 @@
                     <a href="{% url "article-delete" pk=article.pk %}" style="font-size: 14px">Delete</a>
                 {% endif %}
             </h1>
-            <p>{{ article.content }}</p>
+            {{ article.content|safe }}
         {% endfor %}
     </div>
 {% endblock %}
