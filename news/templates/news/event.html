@@ -16,8 +16,8 @@
     <div class="ui text container">
         <h1>
             {{ object.title }}
-            {% if perms.news.change_article %}
-                <a class="size14"  href="{% url "article-update" pk=object.pk %}">Edit</a>
+            {% if perms.news.change_event %}
+                <a class="size14"  href="{% url "event-update" pk=object.pk %}">Edit</a>
             {% endif %}
         </h1>
         {{ object.content|safe }}

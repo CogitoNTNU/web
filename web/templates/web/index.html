@@ -1,5 +1,20 @@
 {% extends "web/base.html" %}
+{% load staticfiles %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'web/css/index.css' %}">
+{% endblock %}
 
 {% block body %}
-
+    <div class="ui container">
+        <div class="main grid">
+            <div>
+                <h1>Upcoming events</h1>
+                {% include "news/event_list.html" %}
+            </div>
+            <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCogitoNTNU%2F&amp;tabs=timeline&amp;width=400&amp;height=500&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=true&amp;show_facepile=true&amp;appId=366198117101618"
+                    width="400" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+                    allowtransparency="true" allow="encrypted-media"></iframe>
+        </div>
+    </div>
 {% endblock body %}

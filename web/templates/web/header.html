@@ -10,14 +10,14 @@
         <a class="logo" href="{% url "home" %}"><img class="logo" src="{% static "web/img/logo.svg" %}"></a>
         <a class="name cogito_col_dkgray" href="{% url "home" %}">Cogito NTNU</a>
         <div class="ui secondary menu">
-            <a class="item">
-                Arrangementer
+            <a class="item" href="{% url 'events' %}">
+                Events
             </a>
-            <a class="item">
-                Ressurser
+            <a class="item" href="{% url 'articles' %}">
+                Resources
             </a>
             <a class="item" href="{% url 'about' %}">
-                Om oss
+                About
             </a>
         </div>
     </div>

@@ -12,46 +12,50 @@ p, a, h1, h2, h3, h4, h5 {
     font-family: 'Noto Sans', sans-serif !important;
 }
 
+.size14 {
+    font-size: 14px;
+}
+
 .white.header {
     color: #ffffff;
 }
 
 .cogito_bg_blue {
-    background-color: rgb(34, 181, 225);
+    background-color: rgb(34, 181, 225) !important;
 }
 
 .cogito_bg_turquoise {
-    background-color: rgb(53, 232, 167);
+    background-color: rgb(53, 232, 167) !important;
 }
 
 .cogito_bg_yellow {
-    background-color: rgb(249, 248, 113);
+    background-color: rgb(249, 248, 113) !important;
 }
 
 .cogito_bg_gray {
-    background-color: rgb(152, 175, 186);
+    background-color: rgb(152, 175, 186) !important;
 }
 
 .cogito_bg_dkgray {
-    background-color: rgb(52, 74, 83);
+    background-color: rgb(52, 74, 83) !important;
 }
 
 .cogito_col_blue {
-    color: rgb(34, 181, 225);
+    color: rgb(34, 181, 225) !important;
 }
 
 .cogito_col_turquoise {
-    color: rgb(53, 232, 167);
+    color: rgb(53, 232, 167) !important;
 }
 
 .cogito_col_yellow {
-    color: rgb(249, 248, 113);
+    color: rgb(249, 248, 113) !important;
 }
 
 .cogito_col_gray {
-    color: rgb(152, 175, 186);
+    color: rgb(152, 175, 186) !important;
 }
 
 .cogito_col_dkgray {
-    color: rgb(52, 74, 83);
+    color: rgb(52, 74, 83) !important;
 }
