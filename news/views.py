@@ -3,16 +3,12 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
 
 from concurrency.views import ConcurrentUpdate
-from news.models import Article
+from news.models import Article, Event
 
 
-class ArticleDelete(PermissionRequiredMixin, DeleteView):
+class ArticleView(DetailView):
     model = Article
-    template_name = 'news/article_delete.html'
-    success_url = reverse_lazy('articles')
-    permission_required = (
-        'news.delete_article',
-    )
+    template_name = 'news/article.html'
 
 
 class ArticleList(ListView):
@@ -40,6 +36,51 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     )
 
 
-class ArticleView(DetailView):
+class ArticleDelete(PermissionRequiredMixin, DeleteView):
     model = Article
-    template_name = 'news/article.html'
+    template_name = 'news/article_delete.html'
+    success_url = reverse_lazy('articles')
+    permission_required = (
+        'news.delete_article',
+    )
+
+
+class EventView(DetailView):
+    model = Event
+    template_name = 'news/event.html'
+
+
+class EventList(ListView):
+    model = Event
+    template_name = 'news/events.html'
+
+
+class EventCreate(PermissionRequiredMixin, CreateView):
+    model = Event
+    template_name = 'news/article_create.html'
+    fields = ('title', 'ingress', 'content', 'start_date', 'start_time', 'end_date', 'end_time', 'location',
+              'location_url', 'hoopla_url', 'facebook_url')
+    success_url = reverse_lazy('events')
+    permission_required = (
+        'news.add_event'
+    )
+
+
+class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
+    model = Event
+    template_name = 'news/article_update.html'
+    fields = ('title', 'ingress', 'content', 'start_date', 'start_time', 'end_date', 'end_time', 'location',
+              'location_url', 'hoopla_url', 'facebook_url')
+    success_url = reverse_lazy('events')
+    permission_required = (
+        'news.change_event'
+    )
+
+
+class EventDelete(PermissionRequiredMixin, DeleteView):
+    model = Event
+    template_name = 'news/article_delete.html'
+    success_url = reverse_lazy('events')
+    permission_required = (
+        'news.delete_event',
+    )

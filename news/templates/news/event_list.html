@@ -1,0 +1,43 @@
+<div class="ui items">
+    {% for event in object_list %}
+        <div class="item">
+            <div class="content">
+                <!--div class="image">
+                    <img>
+                </div-->
+                <h1 class="header">
+                    <a class="cogito_col_dkgray" href="{% url "event" pk=event.pk %}">{{ event.title }}</a>
+                    {% if perms.news.change_article %}
+                        <a class="size14" href="{% url "event-update" pk=event.pk %}">Edit</a>
+                    {% endif %}
+                    {% if perms.news.delete_article %}
+                        <a class="size14" href="{% url "event-delete" pk=event.pk %}">Delete</a>
+                    {% endif %}
+                </h1>
+                <div class="meta">
+                    <span>{{ event.start_date|date:"d M" }}, {{ event.start_time }}</span>
+                    {% if event.location %}
+                        <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>
+                            <span>{{ event.location }}</span>
+                        </a>
+                    {% endif %}
+                    {% if event.facebook_url %}
+                        <a href="{{ event.facebook_url }}">
+                            <i class="ui facebook icon"></i>
+                        </a>
+                    {% endif %}
+                    {% if event.hoopla_url %}
+                        <a href="{{ event.hoopla_url }}">
+                            <i class="ui calendar icon"></i>
+                        </a>
+                    {% endif %}
+                </div>
+                <!--div class="description">
+                    <p>{{ event.ingress|default:"" }}</p>
+                </div-->
+            </div>
+        </div>
+    {% empty %}
+        <p>No events</p>
+    {% endfor %}
+</div>
