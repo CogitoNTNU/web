@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'concurrency',
     'news',
     'ckeditor',
+    'contentbox',
 ]
 
 MIDDLEWARE = [
@@ -96,11 +97,13 @@ CKEDITOR_CONFIGS = {
         'toolbar': 'Custom',
         'toolbar_Custom': [
             ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'],
-            ['NumberedList', 'BulletedList', 'Blockquote', 'CodeSnippet'],
+            ['NumberedList', 'BulletedList'],
+            ['Blockquote', 'CodeSnippet'],
             ['Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source', 'Maximize']
+            ['RemoveFormat', 'Source', 'Maximize'],
+            ['Format', 'Font', 'FontSize'],
         ],
         'extraPlugins': ','.join(
             [
