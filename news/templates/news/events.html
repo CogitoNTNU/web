@@ -4,27 +4,18 @@
 {% block title %}Events{% endblock %}
 {% block og_title %}Events{% endblock %}
 
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'news/css/events.css' %}">
+{% endblock %}
+
 {% block body %}
     <div class="ui text container">
         <h1>
             Events
             {% if perms.news.add_event %}
-                <a class="size14"  href="{% url "event-create" %}">New</a>
+                <a class="size14" href="{% url "event-create" %}">New</a>
             {% endif %}
         </h1>
-        {% for event in object_list %}
-            <h1>
-                <a class="cogito_col_dkgray" href="{% url "event" pk=event.pk %}">{{ event.title }}</a>
-                {% if perms.news.change_article %}
-                    <a class="size14" href="{% url "article-update" pk=event.pk %}">Edit</a>
-                {% endif %}
-                {% if perms.news.delete_article %}
-                    <a class="size14"  href="{% url "article-delete" pk=event.pk %}">Delete</a>
-                {% endif %}
-            </h1>
-            <p>{{ event.ingress|default:"" }}</p>
-        {% empty %}
-            <p>No events</p>
-        {% endfor %}
+        {% include "news/event_list.html" %}
     </div>
 {% endblock %}

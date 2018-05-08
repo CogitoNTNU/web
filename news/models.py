@@ -61,6 +61,6 @@ class Event(Article):
 
     class Meta:
         ordering = (
-            'start_date',
-            'start_time'
+            '-start_date',
+            '-start_time'
         )
