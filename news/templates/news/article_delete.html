@@ -10,7 +10,7 @@
         <form class="ui form" action="" method="post">
             {% csrf_token %}
             <input class="ui blue button" type="submit" value="Delete"/>
-            <a class="ui cancel button" href="{% url 'articles' %}">Cancel</a>
+            <button class="ui cancel button" onclick="window.history.back();">Cancel</button>
         </form>
     </div>
 {% endblock %}

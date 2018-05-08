@@ -5,4 +5,4 @@ from news.models import Article
 
 class Home(ListView):
     model = Article
-    template_name = 'news/articles.html'
+    template_name = 'web/index.html'

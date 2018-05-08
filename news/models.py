@@ -18,10 +18,6 @@ class Article(ConcurrentModel):
         blank=True,
         null=True,
     )
-    image = models.ImageField(
-        blank=True,
-        null=True,
-    )
 
     def __str__(self):
         return self.title
