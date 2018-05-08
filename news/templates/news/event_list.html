@@ -5,15 +5,17 @@
                 <!--div class="image">
                     <img>
                 </div-->
-                <h1 class="header">
+                <h2 class="header">
                     <a class="cogito_col_dkgray" href="{% url "event" pk=event.pk %}">{{ event.title }}</a>
-                    {% if perms.news.change_article %}
-                        <a class="size14" href="{% url "event-update" pk=event.pk %}">Edit</a>
+                </h2>
+                <p>
+                    {% if perms.news.change_event %}
+                    <a class="mini ui blue button" href="{% url "event-update" pk=event.pk %}">Edit</a>
                     {% endif %}
-                    {% if perms.news.delete_article %}
-                        <a class="size14" href="{% url "event-delete" pk=event.pk %}">Delete</a>
+                    {% if perms.news.delete_event %}
+                        <a class="mini ui blue button" href="{% url "event-delete" pk=event.pk %}">Delete</a>
                     {% endif %}
-                </h1>
+                </p>
                 <div class="meta">
                     <span>{{ event.start_date|date:"d M" }}, {{ event.start_time }}</span>
                     {% if event.location %}

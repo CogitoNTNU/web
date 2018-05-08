@@ -8,23 +8,22 @@
     <div class="ui text container">
         <h1>
             Articles
-            {% if perms.news.add_event %}
-                <a class="size14"  href="{% url "event-create" %}">New</a>
-            {% endif %}
         </h1>
         {% if perms.news.add_article %}
-            <a class="ui blue button" href="{% url "article-create" %}">New</a>
+            <a class="ui blue button" href="{% url "article-create" %}">Add</a>
         {% endif %}
         {% for article in object_list %}
-            <h1>
+            <h2>
                 <a class="cogito_col_dkgray" href="{% url "article" pk=article.pk %}">{{ article.title }}</a>
+            </h2>
+            <p>
                 {% if perms.news.change_article %}
-                    <a class="size14"  href="{% url "article-update" pk=article.pk %}">Edit</a>
+                <a class="mini ui blue button"  href="{% url "article-update" pk=article.pk %}">Edit</a>
                 {% endif %}
                 {% if perms.news.delete_article %}
-                    <a class="size14"  href="{% url "article-delete" pk=article.pk %}">Delete</a>
+                    <a class="mini ui blue button"  href="{% url "article-delete" pk=article.pk %}">Delete</a>
                 {% endif %}
-            </h1>
+            </p>
             <p>{{ article.ingress|default:"" }}</p>
         {% empty %}
             <p>No articles</p>

@@ -12,10 +12,12 @@
     <div class="ui text container">
         <h1>
             Events
-            {% if perms.news.add_event %}
-                <a class="size14" href="{% url "event-create" %}">New</a>
-            {% endif %}
         </h1>
+        <p>
+            {% if perms.news.add_event %}
+            <a class="ui blue button" href="{% url "event-create" %}">Add</a>
+            {% endif %}
+        </p>
         {% include "news/event_list.html" %}
     </div>
 {% endblock %}
