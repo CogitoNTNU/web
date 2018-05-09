@@ -9,6 +9,8 @@ MEDIA_URL = '/media/'
 LOGOUT_URL = '/'
 LOGIN_URL = '/login/'
 STATIC_URL = '/static/'
+SOCIAL_AUTH_DATAPORTEN_KEY = ''
+SOCIAL_AUTH_DATAPORTEN_SECRET = ''
 
 try:
     from .local_settings import *
@@ -32,6 +34,9 @@ INSTALLED_APPS = [
     'news',
     'ckeditor',
     'contentbox',
+    'dataporten',
+    'groups',
+    'social_django',
 ]
 
 MIDDLEWARE = [
@@ -91,6 +96,28 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Dataporten
+
+SOCIAL_AUTH_DATAPORTEN_FEIDE_SSL_PROTOCOL = True
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = '/'
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
+
+AUTHENTICATION_BACKENDS = (
+    'dataporten.social.DataportenOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+SOCIAL_AUTH_ADMIN_USER_SEARCH_FIELDS = ['username', 'first_name', 'email']
+
+SOCIAL_AUTH_DATAPORTEN_EMAIL_KEY = SOCIAL_AUTH_DATAPORTEN_KEY
+SOCIAL_AUTH_DATAPORTEN_EMAIL_SECRET = SOCIAL_AUTH_DATAPORTEN_SECRET
+
+SOCIAL_AUTH_DATAPORTEN_FEIDE_KEY = SOCIAL_AUTH_DATAPORTEN_KEY
+SOCIAL_AUTH_DATAPORTEN_FEIDE_SECRET = SOCIAL_AUTH_DATAPORTEN_SECRET
+
+SOCIAL_AUTH_NEW_USER_REDIRECT_URL = SOCIAL_AUTH_LOGIN_REDIRECT_URL
 
 CKEDITOR_CONFIGS = {
     'default': {

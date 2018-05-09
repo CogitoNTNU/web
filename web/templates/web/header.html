@@ -19,6 +19,24 @@
             <a class="item" href="{% url 'about' %}">
                 About
             </a>
+            {% if user.is_authenticated %}
+                <div class="ui dropdown item">
+                    <div class="text">{{ user.first_name }}</div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="{% url 'logout' %}">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+                {% block scripts %}
+                    <script>$('.dropdown').dropdown();</script>
+                {% endblock scripts %}
+            {% else %}
+                <a class="item" href="{% url 'login' %}">
+                    Login
+                </a>
+            {% endif %}
         </div>
     </div>
 </div>

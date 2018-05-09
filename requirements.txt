@@ -1,3 +1,6 @@
 django
 django-ckeditor
 Pillow
+python-social-auth
+python-dataporten-auth
+social-auth-app-django
