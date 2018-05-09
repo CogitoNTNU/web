@@ -1,4 +1,4 @@
-from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.conf.urls import url as durl
 from django.db import models
 from django.views.generic import TemplateView
@@ -11,7 +11,7 @@ class ContentBox(ConcurrentModel):
         max_length=100,
         unique=True,
     )
-    content = RichTextField(blank=True, null=True)
+    content = RichTextUploadingField(blank=True, null=True)
 
     def __str__(self):
         return self.title

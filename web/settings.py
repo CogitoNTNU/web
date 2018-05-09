@@ -131,7 +131,7 @@ CKEDITOR_CONFIGS = {
             ['Blockquote', 'CodeSnippet'],
             ['Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Image', 'File'],
+            ['Link', 'Unlink', 'Image'],
             ['RemoveFormat', 'Source', 'Maximize'],
             ['Format', 'Font', 'FontSize'],
         ],
@@ -139,7 +139,6 @@ CKEDITOR_CONFIGS = {
             [
                 'codesnippet',
                 'uploadimage',
-                'uploadwidget',
             ]),
     }
 }
