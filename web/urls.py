@@ -17,5 +17,6 @@ urlpatterns = [
     path('news/', include('news.urls')),
     path('contentbox/', include('contentbox.urls')),
     path('committees/', CommitteeList.as_view(), name='committees'),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     ContentBox.url('about'),
 ]
