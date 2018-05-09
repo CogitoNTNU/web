@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'ckeditor',
     'contentbox',
     'dataporten',
+    'groups',
 ]
 
 MIDDLEWARE = [

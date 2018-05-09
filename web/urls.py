@@ -4,6 +4,7 @@ from django.views.generic import RedirectView
 
 from contentbox.models import ContentBox
 from dataporten.views import Logout, login_wrapper
+from groups.views import CommitteeList
 from web.views import Home
 
 urlpatterns = [
@@ -15,5 +16,6 @@ urlpatterns = [
     re_path(r'^complete/(?P<backend>[^/]+){0}/$', login_wrapper),
     path('news/', include('news.urls')),
     path('contentbox/', include('contentbox.urls')),
+    path('committees/', CommitteeList.as_view(), name='committees'),
     ContentBox.url('about'),
 ]
