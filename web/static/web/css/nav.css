@@ -21,6 +21,8 @@
 
 .nav .menu {
     justify-self: right;
+    z-index: 10;
+    background-color: #ffffff !important;
 }
 
 .nav .menu .item {
@@ -59,6 +61,10 @@
 }
 
 @media screen and (max-width: 500px) {
+    .nav .container {
+        margin: 0 !important;
+    }
+
     .nav .burger {
         display: inline;
     }
@@ -70,6 +76,7 @@
         justify-self: left;
         width: 100%;
         padding-bottom: 10px;
+        border-bottom: #eeeeee 1px solid !important;
     }
 
     .nav.active .menu {
