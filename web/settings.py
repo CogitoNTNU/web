@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'dataporten',
     'groups',
     'social_django',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -119,6 +120,8 @@ SOCIAL_AUTH_DATAPORTEN_FEIDE_SECRET = SOCIAL_AUTH_DATAPORTEN_SECRET
 
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = SOCIAL_AUTH_LOGIN_REDIRECT_URL
 
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
         'toolbar': 'Custom',
@@ -128,13 +131,15 @@ CKEDITOR_CONFIGS = {
             ['Blockquote', 'CodeSnippet'],
             ['Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
+            ['Link', 'Unlink', 'Image', 'File'],
             ['RemoveFormat', 'Source', 'Maximize'],
             ['Format', 'Font', 'FontSize'],
         ],
         'extraPlugins': ','.join(
             [
                 'codesnippet',
+                'uploadimage',
+                'uploadwidget',
             ]),
     }
 }
