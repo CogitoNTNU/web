@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'contentbox',
     'dataporten',
     'groups',
+    'social_django',
 ]
 
 MIDDLEWARE = [
