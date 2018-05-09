@@ -12,7 +12,7 @@ class ArticleView(DetailView):
 
 
 class ArticleList(ListView):
-    model = Article
+    queryset = Article.objects.filter(event=None)
     template_name = 'news/articles.html'
 
 
