@@ -17,9 +17,27 @@
         <h1>
             {{ object.title }}
             {% if perms.news.change_event %}
-                <a class="size14"  href="{% url "event-update" pk=object.pk %}">Edit</a>
+                <a class="size14" href="{% url "event-update" pk=object.pk %}">Edit</a>
             {% endif %}
         </h1>
+        <p class="meta">
+            <span>{{ event.start_date|date:"d M" }}, {{ event.start_time }}</span>
+            {% if event.location %}
+                <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>
+                    <span>{{ event.location }}</span>
+                </a>
+            {% endif %}
+            {% if event.facebook_url %}
+                <a href="{{ event.facebook_url }}">
+                    <i class="ui facebook icon"></i>
+                </a>
+            {% endif %}
+            {% if event.hoopla_url %}
+                <a href="{{ event.hoopla_url }}">
+                    <i class="ui calendar icon"></i>
+                </a>
+            {% endif %}
+        </p>
         {{ object.content|safe }}
     </div>
 {% endblock %}

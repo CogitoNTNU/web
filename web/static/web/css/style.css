@@ -8,7 +8,7 @@ body {
     flex: 1;
 }
 
-p, a, h1, h2, h3, h4, h5 {
+p, a, h1, h2, h3, h4, h5, span {
     font-family: 'Noto Sans', sans-serif !important;
 }
 
@@ -18,6 +18,13 @@ p, a, h1, h2, h3, h4, h5 {
 
 .white.header {
     color: #ffffff;
+}
+
+.meta .icon, .meta a {
+    color: rgba(0, 0, 0, 0.4);
+}
+.meta span {
+    color: rgba(0, 0, 0, 0.6);
 }
 
 .cogito_bg_blue {
