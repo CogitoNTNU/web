@@ -1,6 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
+from django.shortcuts import get_object_or_404
 
 
 class Profile(models.Model):
@@ -10,6 +11,9 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    def get_object(self):
+        return get_object_or_404(Profile, user__username=self.kwargs['username'])
 
 
 class Project(models.Model):

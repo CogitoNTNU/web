@@ -6,4 +6,3 @@ from .models import Profile
 
 class ProfileDetailView(DetailView):
     model = Profile
-
