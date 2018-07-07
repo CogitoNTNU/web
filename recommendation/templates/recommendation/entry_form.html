@@ -1,0 +1,29 @@
+{% extends 'web/base.html' %}
+{% load helpers %}
+
+{% block title %}New {{ view.model|get_class|lower }}{% endblock %}
+{% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
+
+{% block body %}
+<div class="ui text container">
+    <form class="ui form" method="POST">
+        <h1>New {{ view.model|get_class|lower }}</h1>
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <div class="ui icon button" data-tooltip="Not finding the tag(s) you're looing for?
+        Click here to add your own!" data-position="bottom center" id="helper">
+            <a href="{% url "tag_form" %}"><i class="question icon"></i></a>
+        </div>
+
+        <script>
+            $('.ui.dropdown')
+                .dropdown();
+        </script>
+
+        <!-- Skulle likt å hatt linken til add_tag ved siden av Tag-fieldet -->
+
+        <button type="submit" class="big ui primary button">Create Entry</button>
+    </form>
+</div>
+{% endblock %}
