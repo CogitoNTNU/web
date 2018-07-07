@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'concurrency',
     'news',
     'recommendation',
+    'user_profile',
 
     'ckeditor',
     'contentbox',
