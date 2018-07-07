@@ -29,15 +29,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'web',
     'concurrency',
     'news',
+    'recommendation',
+
     'ckeditor',
     'contentbox',
     'dataporten',
     'groups',
     'social_django',
-    'ckeditor_uploader',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
@@ -131,7 +134,7 @@ CKEDITOR_CONFIGS = {
             ['Blockquote', 'CodeSnippet'],
             ['Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Image'],
+            ['Link', 'Unlink', 'Image', 'File'],
             ['RemoveFormat', 'Source', 'Maximize'],
             ['Format', 'Font', 'FontSize'],
         ],
@@ -139,6 +142,7 @@ CKEDITOR_CONFIGS = {
             [
                 'codesnippet',
                 'uploadimage',
+                'uploadwidget',
             ]),
     }
 }
