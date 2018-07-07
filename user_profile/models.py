@@ -23,6 +23,9 @@ class Project(models.Model):
     )
     members = models.ManyToManyField('user_profile.Profile', related_name='projects')
 
+    def __str__(self):
+        return self.title
+
 
 class Skill(models.Model):
     name = models.CharField(
@@ -31,3 +34,6 @@ class Skill(models.Model):
         max_length=140,
     )
     users = models.ManyToManyField('user_profile.Profile', related_name='skills')
+
+    def __str__(self):
+        return self.name
