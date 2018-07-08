@@ -16,16 +16,19 @@ class ProfileDetailView(DetailView):
 
 def specific_profile(request, username):
     user = get_object_or_404(User, username=username)
+    return get_profile(request, user)
+
+
+def self_profile(request):
+    user = get_object_or_404(User, user=request.user)
+    return get_profile(request, user)
+
+
+def get_profile(request, user):
     try:
         profile = user.profile
         return render(request, 'user_profile/profile.html', {'profile': profile})
     except Profile.DoesNotExist:
         Profile(user=user)
         return render(request, 'user_profile/profile.html', {'profile': user.profile})
-
-
-def self_profile(request):
-    profile = get_object_or_404(Profile, user=request.user)
-    if request.user.is_authenticated:
-        return render(request, 'user_profile/profile.html', {'profile': profile})
 
