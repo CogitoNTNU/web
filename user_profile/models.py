@@ -5,9 +5,13 @@ from django.shortcuts import get_object_or_404
 
 
 class Profile(models.Model):
-    projects = models.ManyToManyField('user_profile.Project', related_name='users')
-    skills = models.ManyToManyField('user_profile.Skill', related_name='users')
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    projects = models.ManyToManyField('user_profile.Project', related_name='users', default=None, blank=True)
+    skills = models.ManyToManyField('user_profile.Skill', related_name='users', default=None, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
+
+    # Se hackerspace sin kode for bilde, inkludert 2 metoder før man bruker dette
+    # image = models.ImageField(verbose_name="Profilbilde", default=None)
+
 
     def __str__(self):
         return self.user.username
@@ -25,7 +29,7 @@ class Project(models.Model):
         blank=True,
         max_length=5000
     )
-    members = models.ManyToManyField('user_profile.Profile', related_name='projects')
+    members = models.ManyToManyField('user_profile.Profile', related_name='project')
 
     def __str__(self):
         return self.title
@@ -37,7 +41,10 @@ class Skill(models.Model):
         blank=False,
         max_length=140,
     )
-    users = models.ManyToManyField('user_profile.Profile', related_name='skills')
+    description = models.TextField(
+        max_length=1000,
+    )
+    members = models.ManyToManyField('user_profile.Profile', related_name='skill')
 
     def __str__(self):
         return self.name
