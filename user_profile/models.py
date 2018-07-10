@@ -60,6 +60,7 @@ class Skill(models.Model):
     )
     description = models.TextField(
         max_length=1000,
+        blank=True
     )
     members = models.ManyToManyField('user_profile.Profile', related_name='skill')
 
