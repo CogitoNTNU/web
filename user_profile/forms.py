@@ -8,7 +8,7 @@ class ProfileForm(forms.ModelsForm):
         model = Profile
         fields = ('skills', 'projects')
 
-        widgets = {
-            'skills': forms.SelectMultiple(choices=[(str(obj), str(obj)) for obj in Skill.objects.all()],
+        widgets = {  # The first object in the tuple is the external representation, the second the internal
+            'skills': forms.SelectMultiple(choices=[(str(obj), obj) for obj in Skill.objects.all()],
                                            attrs={'class': 'ui multiple search selection dropdown'})
         }
