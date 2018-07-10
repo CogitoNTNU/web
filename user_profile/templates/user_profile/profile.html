@@ -12,14 +12,13 @@
 {% if profile.projects %}
     <p>{{ profile.projects }}</p>
     {% if edit %}
-        <a href="/" class="ui blue button">Edit</a>
     {% endif %}
 {% endif %}
 
 {% if profile.skills %}
     <p>{{ profile.skills }}</p>
     {% if edit %}
-        <a href="/" class="ui blue button">Edit</a>
+        <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
     {% endif %}
 {% endif %}
 
@@ -34,8 +33,13 @@
 </div>
 
 <script>
-    $('.ui.modal')
-      .modal('show')
+    function show_modal() {
+        $('.ui.modal')
+        .modal('show')
+        ;
+    }
+    $('.ui.dropdown')
+    .dropdown()
     ;
 </script>
 

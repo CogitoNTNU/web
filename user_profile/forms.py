@@ -8,7 +8,7 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        fields = ('skills', 'projects')
+        fields = ('skills', )
 
         try:
             widgets = {  # The first object in the tuple is the external representation, the second the internal
