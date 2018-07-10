@@ -1,5 +1,9 @@
 {% extends 'web/base.html' %}
 {% load staticfiles %}
+{% load helpers %}
+
+{% block title %}New {{ view.model|get_class|lower }}{% endblock %}
+{% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
 
 {% block body %}
 
@@ -7,10 +11,26 @@
 
 {% if profile.projects %}
     <p>{{ profile.projects }}</p>
+    {% if edit %}
+        <a href="/" class="ui blue button">Edit</a>
+    {% endif %}
 {% endif %}
 
 {% if profile.skills %}
     <p>{{ profile.skills }}</p>
+    {% if edit %}
+        <a href="/" class="ui blue button">Edit</a>
+    {% endif %}
 {% endif %}
+
+<div class="ui modal">
+  <div class="header">Header</div>
+</div>
+
+<script>
+    $('.ui.modal')
+      .modal('show')
+    ;
+</script>
 
 {% endblock %}
