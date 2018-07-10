@@ -5,13 +5,28 @@ from django.shortcuts import get_object_or_404
 
 
 class Profile(models.Model):
-    projects = models.ManyToManyField('user_profile.Project', related_name='users', default=None, blank=True)
-    skills = models.ManyToManyField('user_profile.Skill', related_name='users', default=None, blank=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, related_name='profile')
+
+    projects = models.ManyToManyField(
+        'user_profile.Project',
+        related_name='users',
+        default=None,
+        blank=True
+    )
+    skills = models.ManyToManyField(
+        'user_profile.Skill',
+        related_name='users',
+        default=None,
+        blank=True
+    )
+    user = models.OneToOneField(
+        User,
+        on_delete=models.CASCADE,
+        primary_key=True,
+        related_name='profile'
+    )
 
     # Se hackerspace sin kode for bilde, inkludert 2 metoder før man bruker dette
     # image = models.ImageField(verbose_name="Profilbilde", default=None)
-
 
     def __str__(self):
         return self.user.username
@@ -21,6 +36,7 @@ class Profile(models.Model):
 
 
 class Project(models.Model):
+
     title = models.CharField(
         blank=False,
         max_length=140,
@@ -36,6 +52,7 @@ class Project(models.Model):
 
 
 class Skill(models.Model):
+
     name = models.CharField(
         unique=True,
         blank=False,
