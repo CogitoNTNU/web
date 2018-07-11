@@ -7,16 +7,6 @@
 <h1>{{ skill.name }}</h1>
 <p>{{ skill.description }}</p>
 
-    <div class="ui cards six column stackable grid center aligned ">
-    {% for member in skill.members.all %}
-    <!-- Vil gjerne ha et card med avataren (bildet til brukeren) her -->
-    <a class="card column" href="{% url "profile" pk=member.user.username %}">
-        <div class="content">
-            <div class="header">{{ member.user.username }}</div>
-        </div>
-    </a>
-    {% endfor %}
-</div>
 
 </div>
 {% endblock %}
