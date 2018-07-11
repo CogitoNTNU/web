@@ -13,16 +13,21 @@
     {% for skill in profile.skills.all %}
         <p>{{ skill.name }}</p>
     {% endfor %}
+{% else %}
+    <p><em>No skills listed</em></p>
 {% endif %}
 
 {% if profile.skills %}
     {% for skill in profile.skills.all %}
         <a href="{% url "skill_detail" pk=skill.pk %}"><p>{{ skill.name }}</p></a>
     {% endfor %}
+{% else %}
+    <p><em>No skills listed</em></p>
     {% if edit %}
         <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
     {% endif %}
 {% endif %}
+
 
 <div class="ui modal">
     <div class="ui text container">

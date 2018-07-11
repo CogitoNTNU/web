@@ -56,6 +56,7 @@ class Skill(models.Model):
     name = models.CharField(
         unique=True,
         blank=False,
+        null=True,
         max_length=140,
     )
     description = models.TextField(
