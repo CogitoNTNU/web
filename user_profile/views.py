@@ -26,7 +26,8 @@ def profile(request, username):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
-            user.profile.skills = form.cleaned_data['skills']
+            for skill in form.cleaned_data['skills']:
+                user.profile.skills.add(skill)
             # return HttpResponseRedirect(reverse('user_profile:profile', kwargs={'username': username}))
 
     return render(
