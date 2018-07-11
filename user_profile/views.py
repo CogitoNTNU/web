@@ -22,6 +22,7 @@ def profile(request, username):
         new_profile = Profile(user=user)
         new_profile.save()
 
+    populate()
     form = ProfileForm()
     if request.method == 'POST':
         form = ProfileForm(request.POST)
@@ -49,4 +50,9 @@ def populate():
     p2 = Project(title='Male båt')
     p1.save()
     p2.save()
+
+    u1 = User(username='Pål', password='123qweasd')
+    u2 = User(username='Gunnar', password='123qweasd')
+    u1.save()
+    u2.save()
 
