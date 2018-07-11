@@ -9,14 +9,16 @@
 
 <h1>{{ profile.user }}</h1>
 
-{% if profile.projects %}
-    <p>{{ profile.projects }}</p>
-    {% if edit %}
-    {% endif %}
+{% if profile.projects.all %}
+    {% for skill in profile.skills.all %}
+        <p>{{ skill.name }}</p>
+    {% endfor %}
 {% endif %}
 
 {% if profile.skills %}
-    <p>{{ profile.skills }}</p>
+    {% for skill in profile.skills.all %}
+        <p>{{ skill.name }}</p>
+    {% endfor %}
     {% if edit %}
         <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
     {% endif %}
