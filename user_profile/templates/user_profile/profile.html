@@ -17,7 +17,7 @@
 
 {% if profile.skills %}
     {% for skill in profile.skills.all %}
-        <p>{{ skill.name }}</p>
+        <a href="{% url "skill_detail" pk=skill.pk %}"><p>{{ skill.name }}</p></a>
     {% endfor %}
     {% if edit %}
         <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
