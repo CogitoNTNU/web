@@ -27,9 +27,9 @@
         {% endfor %}
     {% else %}
         <p><em>No skills listed</em></p>
-        {% if edit %}
-            <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
-        {% endif %}
+    {% endif %}
+    {% if edit %}
+        <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
     {% endif %}
 
 

@@ -27,6 +27,9 @@ def profile(request, username):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
+            #  user.profile.skills.remove(user.profile.skills.all()) seems to delete all skills completely from the DB
+            for skill in Skill.objects.all():
+                user.profile.skills.remove(skill)
             for skill in form.cleaned_data['skills']:
                 user.profile.skills.add(skill)
             # return HttpResponseRedirect(reverse('user_profile:profile', kwargs={'username': username}))
