@@ -4,9 +4,16 @@
 {% block body %}
 <div class="ui text container">
 
-<h1>{{ skill.name }}</h1>
-<p>{{ skill.description }}</p>
+    <h1>{{ skill.name }}</h1>
+    <p>{{ skill.description }}</p>
 
+    <div class="ui cards six column stackable grid center aligned ">
+        {% for profile in skill.members.all %}
+                <div class="content card column">
+                    <div class="header">{{ profile }}</div>
+                </div>
+        {% endfor %}
+    </div>
 
 </div>
 {% endblock %}
