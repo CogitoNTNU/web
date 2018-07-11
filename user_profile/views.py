@@ -22,7 +22,7 @@ def profile(request, username):
         new_profile = Profile(user=user)
         new_profile.save()
 
-    populate()
+    # populate()
     form = ProfileForm()
     if request.method == 'POST':
         form = ProfileForm(request.POST)
@@ -39,6 +39,10 @@ def profile(request, username):
 
 
 def populate():
+    print("POPULATING...")
+    print(".")
+    print(".")
+    print("DONE")
     s1 = Skill(name='ku')
     s2 = Skill(name='hest')
     s3 = Skill(name='gris')
@@ -56,3 +60,14 @@ def populate():
     u1.save()
     u2.save()
 
+    p1 = Profile(user=u1)
+    p2 = Profile(user=u2)
+    p1.skills.add(s1)
+    p1.skills.add(s2)
+    p2.skills.add(s2)
+    p2.skills.add(s3)
+    p1.projects.add(p1)
+    p2.projects.add(p1)
+    p2.projects.add(p2)
+    p1.save()
+    p2.save()
