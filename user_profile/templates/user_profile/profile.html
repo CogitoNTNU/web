@@ -13,8 +13,8 @@
 
     <h3>Projects</h3>
     {% if profile.projects.all %}
-        {% for skill in profile.skills.all %}
-            <p>{{ skill.name }}</p>
+        {% for project in profile.projects.all %}
+            <p>{{ project.title }}</p>
         {% endfor %}
     {% else %}
         <p><em>No projects listed</em></p>
