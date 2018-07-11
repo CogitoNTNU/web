@@ -2,9 +2,14 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.views.generic import DetailView
 
-from .models import Profile
+from .models import Profile, Skill
 from .forms import ProfileForm
+
+
+class DetailSkillView(DetailView):
+    model = Skill
 
 ##############################################
 

@@ -43,9 +43,9 @@ class Project(models.Model):
     )
     description = RichTextUploadingField(
         blank=True,
-        max_length=5000
+        max_length=5000,
     )
-    members = models.ManyToManyField('user_profile.Profile', related_name='project')
+    members = models.ManyToManyField('user_profile.Profile', related_name='project', blank=True)
 
     def __str__(self):
         return self.title
@@ -62,7 +62,7 @@ class Skill(models.Model):
         max_length=1000,
         blank=True
     )
-    members = models.ManyToManyField('user_profile.Profile', related_name='skill')
+    members = models.ManyToManyField('user_profile.Profile', related_name='skill', blank=True)
 
     def __str__(self):
         return self.name

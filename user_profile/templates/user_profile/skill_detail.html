@@ -1,0 +1,21 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="ui text container">
+
+<h1>{{ skill.name }}</h1>
+
+    <div class="ui cards six column stackable grid center aligned ">
+    {% for mem in skill.members %}
+    <!-- Vil gjerne ha et card med avataren (bildet til brukeren) her -->
+    <a class="card column" href="{% url "profile" pk=mem.user.username %}">
+        <div class="content">
+            <div class="header">{{ mem.user.username }}</div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+</div>
+{% endblock %}
