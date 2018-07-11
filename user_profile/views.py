@@ -19,7 +19,8 @@ def profile(request, username):
     try:
         user.profile  # Accessing a non-existent profile (they do no exist by default) triggers an error
     except Profile.DoesNotExist:
-        Profile(user=user)
+        new_profile = Profile(user=user)
+        new_profile.save()
 
     form = ProfileForm()
     if request.method == 'POST':
