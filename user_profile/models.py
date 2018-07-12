@@ -55,7 +55,25 @@ class Project(models.Model):
         blank=True,
         max_length=5000,
     )
-    members = models.ManyToManyField('user_profile.Profile', related_name='project', blank=True)
+    members = models.ManyToManyField(
+        'user_profile.Profile',
+        related_name='project',
+        blank=True
+    )
+    applicants = models.OneToOneField(
+        User,
+        related_name='project_application',
+        blank=True,
+        null=True,
+        on_delete=models.DO_NOTHING,
+    )
+    rejected_applicants = models.OneToOneField(
+        User,
+        related_name='project_application_rejected',
+        blank=True,
+        null=True,
+        on_delete=models.DO_NOTHING,
+    )
 
     def __str__(self):
         return self.title

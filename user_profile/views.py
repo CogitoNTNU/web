@@ -32,7 +32,6 @@ def profile(request, username):
                 user.profile.skills.remove(skill)
             for skill in form.cleaned_data['skills']:
                 user.profile.skills.add(skill)
-            # return HttpResponseRedirect(reverse('user_profile:profile', kwargs={'username': username}))
 
     return render(
         request,
@@ -45,7 +44,6 @@ def populate():
     print("POPULATING...")
     print(".")
     print(".")
-    print("DONE")
     s1 = Skill(name='ku')
     s2 = Skill(name='hest')
     s3 = Skill(name='gris')
@@ -74,3 +72,4 @@ def populate():
     p2.projects.add(p2)
     p1.save()
     p2.save()
+    print("DONE")
