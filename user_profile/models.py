@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import get_object_or_404
 
+from groups.models import Committee
+
 
 class Profile(models.Model):
 
@@ -23,6 +25,12 @@ class Profile(models.Model):
         on_delete=models.CASCADE,
         primary_key=True,
         related_name='profile'
+    )
+    group = models.OneToOneField(
+        Committee,
+        on_delete=models.DO_NOTHING,
+        blank=True,
+        default=None,
     )
 
     # Se hackerspace sin kode for bilde, inkludert 2 metoder før man bruker dette
