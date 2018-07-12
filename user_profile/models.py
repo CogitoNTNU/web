@@ -26,14 +26,16 @@ class Profile(models.Model):
         primary_key=True,
         related_name='profile'
     )
-    group = models.OneToOneField(
+    committee = models.OneToOneField(
         Committee,
         on_delete=models.DO_NOTHING,
         blank=True,
+        null=True,
         default=None,
     )
 
     # Se hackerspace sin kode for bilde, inkludert 2 metoder før man bruker dette
+    # alt. Hva gjør make-ntnu med sine bilder?
     # image = models.ImageField(verbose_name="Profilbilde", default=None)
 
     def __str__(self):
