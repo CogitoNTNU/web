@@ -1,8 +1,9 @@
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.views.generic import DetailView
+from django.views.generic import DetailView, CreateView
 
 from .models import Profile, Skill, Project
 from .forms import ProfileForm
@@ -10,6 +11,19 @@ from .forms import ProfileForm
 
 class DetailSkillView(DetailView):
     model = Skill
+
+
+class DetailProjectView(DetailView):
+    model = Project
+
+
+class CreateProjectView(PermissionRequiredMixin, CreateView):
+    redirect_field_name = 'recommend/entry_detail.html'
+    permission_required = 'recommendation.change_entry'
+    model = Project
+
+    fields = ('title', 'description')
+
 
 ##############################################
 

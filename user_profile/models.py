@@ -1,6 +1,7 @@
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.db import models
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 
 from groups.models import Committee
@@ -69,6 +70,10 @@ class Project(models.Model):
         User,
         related_name='project_application_rejected',
         blank=True,
+    )
+    manager = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
     )
 
     def __str__(self):
