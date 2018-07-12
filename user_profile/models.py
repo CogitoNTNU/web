@@ -60,19 +60,15 @@ class Project(models.Model):
         related_name='project',
         blank=True
     )
-    applicants = models.OneToOneField(
+    applicants = models.ManyToManyField(
         User,
         related_name='project_application',
         blank=True,
-        null=True,
-        on_delete=models.DO_NOTHING,
     )
-    rejected_applicants = models.OneToOneField(
+    rejected_applicants = models.ManyToManyField(
         User,
         related_name='project_application_rejected',
         blank=True,
-        null=True,
-        on_delete=models.DO_NOTHING,
     )
 
     def __str__(self):
