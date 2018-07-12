@@ -11,6 +11,12 @@
 
     <h1>{{ profile.user }}</h1>
 
+    {% if profile.committee %}
+        <h3>{{ profile.committee }}</h3>
+    {% else %}
+        <h3><em>Non-member</em></h3>
+    {% endif %}
+
     <h3>Projects</h3>
     {% if profile.projects.all %}
         {% for project in profile.projects.all %}
