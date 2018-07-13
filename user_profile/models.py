@@ -36,10 +36,11 @@ class Profile(models.Model):
         null=True,
         default=None,
     )
-
-    # Se hackerspace sin kode for bilde, inkludert 2 metoder før man bruker dette
-    # alt. Hva gjør make-ntnu med sine bilder?
-    # image = models.ImageField(verbose_name="Profilbilde", default=None)
+    picture = models.ImageField(
+        default=None,
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.user.username
