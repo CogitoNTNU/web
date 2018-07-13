@@ -29,7 +29,7 @@
     <h3>Skills</h3>
     {% if profile.skills.all %}
         {% for skill in profile.skills.all %}
-            <a href="{% url "skill_detail" pk=skill.pk %}"><p>{{ skill.name }}</p></a>
+            <a href="{% url "skill" pk=skill.pk %}"><p>{{ skill.name }}</p></a>
         {% endfor %}
     {% else %}
         <p><em>No skills listed</em></p>

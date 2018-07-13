@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.views.generic import DetailView, CreateView
 
 from .models import Profile, Skill, Project
-from .forms import ProfileForm
+from .forms import ProfileForm, ProjectForm
 
 
 class DetailSkillView(DetailView):
@@ -21,9 +21,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     redirect_field_name = 'user_profile/project.html'
     permission_required = 'recommendation.change_entry'
     model = Project
-
-    fields = ('title', 'description')
-
+    form_class = ProjectForm
 
 ##############################################
 
@@ -41,11 +39,14 @@ def profile(request, username):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
-            #  user.profile.skills.remove(user.profile.skills.all()) seems to delete all skills completely from the DB
+            # user.profile.skills.remove(user.profile.skills.all()) seems to delete all skills completely from the DB
+            # removing the connection one way does not remove it the other way...?
             for skill in Skill.objects.all():
                 user.profile.skills.remove(skill)
+                skill.members.remove(user.profile)
             for skill in form.cleaned_data['skills']:
                 user.profile.skills.add(skill)
+                skill.members.add(user.profile)
 
     return render(
         request,

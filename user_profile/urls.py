@@ -1,10 +1,13 @@
 from django.conf.urls import url
 
-from .views import profile, DetailSkillView, DetailProjectView
+from .views import profile, DetailSkillView, DetailProjectView, CreateProjectView
 
 urlpatterns = [
-    url(r'(?P<username>[-\w.]+)/$', profile, name='profile'),
-    url(r'skill/(?P<pk>\d+)$', DetailSkillView.as_view(), name='skill_detail'),
+    url(r'skill/(?P<pk>\d+)$', DetailSkillView.as_view(), name='skill'),
     url(r'project/(?P<pk>\d+)$', DetailProjectView.as_view(), name='project'),
+    url(r'project/new/$', CreateProjectView.as_view(), name='project_form'),
+
+    # must always be at the end, else it will interpret skill, project etc. as usernames
+    url(r'(?P<username>[-\w.]+)/$', profile, name='profile'),
     ]
 
