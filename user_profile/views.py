@@ -1,9 +1,9 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
-from django.views.generic import DetailView, CreateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
 
 from .models import Profile, Skill, Project
 from .forms import ProfileForm, ProjectForm
@@ -19,9 +19,31 @@ class DetailProjectView(DetailView):
 
 class CreateProjectView(PermissionRequiredMixin, CreateView):
     redirect_field_name = '/'
-    permission_required = 'recommendation.change_entry'
+    permission_required = 'user_profile.add_entry'
     model = Project
     form_class = ProjectForm
+
+
+class EditProjectView(UserPassesTestMixin, UpdateView):
+    model = Project
+    form_class = ProjectForm
+    permission_required = 'user_profile.change_project'
+    redirect_field_name = '/'
+
+    def test_func(self, user, project):
+        return user == project.manager
+
+
+class DeleteProjectView(UserPassesTestMixin, DeleteView):
+    model = Project
+    permission_required = 'user_profile.delete_project'
+    redirect_field_name = '/'
+    success_url = reverse_lazy('/')
+
+    def test_func(self, user, project):
+        return user == project.manager
+
+
 
 ##############################################
 

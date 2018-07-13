@@ -5,6 +5,9 @@
 <div class="ui text container">
 
     <h1>{{ project.title }}</h1>
+    {% if request.user == project.manager %}
+
+    {% endif %}
     <p>-Created by <em>{{ project.manager }}</em></p>
 
     <p>{{ project.description }}</p>
