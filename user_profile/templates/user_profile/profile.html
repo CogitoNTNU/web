@@ -12,9 +12,9 @@
     <h1>{{ profile.user }}</h1>
 
     {% if profile.picture %}
-        <img class="medium rounded ui image" src="/static/web/img/{{ user.profile.picture }}">
+        <img class="medium rounded ui image" src="{ user.profile.picture.url }}">
     {% else %}
-        <img class="disabled rounded medium ui image" src="/images/wireframe/image.png">
+        <img class="disabled rounded medium ui image">
     {% endif %}
 
     {% if profile.committee %}
