@@ -40,6 +40,7 @@ class Profile(models.Model):
         default=None,
         blank=True,
         null=True,
+        upload_to='/static/web/img/profiles/',
     )
 
     def __str__(self):
