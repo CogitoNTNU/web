@@ -30,8 +30,8 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
     permission_required = 'user_profile.change_project'
     redirect_field_name = '/'
 
-    def test_func(self, user, project):
-        return user == project.manager
+    def test_func(self):
+        return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager
 
 
 class DeleteProjectView(UserPassesTestMixin, DeleteView):
@@ -40,8 +40,9 @@ class DeleteProjectView(UserPassesTestMixin, DeleteView):
     redirect_field_name = '/'
     success_url = reverse_lazy('/')
 
+    # Should be same the same in DeleteProject and EditProject
     def test_func(self, user, project):
-        return user == project.manager
+        return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager
 
 
 
