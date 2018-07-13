@@ -24,3 +24,7 @@ class ProjectForm(forms.ModelForm):
     class Meta:
         model = Project
         fields = ('title', 'description', 'application_end', )
+
+        widgets = {
+            'application_end': forms.DateInput(attrs={'type': 'date'})
+        }
