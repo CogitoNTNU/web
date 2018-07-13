@@ -4,6 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
+import datetime
 
 from groups.models import Committee
 
@@ -62,7 +63,7 @@ class Project(models.Model):
         related_name='project',
         blank=True,
     )
-    applicants = models.ManyToManyField(
+    applicants = models.ManyToManyField(  # Members and rejects should also be found here as long as they applied
         User,
         related_name='project_application',
         blank=True,
@@ -91,6 +92,10 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse("project", kwargs={'pk': self.pk})
+
+    @property
+    def application_open(self):
+        return datetime.date.today() <= self.application_end
 
 
 class Skill(models.Model):

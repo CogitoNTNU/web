@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import User
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, CreateView
 
@@ -24,6 +24,20 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     form_class = ProjectForm
 
 ##############################################
+
+
+def apply_to_project(request, pk):
+    if request.method == 'POST':
+        user = get_object_or_404(User, username=request.user.username)
+        project = get_object_or_404(Project, pk=pk)
+
+        # if not rejected, already an applicant or already a member
+        if user in project.applicants.all():
+            return HttpResponse("You have already applied to this project")
+
+        project.applicants.add(user)
+        project.save()
+        return redirect('project', pk=pk)
 
 
 def profile(request, username):
