@@ -18,7 +18,7 @@ class DetailProjectView(DetailView):
 
 
 class CreateProjectView(PermissionRequiredMixin, CreateView):
-    redirect_field_name = 'recommend/entry_detail.html'
+    redirect_field_name = 'user_profile/project.html'
     permission_required = 'recommendation.change_entry'
     model = Project
 
