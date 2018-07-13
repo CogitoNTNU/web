@@ -17,3 +17,10 @@ class ProfileForm(forms.ModelForm):
             }
         except OperationalError:
             pass
+
+
+class ProjectForm(forms.ModelForm):
+
+    class Meta:
+        model = Project
+        fields = ('title', 'description', 'application_end', )

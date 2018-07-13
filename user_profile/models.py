@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.conf import settings
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 
 from groups.models import Committee
 
@@ -75,9 +76,19 @@ class Project(models.Model):
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
     )
+    application_end = models.DateField(
+        blank=True,
+        null=True,
+    )
+    finished = models.BooleanField(
+        default=False,
+    )
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse("project", kwargs={'pk': self.pk})
 
 
 class Skill(models.Model):
