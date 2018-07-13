@@ -13,21 +13,21 @@ class Profile(models.Model):
         'user_profile.Project',
         related_name='users',
         default=None,
-        blank=True
+        blank=True,
     )
     skills = models.ManyToManyField(
         'user_profile.Skill',
         related_name='users',
         default=None,
-        blank=True
+        blank=True,
     )
     user = models.OneToOneField(
         User,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name='profile'
+        related_name='profile',
     )
-    committee = models.OneToOneField(
+    committee = models.ForeignKey(
         Committee,
         on_delete=models.DO_NOTHING,
         blank=True,
@@ -59,7 +59,7 @@ class Project(models.Model):
     members = models.ManyToManyField(
         'user_profile.Profile',
         related_name='project',
-        blank=True
+        blank=True,
     )
     applicants = models.ManyToManyField(
         User,
@@ -90,9 +90,13 @@ class Skill(models.Model):
     )
     description = models.TextField(
         max_length=1000,
-        blank=True
+        blank=True,
     )
-    members = models.ManyToManyField('user_profile.Profile', related_name='skill', blank=True)
+    members = models.ManyToManyField(
+        'user_profile.Profile',
+        related_name='skill',
+        blank=True,
+    )
 
     def __str__(self):
         return self.name
