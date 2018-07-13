@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView, ListView
 
 from .models import Profile, Skill, Project
 from .forms import ProfileForm, ProjectForm
@@ -14,6 +14,10 @@ class DetailSkillView(DetailView):
 
 
 class DetailProjectView(DetailView):
+    model = Project
+
+
+class ListProjectView(ListView):
     model = Project
 
 

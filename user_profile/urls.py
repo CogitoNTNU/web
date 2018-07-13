@@ -1,9 +1,10 @@
 from django.conf.urls import url
 
 from .views import profile, DetailSkillView, DetailProjectView, CreateProjectView, apply_to_project, DeleteProjectView, \
-    EditProjectView
+    EditProjectView, ListProjectView
 
 urlpatterns = [
+    url(r'projects/$', ListProjectView.as_view(), name='project_list'),
     url(r'project/(?P<pk>\d+)/delete/$', DeleteProjectView.as_view(), name='delete_project'),
     url(r'project/(?P<pk>\d+)/edit/$', EditProjectView.as_view(), name='edit_project'),
     url(r'project/(?P<pk>\d+)/apply/$', apply_to_project, name='apply_to_project'),
