@@ -9,30 +9,33 @@
 
     <div class="ui cards four column stackable grid center aligned ">
         {% for profile in skill.members.all %}
-                <div class="content card column">
-                    <div class="image">
-                        <img src="/images/avatar2/large/kristy.png">
-                    </div>
-                    <div class="header">{{ profile }}</div>
+            <div class="ui card">
+                <div class="image">
+                    <a href="{% url "profile" username=profile.user.username%}">
+                        {% if profile.picture %}
+                            <img class="medium bordered rounded ui image" src="../media/{{ profile.picture.name }}">
+                        {% else %}
+                            <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
+                        {% endif %}
+                    </a>
                 </div>
+                <div class="content">
+                    <a class="header" >{{ profile.user.username }}</a>
+                    <div class="meta">
+                        <span class="date">{{ profile.committee }}</span>
+                    </div>
+                    {% if profile.skills %}
+                        <div class="description">
+                            <p>{% for skill in profile.skills.all %}{{ skill }}, {% endfor %} </p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
         {% endfor %}
     </div>
 
 
-    <div class="ui card">
-        <div class="image">
-            <img src="/images/avatar2/large/kristy.png">
-        </div>
-        <div class="content">
-            <a class="header">Kristy</a>
-            <div class="meta">
-              <span class="date">Joined in 2013</span>
-            </div>
-            <div class="description">
-              Kristy is an art director living in New York.
-            </div>
-        </div>
-    </div>
+
 
 </div>
 {% endblock %}
