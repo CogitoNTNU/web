@@ -48,8 +48,6 @@ class DeleteProjectView(UserPassesTestMixin, DeleteView):
     def test_func(self, user, project):
         return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager
 
-
-
 ##############################################
 
 
