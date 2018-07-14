@@ -88,6 +88,8 @@ def profile(request, username):
             for skill in form.cleaned_data['skills']:
                 user.profile.skills.add(skill)
                 skill.members.add(user.profile)
+            user.profile.picture = request.FILES['picture']
+            user.profile.save()
 
     return render(
         request,
