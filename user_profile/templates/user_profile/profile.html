@@ -12,31 +12,31 @@
     <h1>{{ profile.user }}</h1>
 
     {% if profile.picture %}
-        <img class="medium bordered rounded ui image" src="../media/{{ profile.picture.name }}">
+        <img class="small bordered rounded ui image" src="../media/{{ profile.picture.name }}">
     {% else %}
-        <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
+        <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
     {% endif %}
 
     {% if profile.committee %}
-        <h3>{{ profile.committee }}</h3>
+        <h4>{{ profile.committee }}</h4>
     {% else %}
-        <h3><em>Non-member</em></h3>
+        <h4><em>Non-member</em></h4>
     {% endif %}
 
     <h3>Projects</h3>
     {% if profile.projects.all %}
-        {% for project in profile.projects.all %}
-            <p>{{ project.title }}</p>
-        {% endfor %}
+        <p> {% for project in profile.projects.all %}
+            <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>,
+        {% endfor %} </p>
     {% else %}
         <p><em>No projects listed</em></p>
     {% endif %}
 
     <h3>Skills</h3>
     {% if profile.skills.all %}
-        {% for skill in profile.skills.all %}
-            <a href="{% url "skill" pk=skill.pk %}"><p>{{ skill.name }}</p></a>
-        {% endfor %}
+        <p>{% for skill in profile.skills.all %}
+            <a href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>,
+        {% endfor %}</p>
     {% else %}
         <p><em>No skills listed</em></p>
     {% endif %}

@@ -4,7 +4,9 @@
 {% block body %}
 <div class="ui text container">
 
-    <h1>{{ project.title }}</h1>
+    <h1>PROJECT</h1>
+
+    <h2>{{ project.title }}</h2>
     {% if request.user == project.manager %}
 
     {% endif %}
@@ -22,6 +24,14 @@
         {% else %}
             <p>Applications closed</p>
         {% endif %}
+    {% endif %}
+
+    {% if project.members.all %}
+        <p>
+            Members: {% for member in project.members.all %}
+            <a href="{% url 'profile' username=member.user.username %}">{{ member }}</a>,
+            {% endfor %}
+        </p>
     {% endif %}
 
 </div>

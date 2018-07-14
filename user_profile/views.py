@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect, HttpResponse
@@ -49,6 +50,12 @@ class DeleteProjectView(UserPassesTestMixin, DeleteView):
         return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager
 
 ##############################################
+
+
+def administrate_project(request, pk):
+    project = get_object_or_404(Project, pk=pk)
+    if not request.user == project.manager:
+        return HttpResponseRedirect(reverse(DetailProjectView.as_view, kwargs={'pk': pk}))
 
 
 def apply_to_project(request, pk):
