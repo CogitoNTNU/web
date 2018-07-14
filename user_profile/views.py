@@ -75,6 +75,7 @@ def profile(request, username):
 
     # populate()
     form = ProfileForm()
+    print(user.profile.picture.name)
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
