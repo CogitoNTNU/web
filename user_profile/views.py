@@ -64,7 +64,7 @@ def apply_to_project(request, pk):
 
         project.applicants.add(user)
         project.save()
-        return redirect('project', pk=pk)
+        return HttpResponseRedirect(reverse('profile', kwargs={'pk': pk}))
 
 
 def profile(request, username):
@@ -78,7 +78,7 @@ def profile(request, username):
     # populate()
     form = ProfileForm()
     if request.method == 'POST':
-        form = ProfileForm(request.POST)
+        form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
             # user.profile.skills.remove(user.profile.skills.all()) seems to delete all skills completely from the DB
             # removing the connection one way does not remove it the other way...?
@@ -88,8 +88,9 @@ def profile(request, username):
             for skill in form.cleaned_data['skills']:
                 user.profile.skills.add(skill)
                 skill.members.add(user.profile)
-            user.profile.picture = request.FILES['picture']
+            user.profile.picture = form.cleaned_data['picture']
             user.profile.save()
+            return HttpResponseRedirect(reverse('profile', kwargs={'username': username}))
 
     return render(
         request,

@@ -14,12 +14,8 @@ class ProfileForm(forms.ModelForm):
             widgets = {  # The first object in the tuple is the external representation, the second the internal
                 'skills': forms.SelectMultiple(choices=[(str(obj), obj) for obj in Skill.objects.all()],
                                                attrs={'class': 'ui multiple search selection dropdown'}),
-                'picture': forms.ImageField(label='Choose a profile picture')
             }
         except OperationalError:
-            pass
-
-        def clean(self):
             pass
 
 
