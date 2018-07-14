@@ -13,9 +13,9 @@
 
 
     {% if profile.picture %}
-        <img class="medium rounded ui image" src="../media/{{ profile.picture.name }}">
+        <img class="medium bordered rounded ui image" src="../media/{{ profile.picture.name }}">
     {% else %}
-        <img class="disabled rounded medium ui image">
+        <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
     {% endif %}
 
     {% if profile.committee %}

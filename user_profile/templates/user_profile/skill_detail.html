@@ -7,12 +7,31 @@
     <h1>{{ skill.name }}</h1>
     <p>{{ skill.description }}</p>
 
-    <div class="ui cards six column stackable grid center aligned ">
+    <div class="ui cards four column stackable grid center aligned ">
         {% for profile in skill.members.all %}
                 <div class="content card column">
+                    <div class="image">
+                        <img src="/images/avatar2/large/kristy.png">
+                    </div>
                     <div class="header">{{ profile }}</div>
                 </div>
         {% endfor %}
+    </div>
+
+
+    <div class="ui card">
+        <div class="image">
+            <img src="/images/avatar2/large/kristy.png">
+        </div>
+        <div class="content">
+            <a class="header">Kristy</a>
+            <div class="meta">
+              <span class="date">Joined in 2013</span>
+            </div>
+            <div class="description">
+              Kristy is an art director living in New York.
+            </div>
+        </div>
     </div>
 
 </div>
