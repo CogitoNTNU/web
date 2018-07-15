@@ -4,35 +4,34 @@
 {% block body %}
 <div class="ui text container">
 
-    <h1>PROJECT</h1>
+    <h1>PROJECT ADMIN INTERFACE</h1>
 
-    <h2>{{ project.title }}</h2>
-    {% if request.user == project.manager %}
-
-    {% endif %}
-    <p>-Created by <em>{{ project.manager }}</em></p>
-
-    <p>{{ project.description }}</p>
-
-    {% if user.is_authenticated %}
-        {% if project.application_open and project.application_end %}
-            <p>Applications open up to (and including) {{ project.application_end|date:"d M Y" }}</p>
-            <form method="post" action="{% url "apply_to_project" pk=project.pk %}">
-                {% csrf_token %}
-                <button type="submit" class="ui blue button">Apply</button>
-            </form>
-        {% else %}
-            <p>Applications closed</p>
-        {% endif %}
-    {% endif %}
-
-    {% if project.members.all %}
-        <p>
-            Members: {% for member in project.members.all %}
-            <a href="{% url 'profile' username=member.user.username %}">{{ member }}</a>,
-            {% endfor %}
-        </p>
-    {% endif %}
+     <div class="ui cards four column stackable grid center aligned ">
+        {% for profile in project.applicants.all %}
+            <div class="ui card">
+                <div class="image">
+                    <a href="{% url "profile" username=profile.user.username%}">
+                        {% if profile.picture %}
+                            <img class="medium bordered rounded ui image" src="../media/{{ profile.picture.name }}">
+                        {% else %}
+                            <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="content">
+                    <a class="header" >{{ profile.user.username }}</a>
+                    <div class="meta">
+                        <span class="date">{{ profile.committee }}</span>
+                    </div>
+                    {% if profile.skills %}
+                        <div class="description">
+                            <p>{% for skill in profile.skills.all %}{{ skill }}, {% endfor %} </p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
 </div>
 {% endblock %}

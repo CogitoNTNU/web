@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.db import OperationalError
 
 from .models import Profile, Skill, Project
@@ -18,6 +19,15 @@ class ProfileForm(forms.ModelForm):
         except OperationalError:
             pass
 
+        def clean(self):
+            picture = self.cleaned_data.get('picture', False)
+            if picture:
+                if picture.__size > 4 * 1024 * 1024:
+                    raise ValidationError( "Image file too large ( > 4mb )")
+                return picture
+            else:
+                raise ValidationError("Couldn't read uploaded image")
+
 
 class ProjectForm(forms.ModelForm):
 
@@ -28,3 +38,8 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'application_end': forms.DateInput(attrs={'type': 'date'})
         }
+
+
+class ApplicantActionForm(forms.Form):
+
+    accepted = forms.BooleanField()

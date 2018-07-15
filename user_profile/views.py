@@ -56,6 +56,7 @@ def administrate_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
     if not request.user == project.manager:
         return HttpResponse("You are not authorized to access this page")
+
     return render(request, 'user_profile/project_admin.html', {'project': project})
 
 
