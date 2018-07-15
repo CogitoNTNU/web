@@ -56,6 +56,7 @@ def administrate_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
     if not request.user == project.manager:
         return HttpResponseRedirect(reverse(DetailProjectView.as_view, kwargs={'pk': pk}))
+    return render(request, 'user_profile/project_admin.html', {'project': project})
 
 
 def apply_to_project(request, pk):
