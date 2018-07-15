@@ -12,11 +12,11 @@
     {% endif %}
     <p>-Created by <em>{{ project.manager }}</em></p>
 
-    <p>{{ project.description }}</p>
+    <p>{{ project.description|safe }}</p>
 
     {% if user.is_authenticated %}
         {% if project.application_open and project.application_end %}
-            <p>Applications open up to (and including) {{ project.application_end|date:"d M Y" }}</p>
+            <p>Applications open up to (and including) <strong>{{ project.application_end|date:"d M Y" }}</strong></p>
             <form method="post" action="{% url "apply_to_project" pk=project.pk %}">
                 {% csrf_token %}
                 <button type="submit" class="ui blue button">Apply</button>
