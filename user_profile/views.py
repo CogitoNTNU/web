@@ -60,13 +60,21 @@ def administrate_project(request, pk):
     return render(request, 'user_profile/project_admin.html', {'project': project})
 
 
+def accept_applicant(request, pk, username):
+    return manage_applicant(request, pk, username, True)
+
+
+def reject_applicant(request, pk, username):
+    return manage_applicant(request, pk, username, False)
+
+
 def apply_to_project(request, pk):
     if request.method == 'POST':
         user = get_object_or_404(User, username=request.user.username)
         project = get_object_or_404(Project, pk=pk)
 
         # if not rejected, already an applicant or already a member
-        if user in project.applicants.all():
+        if user in project.applicants.all() + project.members.all() + project.rejected_applicants.all():
             return HttpResponse("You have already applied to this project")
 
         project.applicants.add(user)
@@ -108,6 +116,21 @@ def profile(request, username):
         'user_profile/profile.html',
         {'profile': user.profile, 'edit': request.user == user, 'form': form}
     )
+
+
+def manage_applicant(request, pk, username, accept):
+    project = get_object_or_404(Project, pk=pk)
+    user = get_object_or_404(User, username=username)
+    if request.method == 'POST' and project.manager == request.user:
+        project.applicants.remove(user)
+        if accept:
+            project.members.add(user)
+        else:
+            project.rejected_applicants.add(user)
+        return HttpResponseRedirect(reverse('project_admin', kwargs={'pk': pk}))
+
+    else:
+        return HttpResponse("Something went wrong")
 
 
 def populate():

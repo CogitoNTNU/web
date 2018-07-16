@@ -25,11 +25,16 @@
                     <div class="meta">
                         <span class="date">{{ user.profile.committee }}</span>
                     </div>
-                    {% if user.profile.skills %}
-                        <div class="description">
-                            <p>{% for skill in user.profile.skills.all %}{{ skill }}, {% endfor %} </p>
-                        </div>
-                    {% endif %}
+                    <div class="description">
+                        <form method="post" action="{% url "accept_applicant" pk=project.pk username=user.username %}">
+                            {% csrf_token %}
+                            <button type="submit" class="tiny ui blue button">Accept</button>
+                        </form>
+                        <form method="post" action="{% url "reject_applicant" pk=project.pk username=user.username %}">
+                            {% csrf_token %}
+                            <button type="submit" class="tiny ui button">Reject</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         {% endfor %}

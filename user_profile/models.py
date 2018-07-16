@@ -61,18 +61,18 @@ class Project(models.Model):
         max_length=5000,
     )
     members = models.ManyToManyField(
-        'user_profile.Profile',
-        related_name='project',
+        User,
+        related_name='project_memberships',
         blank=True,
     )
     applicants = models.ManyToManyField(  # applicant becomes either member or rejected.
         User,
-        related_name='project_application',
+        related_name='project_applications',
         blank=True,
     )
     rejected_applicants = models.ManyToManyField(
         User,
-        related_name='project_application_rejected',
+        related_name='project_rejections',
         blank=True,
     )
     manager = models.ForeignKey(
