@@ -9,6 +9,7 @@
     <h2>{{ project.title }}</h2>
     {% if request.user == project.manager %}
         <a href="{% url "project_admin" pk=project.pk %}"><button class="ui blue button">Manage applications</button></a>
+        <a href="{% url "edit_project" pk=project.pk %}"><button class="ui blue button">Edit</button></a>
     {% endif %}
     <p>-Created by <em>{{ project.manager }}</em></p>
 
