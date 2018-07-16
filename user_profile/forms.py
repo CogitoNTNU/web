@@ -43,3 +43,4 @@ class ProjectForm(forms.ModelForm):
 class ApplicantActionForm(forms.Form):
 
     accepted = forms.BooleanField()
+
