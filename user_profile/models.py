@@ -65,7 +65,7 @@ class Project(models.Model):
         related_name='project',
         blank=True,
     )
-    applicants = models.ManyToManyField(  # Members and rejects should also be found here as long as they applied
+    applicants = models.ManyToManyField(  # applicant becomes either member or rejected.
         User,
         related_name='project_application',
         blank=True,
