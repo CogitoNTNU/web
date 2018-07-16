@@ -38,9 +38,3 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'application_end': forms.DateInput(attrs={'type': 'date'})
         }
-
-
-class ApplicantActionForm(forms.Form):
-
-    accepted = forms.BooleanField()
-
