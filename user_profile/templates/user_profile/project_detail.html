@@ -6,6 +6,14 @@
 
     <h1>PROJECT</h1>
 
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
     <h2>{{ project.title }}</h2>
     {% if request.user == project.manager %}
         <a href="{% url "project_admin" pk=project.pk %}"><button class="ui blue button">Manage applications</button></a>

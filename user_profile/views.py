@@ -3,6 +3,7 @@ import datetime
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
@@ -26,7 +27,7 @@ class ListProjectView(ListView):
 
 class CreateProjectView(PermissionRequiredMixin, CreateView):
     redirect_field_name = '/'
-    permission_required = 'user_profile.add_entry'
+    permission_required = 'user_profile.add_project'
     model = Project
     form_class = ProjectForm
 
@@ -55,7 +56,7 @@ class DeleteProjectView(UserPassesTestMixin, DeleteView):
 def administrate_project(request, pk):
     project = get_object_or_404(Project, pk=pk)
     if not request.user == project.manager:
-        return HttpResponse("You are not authorized to access this page")
+        return HttpResponseRedirect("/")
 
     return render(request, 'user_profile/project_admin.html', {'project': project})
 
@@ -78,12 +79,15 @@ def apply_to_project(request, pk):
                 user in project.members.all() or\
                 user in project.rejected_applicants.all():
             return HttpResponse("You have already applied to this project")
-
-        if project.application_end < datetime.date.today():
-            return HttpResponse("Applications have ended for this project")
+        try:
+            if project.application_end < datetime.date.today():
+                return HttpResponse("Applications have ended for this project")
+        except TypeError:
+            return HttpResponse("This project does not have an application date set")
 
         project.applicants.add(user)
         project.save()
+        messages.success(request, 'You have successfully applied to ' + str(project))
         return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))
 
     return HttpResponseRedirect('/')
