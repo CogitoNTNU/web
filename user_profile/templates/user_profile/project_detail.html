@@ -10,6 +10,7 @@
     {% if request.user == project.manager %}
         <a href="{% url "project_admin" pk=project.pk %}"><button class="ui blue button">Manage applications</button></a>
         <a href="{% url "edit_project" pk=project.pk %}"><button class="ui blue button">Edit</button></a>
+        <a href="{% url "delete_project" pk=project.pk %}"><button class="ui red button">Delete</button></a>
     {% endif %}
     <p>-Created by <em>{{ project.manager }}</em></p>
 
