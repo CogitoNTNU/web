@@ -120,3 +120,27 @@ class SkillTest(TestCase):
     def test_view(self):
         response = self.client.get(reverse('skill', args=(self.skill.pk,)))
         self.assertEqual(response.status_code, 200)
+
+
+class ProfileTest(TestCase):
+
+    def setUp(self):
+        self.username = 'TEST_USER'
+        self.password = 'TEST_PASS'
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.user2 = User.objects.create_user(username='TEST_USER2', password=self.password)
+        self.client.login(username=self.username, password=self.password)
+        self.profile = Profile.objects.create(
+            user=self.user
+        )
+
+    def test_str(self):
+        self.assertEqual(str(self.profile), self.user.username)
+
+    def test_view(self):
+        response = self.client.get(reverse('profile', args=(self.user.username,)))
+        self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('profile', args=(self.user2.username,)))
+        self.assertEqual(response.status_code, 200)
+
+
