@@ -42,9 +42,8 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
 
 class DeleteProjectView(UserPassesTestMixin, DeleteView):
     model = Project
-    permission_required = 'user_profile.delete_project'
     redirect_field_name = '/'
-    success_url = reverse_lazy('/')
+    success_url = reverse_lazy('profiles/project_list')
 
     # Should be same the same in DeleteProject and EditProject
     def test_func(self, user, project):

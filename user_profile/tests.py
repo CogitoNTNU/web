@@ -12,7 +12,7 @@ class ProjectTest(TestCase):
         user.user_permissions.add(permission)
 
     def setUp(self):
-        self.entry = Project.objects.create(
+        self.project = Project.objects.create(
             title='TITLE',
             description='DESCRIPTION',
         )
@@ -25,7 +25,7 @@ class ProjectTest(TestCase):
         self.assertEqual(str(self.project), self.project.title)
 
     def test_view(self):
-        response = self.client.get(reverse('project_detail', args=(self.entry.pk,)))
+        response = self.client.get(reverse('project_detail', args=(self.project.pk,)))
         self.assertEqual(response.status_code, 200)
 
     def test_add(self):
@@ -36,15 +36,15 @@ class ProjectTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_update(self):
-        response = self.client.get(reverse('edit_project', args=(self.entry.pk,)))
+        response = self.client.get(reverse('edit_project', args=(self.project.pk,)))
         self.assertNotEqual(response.status_code, 200)
-        self.add_permission('change_project')
-        response = self.client.get(reverse('edit_project', args=(self.entry.pk,)))
+        self.project.manager = self.user
+        response = self.client.get(reverse('edit_project', args=(self.project.pk,)))
         self.assertEqual(response.status_code, 200)
 
     def test_delete(self):
-        response = self.client.get(reverse('delete_project', args=(self.entry.pk,)))
+        response = self.client.get(reverse('delete_project', args=(self.project.pk,)))
         self.assertNotEqual(response.status_code, 200)
         self.add_permission('delete_project')
-        response = self.client.get(reverse('delete_project', args=(self.entry.pk,)))
+        response = self.client.get(reverse('delete_project', args=(self.project.pk,)))
         self.assertEqual(response.status_code, 200)
