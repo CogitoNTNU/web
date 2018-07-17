@@ -141,37 +141,3 @@ def manage_applicant(request, pk, username, accept):
     else:
         return HttpResponse("Something went wrong")
 
-
-def populate():
-    print("POPULATING...")
-    print(".")
-    print(".")
-    s1 = Skill(name='ku')
-    s2 = Skill(name='hest')
-    s3 = Skill(name='gris')
-
-    for s in [s1, s2, s3]:
-        s.save()
-
-    p1 = Project(title='Nytt hus')
-    p2 = Project(title='Male båt')
-    p1.save()
-    p2.save()
-
-    u1 = User(username='Pål', password='123qweasd')
-    u2 = User(username='Gunnar', password='123qweasd')
-    u1.save()
-    u2.save()
-
-    p1 = Profile(user=u1)
-    p2 = Profile(user=u2)
-    p1.skills.add(s1)
-    p1.skills.add(s2)
-    p2.skills.add(s2)
-    p2.skills.add(s3)
-    p1.projects.add(p1)
-    p2.projects.add(p1)
-    p2.projects.add(p2)
-    p1.save()
-    p2.save()
-    print("DONE")
