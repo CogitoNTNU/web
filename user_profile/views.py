@@ -31,10 +31,9 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     form_class = ProjectForm
 
 
-class EditProjectView(UserPassesTestMixin, UpdateView):
+class EditProjectView(UpdateView):
     model = Project
     form_class = ProjectForm
-    permission_required = 'user_profile.change_project'
     redirect_field_name = '/'
 
     def test_func(self):
