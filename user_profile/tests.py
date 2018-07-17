@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase
 from django.urls import reverse
@@ -15,12 +17,14 @@ class ProjectTest(TestCase):
         self.username = 'TEST_USER'
         self.password = 'TEST_PASS'
         self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.user2 = User.objects.create_user(username='TEST_USER2', password=self.password)
         self.client.login(username=self.username, password=self.password)
         self.project = Project.objects.create(
             title='TITLE',
             description='DESCRIPTION',
             manager=self.user,
         )
+        self.project.applicants.add(self.user2)
 
     def test_str(self):
         self.assertEqual(str(self.project), self.project.title)
@@ -52,6 +56,22 @@ class ProjectTest(TestCase):
         response = self.client.get(reverse('delete_project', args=(self.project.pk,)))
         self.assertEqual(response.status_code, 200)
 
+    def test_apply(self):
+        response = self.client.post(reverse('apply_to_project', args=(self.project.pk,)))
+        self.assertEqual(response.status_code, 200)
+
+    def test_reject_applicant(self):
+        response = self.client.post(reverse('reject_applicant', kwargs={'pk': self.project.pk, 'username': self.user2.username}))
+        self.assertEqual(self.project.rejected_applicants.first(), self.user2)
+        self.assertEqual(self.project.applicants.all().count(), 0)
+        self.assertEqual(response.status_code, 302)
+
+    def test_accept_applicant(self):
+        response = self.client.post(reverse('accept_applicant', kwargs={'pk': self.project.pk, 'username': self.user2.username}))
+        self.assertEqual(self.project.members.first(), self.user2)
+        self.assertEqual(self.project.applicants.all().count(), 0)
+        self.assertEqual(response.status_code, 302)
+
 
 class ProjectTest2(TestCase):
 
@@ -63,6 +83,7 @@ class ProjectTest2(TestCase):
         self.project = Project.objects.create(
             title='TITLE',
             description='DESCRIPTION',
+            application_end=datetime.date.today() + datetime.timedelta(days=1)
         )
 
     def test_update(self):
@@ -79,5 +100,23 @@ class ProjectTest2(TestCase):
 
     def test_apply(self):
         response = self.client.post(reverse('apply_to_project', args=(self.project.pk,)))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.url, '/profiles/project/' + str(self.project.pk))
 
+
+class SkillTest(TestCase):
+
+    def setUp(self):
+        self.username = 'TEST_USER'
+        self.password = 'TEST_PASS'
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.client.login(username=self.username, password=self.password)
+        self.skill = Skill.objects.create(
+            name='NAME',
+        )
+
+    def test_str(self):
+        self.assertEqual(str(self.skill), self.skill.name)
+
+    def test_view(self):
+        response = self.client.get(reverse('skill', args=(self.skill.pk,)))
+        self.assertEqual(response.status_code, 200)
