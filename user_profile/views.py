@@ -31,7 +31,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     form_class = ProjectForm
 
 
-class EditProjectView(UpdateView):
+class EditProjectView(UserPassesTestMixin, UpdateView):
     model = Project
     form_class = ProjectForm
     redirect_field_name = '/'
