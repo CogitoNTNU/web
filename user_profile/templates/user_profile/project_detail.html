@@ -29,8 +29,8 @@
 
     {% if project.members.all %}
         <p>
-            Members: {% for member in project.members.all %}
-            <a href="{% url 'profile' username=member.user.username %}">{{ member }}</a>,
+            {% for user in project.members.all %}
+            <a href="{% url 'profile' username=user.username %}">{{ user }}</a>,
             {% endfor %}
         </p>
     {% endif %}
