@@ -1,3 +1,5 @@
+import datetime
+
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
@@ -74,12 +76,17 @@ def apply_to_project(request, pk):
         project = get_object_or_404(Project, pk=pk)
 
         # if not rejected, already an applicant or already a member
-        if user in project.applicants.all() + project.members.all() + project.rejected_applicants.all():
+        if user in project.applicants.all() or \
+                user in project.members.all() or\
+                user in project.rejected_applicants.all():
             return HttpResponse("You have already applied to this project")
+
+        if project.application_end < datetime.date.today():
+            return HttpResponse("Applications have ended for this project")
 
         project.applicants.add(user)
         project.save()
-        return HttpResponseRedirect(reverse('profile', kwargs={'username': user.username}))
+        return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))
 
     return HttpResponseRedirect('/')
 
