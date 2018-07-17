@@ -43,10 +43,10 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
 class DeleteProjectView(UserPassesTestMixin, DeleteView):
     model = Project
     redirect_field_name = '/'
-    success_url = reverse_lazy('profiles/project_list')
+    success_url = reverse_lazy('project_list')
 
     # Should be same the same in DeleteProject and EditProject
-    def test_func(self, user, project):
+    def test_func(self):
         return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager
 
 ##############################################
