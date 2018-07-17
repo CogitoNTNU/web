@@ -45,8 +45,8 @@
 
     <h2>Members:</h2>
     {% if project.members.all %}
-        <div class="ui cards four   column stackable grid center aligned ">
-            {% for user in project.applicants.all %}
+        <div class="ui cards five column stackable grid center aligned ">
+            {% for user in project.members.all %}
                 <div class="ui card">
                     <div class="image">
                         <a href="{% url "profile" username=user.username%}">
@@ -59,14 +59,6 @@
                     </div>
                     <div class="content">
                         <a class="header" >{{ user.username }}</a>
-                        <div class="meta">
-                            <span class="date">{{ user.profile.committee }}</span>
-                        </div>
-                        {% if user.profile.skills %}
-                            <div class="description">
-                                <p>{% for skill in user.profile.skills.all %}{{ skill }}, {% endfor %} </p>
-                            </div>
-                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

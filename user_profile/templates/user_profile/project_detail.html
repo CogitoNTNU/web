@@ -27,12 +27,15 @@
         {% endif %}
     {% endif %}
 
+    <h3>Members:</h3>
     {% if project.members.all %}
         <p>
             {% for user in project.members.all %}
             <a href="{% url 'profile' username=user.username %}">{{ user }}</a>,
             {% endfor %}
         </p>
+    {% else %}
+        <p><strong><em>This project currently has no members</em></strong></p>
     {% endif %}
 
 </div>
