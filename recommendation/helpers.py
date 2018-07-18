@@ -12,7 +12,6 @@ def get_entry_tags(entry):
 def get_related_entries(entry):
     """
     :param entry: Entry object
-    :param unrelated_entries: boolean -> Return entries with zero tags in common with param entry
     :return: list of Entry objects sorted in descending order by the number of tags shared with param entry.
     """
     # Creates a dict with keys=Entry objects, values=no. same tags as param entry
