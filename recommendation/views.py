@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
 
 from .helpers import get_related_entries, get_entry_tags
@@ -31,7 +31,6 @@ class DeleteEntryView(PermissionRequiredMixin, DeleteView):
 class EditEntryView(PermissionRequiredMixin, UpdateView):
     redirect_field_name = 'recommend/entry_detail.html'
     permission_required = 'recommendation.change_entry'
-    success_url = reverse_lazy('entry_list')
     model = Entry
     form_class = EntryForm
 

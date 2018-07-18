@@ -9,5 +9,5 @@ urlpatterns = [
     path('delete/<int:pk>/', DeleteEntryView.as_view(), name="delete_entry"),
     path('detail/<int:pk>/', view_entry, name="entry_detail"),
     path('tag/add/', CreateTagView.as_view(), name="tag_form"),
-    path('/', ListEntriesView.as_view(), name="entry_list"),
+    path('', ListEntriesView.as_view(), name="entry_list"),
 ]
