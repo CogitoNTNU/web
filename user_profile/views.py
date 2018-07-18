@@ -1,6 +1,3 @@
-import datetime
-
-from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
@@ -11,6 +8,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 
 from .models import Profile, Skill, Project
 from .forms import ProfileForm, ProjectForm
+import datetime
 
 
 class CreateProjectView(PermissionRequiredMixin, CreateView):
