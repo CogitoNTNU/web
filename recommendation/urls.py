@@ -1,10 +1,9 @@
-from django.conf.urls import url
 from django.urls import path
 from .models import Entry
 from django.views.generic import ListView
 
 from .views import CreateEntryView, DeleteEntryView, \
-    EditEntryView, view_entry, CreateTagView, ListEntriesView
+    EditEntryView, view_entry, CreateTagView
 
 urlpatterns = [
     path('create/', CreateEntryView.as_view(), name="entry_form"),

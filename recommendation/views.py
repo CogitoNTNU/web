@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse_lazy, reverse
-from django.views.generic import ListView, CreateView, DeleteView, UpdateView, DetailView
+from django.urls import reverse_lazy
+from django.views.generic import CreateView, DeleteView, UpdateView
 
 from .helpers import get_related_entries, get_entry_tags
 from .forms import EntryForm, TagForm
