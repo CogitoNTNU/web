@@ -13,18 +13,6 @@ from .models import Profile, Skill, Project
 from .forms import ProfileForm, ProjectForm
 
 
-class DetailSkillView(DetailView):
-    model = Skill
-
-
-class DetailProjectView(DetailView):
-    model = Project
-
-
-class ListProjectView(ListView):
-    model = Project
-
-
 class CreateProjectView(PermissionRequiredMixin, CreateView):
     redirect_field_name = '/'
     permission_required = 'user_profile.add_project'
