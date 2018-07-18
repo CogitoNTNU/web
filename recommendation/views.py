@@ -28,10 +28,6 @@ class EditEntryView(PermissionRequiredMixin, UpdateView):
     form_class = EntryForm
 
 
-class DetailEntryView(DetailView):
-    model = Entry
-
-
 class CreateTagView(PermissionRequiredMixin, CreateView):
     permission_required = 'recommendation.add_tag'
     redirect_field_name = 'recommend/entry_list.html'
