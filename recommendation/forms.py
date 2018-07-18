@@ -43,6 +43,5 @@ class TagForm(forms.ModelForm):
     def clean(self):
         name = str(self.cleaned_data['name']).upper()
         other_tags = [str(t).upper() for t in Tag.objects.all()]
-        print(name, other_tags)
         if name in other_tags:
             raise forms.ValidationError("This tag already exists")
