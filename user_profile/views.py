@@ -84,18 +84,15 @@ def profile(request, username):
     try:
         user.profile  # Accessing a non-existent profile (they do no exist by default) triggers an error
     except Profile.DoesNotExist:
-        new_profile = Profile(user=user)
-        new_profile.save()
+        Profile.objects.create(user=user)
 
-    # populate()
     form = ProfileForm()
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            # user.profile.skills.remove(user.profile.skills.all()) seems to delete all skills completely from the DB
             # removing the connection one way does not remove it the other way...?
+            user.profile.skills.clear()
             for skill in Skill.objects.all():
-                user.profile.skills.remove(skill)
                 skill.members.remove(user.profile)
             for skill in form.cleaned_data['skills']:
                 user.profile.skills.add(skill)

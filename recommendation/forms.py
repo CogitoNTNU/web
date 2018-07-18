@@ -13,7 +13,7 @@ class EntryForm(forms.ModelForm):
         # Not sure if the try/except-clause is necessary, but better safe than sorry
         try:
             widgets = {
-                'tags': forms.SelectMultiple(choices=[(str(obj), str(obj)) for obj in Tag.objects.all()],
+                'tags': forms.SelectMultiple(choices=[(obj, str(obj)) for obj in Tag.objects.all()],
                                              attrs={'class': 'ui multiple search selection dropdown'}),
                 'medium': forms.Select(choices=(
                                         ("Course", "Course"),
