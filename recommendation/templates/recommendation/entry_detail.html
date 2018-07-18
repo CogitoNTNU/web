@@ -5,7 +5,7 @@
 
 <div class="ui text container">
     <h1>{{ entry.title }}</h1>
-    <p><strong>{{ entry.type}} by {{ entry.creator }}</strong> - <em>{{ entry.grade }} difficulty</em></p>
+    <p><strong>{{ entry.medium }} by {{ entry.creator }}</strong> - <em>{{ entry.grade }} difficulty</em></p>
 
     {% if entry.tags %}
         <p><em>Tagged as: {% for tag in tags %} {{tag}},  {% endfor %}</em></p>

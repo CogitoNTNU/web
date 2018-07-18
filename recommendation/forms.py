@@ -8,14 +8,14 @@ class EntryForm(forms.ModelForm):
 
     class Meta:
         model = Entry
-        fields = ['title', 'creator', 'link', 'description', 'grade', 'type', 'tags', ]
+        fields = ['title', 'creator', 'link', 'description', 'grade', 'medium', 'tags', ]
 
         # Not sure if the try/except-clause is necessary, but better safe than sorry
         try:
             widgets = {
                 'tags': forms.SelectMultiple(choices=[(str(obj), str(obj)) for obj in Tag.objects.all()],
                                              attrs={'class': 'ui multiple search selection dropdown'}),
-                'type': forms.Select(choices=(
+                'medium': forms.Select(choices=(
                                         ("Course", "Course"),
                                         ("Paper", "Paper"),
                                         ("Book", "Book"),

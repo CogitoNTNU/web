@@ -26,7 +26,7 @@ class Entry(ConcurrentModel):
         blank=True,
         max_length=1000,
     )
-    type = models.CharField(
+    medium = models.CharField(
         max_length=150,
         blank=False,
     )

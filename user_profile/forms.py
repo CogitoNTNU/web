@@ -36,5 +36,5 @@ class ProjectForm(forms.ModelForm):
         fields = ('title', 'description', 'application_end', )
 
         widgets = {
-            'application_end': forms.DateInput(attrs={'type': 'date'})
+            'application_end': forms.DateInput(attrs={'medium': 'date'})
         }

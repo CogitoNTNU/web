@@ -13,7 +13,7 @@
 {% for entry in entry_list %}
     <div class="entry-listing">
         <h2><a href="{% url 'entry_detail' pk=entry.pk %}">{{ entry.title }}</a></h2>
-        <p><strong>{{ entry.type}} by {{ entry.creator }}</strong> - <em>{{ entry.grade }} difficulty</em></p>
+        <p><strong>{{ entry.medium }} by {{ entry.creator }}</strong> - <em>{{ entry.grade }} difficulty</em></p>
         {% if entry.description %}
             <p>{{ entry.description|safe|linebreaks }}</p>
         {% else %}
