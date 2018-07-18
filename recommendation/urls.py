@@ -1,5 +1,8 @@
 from django.conf.urls import url
 from django.urls import path
+from .models import Entry
+from django.views.generic import ListView
+
 from .views import CreateEntryView, DeleteEntryView, \
     EditEntryView, view_entry, CreateTagView, ListEntriesView
 
@@ -9,5 +12,5 @@ urlpatterns = [
     path('delete/<int:pk>/', DeleteEntryView.as_view(), name="delete_entry"),
     path('detail/<int:pk>/', view_entry, name="entry_detail"),
     path('tag/add/', CreateTagView.as_view(), name="tag_form"),
-    path('', ListEntriesView.as_view(), name="entry_list"),
+    path('', ListView.as_view(model=Entry), name="entry_list"),
 ]

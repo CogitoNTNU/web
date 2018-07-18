@@ -8,13 +8,6 @@ from .forms import EntryForm, TagForm
 from .models import Entry, Tag
 
 
-class ListEntriesView(ListView):
-    model = Entry
-
-    def get_queryset(self):
-        return Entry.objects.all().order_by('-creation_date')  # minus-sign => descending order
-
-
 class CreateEntryView(PermissionRequiredMixin, CreateView):
     permission_required = 'recommendation.add_entry'
     redirect_field_name = 'recommend/entry_detail.html'

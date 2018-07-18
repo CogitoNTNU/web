@@ -55,6 +55,8 @@ class Entry(ConcurrentModel):
 
     class Meta:
         verbose_name_plural = 'Entries'
+        ordering = ('-creation_date', )
+
 
 
 class Tag(models.Model):
