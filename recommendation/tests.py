@@ -15,7 +15,7 @@ class EntryTest(TestCase):
         self.entry = Entry.objects.create(
             title='TITLE',
             grade='GRADE',
-            type='TYPE',
+            medium='TYPE',
             creator='CREATOR',
         )
         self.username = 'TEST_USER'
