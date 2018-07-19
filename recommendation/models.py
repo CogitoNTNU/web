@@ -22,9 +22,10 @@ class Entry(ConcurrentModel):
         blank=True,
         max_length=500,
     )
-    tags = models.CharField(
-        blank=True,
-        max_length=1000,
+    tags = models.ManyToManyField(
+        'recommendation.Tag',
+        related_name='entries',
+        blank=True
     )
     medium = models.CharField(
         max_length=150,
@@ -56,7 +57,6 @@ class Entry(ConcurrentModel):
     class Meta:
         verbose_name_plural = 'Entries'
         ordering = ('-creation_date', )
-
 
 
 class Tag(models.Model):

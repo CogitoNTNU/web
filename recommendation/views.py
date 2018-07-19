@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
 
-from .helpers import get_related_entries, get_entry_tags
+from .helpers import get_related_entries
 from .forms import EntryForm, TagForm
 from .models import Entry, Tag
 
@@ -44,4 +44,4 @@ def view_entry(request, pk):
     related_entries = get_related_entries(entry)[:4]
     return render(request,
                   'recommendation/entry_detail.html',
-                  context={'entry': entry, 'related': related_entries, 'tags': get_entry_tags(entry)})
+                  context={'entry': entry, 'related': related_entries, 'tags': entry.tags.all()})

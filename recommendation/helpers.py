@@ -1,22 +1,14 @@
 from .models import Entry
 
 
-def get_entry_tags(entry):
-    """
-    :param entry: Entry object
-    :return: The tags of that object as a list
-    """
-    return entry.tags[1:-1].replace("'", "").split(",")
-
-
 def get_related_entries(entry):
     """
     :param entry: Entry object
     :return: list of Entry objects sorted in descending order by the number of tags shared with param entry.
     """
     # Creates a dict with keys=Entry objects, values=no. same tags as param entry
-    tags = get_entry_tags(entry)
-    entry_tag_dict = {_entry: get_entry_tags(_entry) for _entry in Entry.objects.all()}
+    tags = entry.tags.all()
+    entry_tag_dict = {_entry: _entry.tags.all() for _entry in Entry.objects.all()}
     entry_tag_dict.pop(entry)  # removes param entry from list of entries to avoid matching with itself
     for key, value in entry_tag_dict.items():  # switches the values from lists of tags to # tags in common with param
         entry_tag_dict[key] = len(set(tags).intersection(set(value)))
@@ -34,4 +26,5 @@ def get_related_entries(entry):
             sorted_entry_list.insert(i, key)
 
     return sorted_entry_list
+
 

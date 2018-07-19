@@ -31,7 +31,7 @@
     <a class="card column" href="{% url "entry_detail" pk=rel_entry.pk %}">
         <div class="content">
             <div class="header">{{ rel_entry.title }}</div>
-            <div class="meta">{{ rel_entry.creator }}</div>
+            <div class="meta">{{ rel_entry.medium }} by {{ rel_entry.creator }}</div>
             <div class="description">{{ rel_entry.description|truncatechars:140|safe }}</div>
         </div>
     </a>
