@@ -17,6 +17,12 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     model = Project
     form_class = ProjectForm
 
+    def form_valid(self, form):
+        project = form.save(commit=False)
+        project.manager = self.request.user
+        project.save()
+        return HttpResponseRedirect(reverse('project', kwargs={'pk': obj.pk}))
+
 
 class EditProjectView(UserPassesTestMixin, UpdateView):
     model = Project
@@ -45,14 +51,6 @@ def administrate_project(request, pk):
         return HttpResponseRedirect("/")
 
     return render(request, 'user_profile/project_admin.html', {'project': project})
-
-
-def accept_applicant(request, pk, username):
-    return manage_applicant(request, pk, username, True)
-
-
-def reject_applicant(request, pk, username):
-    return manage_applicant(request, pk, username, False)
 
 
 def apply_to_project(request, pk):
@@ -122,4 +120,12 @@ def manage_applicant(request, pk, username, accept):
 
     else:
         return HttpResponse("Something went wrong")
+
+
+def accept_applicant(request, pk, username):
+    return manage_applicant(request, pk, username, True)
+
+
+def reject_applicant(request, pk, username):
+    return manage_applicant(request, pk, username, False)
 
