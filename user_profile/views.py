@@ -59,9 +59,9 @@ def apply_to_project(request, pk):
         project = get_object_or_404(Project, pk=pk)
 
         # if not rejected, already an applicant or already a member
-        if project.applicants.filter(user=user).exists() or \
-                project.rejected_applicants.filter(user=user).exists() or \
-                project.members(user=user).exists():
+        if project.applicants.filter(username=user.username).exists() or \
+                project.rejected_applicants.filter(username=user.username).exists() or \
+                project.members.filter(username=user.username).exists():
             return HttpResponse("You have already applied to this project")
         try:
             if project.application_end < datetime.date.today():
