@@ -12,7 +12,7 @@ urlpatterns = [
     path('projects/', ListView.as_view(model=Project), name='project_list'),
     path('project/<int:pk>/admin/', administrate_project, name='project_admin'),
 
-    path('project/(<int:pk>/accept/<username>/', accept_applicant, name='accept_applicant'),
+    path('project/<int:pk>/accept/<username>/', accept_applicant, name='accept_applicant'),
     path('project/<int:pk>/reject/<username>/', reject_applicant, name='reject_applicant'),
 
     path('project/<int:pk>/delete/', DeleteProjectView.as_view(), name='delete_project'),
