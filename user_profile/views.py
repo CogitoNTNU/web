@@ -21,7 +21,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
         project = form.save(commit=False)
         project.manager = self.request.user
         project.save()
-        return HttpResponseRedirect(reverse('project', kwargs={'pk': obj.pk}))
+        return HttpResponseRedirect(reverse('project', kwargs={'pk': project.pk}))
 
 
 class EditProjectView(UserPassesTestMixin, UpdateView):
