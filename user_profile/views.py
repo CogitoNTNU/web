@@ -17,9 +17,11 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     model = Project
     form_class = ProjectForm
 
+    # ensures that the user who created the project is set as its manager, also adds them to the members field
     def form_valid(self, form):
         project = form.save(commit=False)
         project.manager = self.request.user
+        project.members.add(self.request.user)
         project.save()
         return HttpResponseRedirect(reverse('project', kwargs={'pk': project.pk}))
 
