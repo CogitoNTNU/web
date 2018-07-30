@@ -11,12 +11,6 @@ from groups.models import Committee
 
 class Profile(models.Model):
 
-    projects = models.ManyToManyField(
-        'user_profile.Project',
-        related_name='users',
-        default=None,
-        blank=True,
-    )
     skills = models.ManyToManyField(
         'user_profile.Skill',
         related_name='users',
