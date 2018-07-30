@@ -24,22 +24,22 @@
     {% endif %}
 
     <h3>Projects</h3>
-    {% if profile.projects.all %}
-        <p> {% for project in profile.projects.all %}
-            <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>,
-        {% endfor %} </p>
-    {% else %}
-        <p><em>No projects listed</em></p>
-    {% endif %}
+    <p>
+    {% for project in profile.user.project_memberships.all %}
+        <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>,
+    {% empty %}
+        <em>No projects listed</em>
+    {% endfor %}
+    </p>
 
     <h3>Skills</h3>
-    {% if profile.skills.all %}
-        <p>{% for skill in profile.skills.all %}
-            <a href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>,
-        {% endfor %}</p>
-    {% else %}
-        <p><em>No skills listed</em></p>
-    {% endif %}
+    <p>
+    {% for skill in profile.skills.all %}
+        <a href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>,
+    {% empty %}
+        <em>No skills listed</em>
+    {% endfor %}
+    </p>
     {% if edit %}
         <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
     {% endif %}
