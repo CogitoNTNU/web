@@ -21,7 +21,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     def form_valid(self, form):
         project = form.save(commit=False)
         project.manager = self.request.user
-        project.members.add(self.request.user)
+        # project.members.add(self.request.user)
         project.save()
         return HttpResponseRedirect(reverse('project', kwargs={'pk': project.pk}))
 
