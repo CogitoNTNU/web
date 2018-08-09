@@ -82,6 +82,12 @@ class Project(models.Model):
     finished = models.BooleanField(
         default=False,
     )
+    form_link = models.CharField(
+        unique=True,
+        null=True,  # Must have null=True else unique=True will throw errors at blank entries
+        blank=True,
+        max_length=750,
+    )
 
     def __str__(self):
         return self.title

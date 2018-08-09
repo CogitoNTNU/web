@@ -40,7 +40,18 @@
         <em>No skills listed</em>
     {% endfor %}
     </p>
+
+
     {% if edit %}
+        <h4>My project applications:</h4>
+            {% for project in profile.user.project_applications.all %}
+                <li>
+                    <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>
+                    {% if project.form_link %}
+                        --- <a href={{ project.form_link }}>form</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
         <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
     {% endif %}
 

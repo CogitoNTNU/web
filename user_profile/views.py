@@ -73,9 +73,11 @@ def apply_to_project(request, pk):
 
         project.applicants.add(user)
         project.save()
+        if project.form_link:
+            return HttpResponseRedirect(project.form_link)
+
         messages.success(request, 'You have successfully applied to ' + str(project))
         return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))
-
     return HttpResponseRedirect('/')
 
 
