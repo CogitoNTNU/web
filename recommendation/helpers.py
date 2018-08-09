@@ -10,11 +10,11 @@ def get_related_entries(entry):
     tags = entry.tags.all()
     entry_tag_dict = {_entry: _entry.tags.all() for _entry in Entry.objects.all()}
     entry_tag_dict.pop(entry)  # removes param entry from list of entries to avoid matching with itself
-    for key, value in entry_tag_dict.items():  # switches the values from lists of tags to # tags in common with param
+    for key, value in entry_tag_dict.items():
         entry_tag_dict[key] = len(set(tags).intersection(set(value)))
 
     # creates the list mentioned as :return
-    sorted_entry_list = []  # The starting list must contain at least one item
+    sorted_entry_list = []
     for key, value in entry_tag_dict.items():
         i = 0
         try:
