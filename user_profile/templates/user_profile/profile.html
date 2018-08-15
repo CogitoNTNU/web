@@ -11,51 +11,60 @@
 
     <h1>
         {{ profile.user }}
-        <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
     </h1>
 
-    {% if profile.picture %}
-        <img class="small bordered rounded ui image" src="../media/{{ profile.picture.name }}">
-    {% else %}
-        <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
-    {% endif %}
+    <div class="ui two column grid">
+        <div class="column">
 
-    {% if profile.committee %}
-        <h4>{{ profile.committee }}</h4>
-    {% else %}
-        <h4><em>Non-member</em></h4>
-    {% endif %}
+            {% if profile.picture %}
+                <img class="small bordered rounded ui image" src="../media/{{ profile.picture.name }}">
+            {% else %}
+                <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
+            {% endif %}
 
-    <h3>Projects</h3>
-    <p>
-    {% for project in profile.user.project_memberships.all %}
-        <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>,
-    {% empty %}
-        <em>No projects listed</em>
-    {% endfor %}
-    </p>
+            {% if profile.committee %}
+                <h4>{{ profile.committee }}</h4>
+            {% else %}
+                <h4><em>Non-member</em></h4>
+            {% endif %}
+        </div>
 
-    <h3>Skills</h3>
-    <p>
-    {% for skill in profile.skills.all %}
-        <a href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>,
-    {% empty %}
-        <em>No skills listed</em>
-    {% endfor %}
-    </p>
-
-
-    {% if edit %}
-        <h4>My project applications:</h4>
-            {% for project in profile.user.project_applications.all %}
-                <li>
-                    <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>
-                    {% if project.form_link %}
-                        --- <a href={{ project.form_link }}>form</a>
-                    {% endif %}
-                </li>
+        <div class="column">
+            <h3>Projects</h3>
+            <p>
+            {% for project in profile.user.project_memberships.all %}
+                <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>,
+            {% empty %}
+                <em>No projects listed</em>
             {% endfor %}
-    {% endif %}
+            </p>
+
+            <h3>Skills</h3>
+            <p>
+            {% for skill in profile.skills.all %}
+                <a href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>,
+            {% empty %}
+                <em>No skills listed</em>
+            {% endfor %}
+            </p>
+
+
+            {% if edit %}
+                <h4>My project applications:</h4>
+                    {% for project in profile.user.project_applications.all %}
+                        <li>
+                            <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>
+                            {% if project.form_link %}
+                                --- <a href={{ project.form_link }}>form</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+            {% endif %}
+
+            <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
+        </div>
+
+    </div>
 
 
     <div class="ui modal">
