@@ -9,7 +9,10 @@
 
 <div class="ui text container">
 
-    <h1>{{ profile.user }}</h1>
+    <h1>
+        {{ profile.user }}
+        <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
+    </h1>
 
     {% if profile.picture %}
         <img class="small bordered rounded ui image" src="../media/{{ profile.picture.name }}">
@@ -52,7 +55,6 @@
                     {% endif %}
                 </li>
             {% endfor %}
-        <button type="button" onclick="show_modal()" class="ui blue button">Edit</button>
     {% endif %}
 
 
