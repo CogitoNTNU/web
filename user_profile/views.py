@@ -91,7 +91,7 @@ def profile(request, username):
     form = ProfileForm()
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
-        if form.is_valid():
+        if form.is_valid() and request.user == user:
             # removing the connection one way does not remove it the other way...?
             user.profile.skills.clear()
             for skill in Skill.objects.all():
