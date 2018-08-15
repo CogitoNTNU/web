@@ -13,7 +13,7 @@
         {{ profile.user }}
     </h1>
 
-    <div class="ui two column grid">
+    <div class="ui stackable equal width grid">
         <div class="column">
 
             {% if profile.picture %}
@@ -27,9 +27,14 @@
             {% else %}
                 <h4><em>Non-member</em></h4>
             {% endif %}
+
+            {% if edit %}
+                <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
+            {% endif %}
         </div>
 
         <div class="column">
+
             <h3>Projects</h3>
             <p>
             {% for project in profile.user.project_memberships.all %}
@@ -51,19 +56,20 @@
 
             {% if edit %}
                 <h4>My project applications:</h4>
+                <ul>
                     {% for project in profile.user.project_applications.all %}
                         <li>
                             <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>
                             {% if project.form_link %}
-                                --- <a href={{ project.form_link }}>form</a>
+                                <ul>
+                                <li><a href={{ project.form_link }}>project form</a></li>
+                                </ul>
                             {% endif %}
                         </li>
                     {% endfor %}
+                </ul>
             {% endif %}
-
-            <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
         </div>
-
     </div>
 
 
