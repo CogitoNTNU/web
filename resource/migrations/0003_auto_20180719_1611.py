@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('recommendation', '0002_auto_20180718_1227'),
+        ('resource', '0002_auto_20180718_1227'),
     ]
 
     operations = [
@@ -21,6 +21,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='entry',
             name='tags',
-            field=models.ManyToManyField(blank=True, related_name='entries', to='recommendation.Tag'),
+            field=models.ManyToManyField(blank=True, related_name='entries', to='resource.Tag'),
         ),
     ]

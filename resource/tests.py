@@ -2,17 +2,17 @@ from django.contrib.auth.models import Permission, User
 from django.test import TestCase
 from django.urls import reverse
 
-from .models import Entry, Tag
+from .models import Resource, Tag
 
 
-class EntryTest(TestCase):
+class ResourceTest(TestCase):
     def add_permission(self, codename, user=None):
         user = self.user if not user else user
         permission = Permission.objects.get(codename=codename)
         user.user_permissions.add(permission)
 
     def setUp(self):
-        self.entry = Entry.objects.create(
+        self.resource = Resource.objects.create(
             title='TITLE',
             grade='GRADE',
             medium='TYPE',
@@ -24,31 +24,31 @@ class EntryTest(TestCase):
         self.client.login(username=self.username, password=self.password)
 
     def test_str(self):
-        self.assertEqual(str(self.entry), self.entry.title)
+        self.assertEqual(str(self.resource), self.resource.title)
 
     def test_view(self):
-        response = self.client.get(reverse('entry_detail', args=(self.entry.pk,)))
+        response = self.client.get(reverse('resource_detail', args=(self.resource.pk,)))
         self.assertEqual(response.status_code, 200)
 
     def test_add(self):
-        response = self.client.get(reverse('entry_form'))
+        response = self.client.get(reverse('resource_form'))
         self.assertNotEqual(response.status_code, 200)
-        self.add_permission('add_entry')
-        response = self.client.get(reverse('entry_form'))
+        self.add_permission('add_resource')
+        response = self.client.get(reverse('resource_form'))
         self.assertEqual(response.status_code, 200)
 
     def test_update(self):
-        response = self.client.get(reverse('edit_entry', args=(self.entry.pk,)))
+        response = self.client.get(reverse('edit_resource', args=(self.resource.pk,)))
         self.assertNotEqual(response.status_code, 200)
-        self.add_permission('change_entry')
-        response = self.client.get(reverse('edit_entry', args=(self.entry.pk,)))
+        self.add_permission('change_resource')
+        response = self.client.get(reverse('edit_resource', args=(self.resource.pk,)))
         self.assertEqual(response.status_code, 200)
 
     def test_delete(self):
-        response = self.client.get(reverse('delete_entry', args=(self.entry.pk,)))
+        response = self.client.get(reverse('delete_resource', args=(self.resource.pk,)))
         self.assertNotEqual(response.status_code, 200)
-        self.add_permission('delete_entry')
-        response = self.client.get(reverse('delete_entry', args=(self.entry.pk,)))
+        self.add_permission('delete_resource')
+        response = self.client.get(reverse('delete_resource', args=(self.resource.pk,)))
         self.assertEqual(response.status_code, 200)
 
 

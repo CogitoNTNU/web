@@ -18,7 +18,7 @@ urlpatterns = [
     path('contentbox/', include('contentbox.urls')),
     path('committees/', CommitteeList.as_view(), name='committees'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
-    path('recommend/', include('recommendation.urls')),
+    path('resource/', include('resource.urls')),
     path('profiles/', include('user_profile.urls')),
     ContentBox.url('about'),
 ]

@@ -1,13 +1,13 @@
 from django import forms
 from django.db import OperationalError
 
-from .models import Entry, Tag
+from .models import Resource, Tag
 
 
-class EntryForm(forms.ModelForm):
+class ResourceForm(forms.ModelForm):
 
     class Meta:
-        model = Entry
+        model = Resource
         fields = ['title', 'creator', 'link', 'description', 'grade', 'medium', 'tags', ]
 
         # Not sure if the try/except-clause is necessary, but better safe than sorry
