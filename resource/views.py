@@ -41,7 +41,7 @@ class CreateTagView(PermissionRequiredMixin, CreateView):
 
 def view_resource(request, pk):
     resource = get_object_or_404(Resource, pk=pk)
-    related_entries = get_related_resources(resource)[:4]
+    related_resources = get_related_resources(resource)[:4]
     return render(request,
-                  'recommendation/resource_detail.html',
-                  context={'resource': resource, 'related': related_entries, 'tags': resource.tags.all()})
+                  'resource/resource_detail.html',
+                  context={'resource': resource, 'related': related_resources, 'tags': resource.tags.all()})

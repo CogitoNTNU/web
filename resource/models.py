@@ -18,13 +18,13 @@ class Resource(ConcurrentModel):
     )
     link = models.CharField(
         unique=True,
-        null=True,  # Must have null=True else unique=True will throw errors at blank entries
+        null=True,  # Must have null=True else unique=True will throw errors at blank links
         blank=True,
         max_length=500,
     )
     tags = models.ManyToManyField(
         'resource.Tag',
-        related_name='entries',
+        related_name='resources',
         blank=True
     )
     medium = models.CharField(
