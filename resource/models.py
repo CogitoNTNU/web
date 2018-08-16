@@ -7,7 +7,7 @@ from django.conf import settings
 from concurrency.models import ConcurrentModel
 
 
-class Entry(ConcurrentModel):
+class Resource(ConcurrentModel):
     title = models.CharField(
         blank=False,
         max_length=140,
@@ -23,7 +23,7 @@ class Entry(ConcurrentModel):
         max_length=500,
     )
     tags = models.ManyToManyField(
-        'recommendation.Tag',
+        'resource.Tag',
         related_name='entries',
         blank=True
     )
@@ -52,10 +52,9 @@ class Entry(ConcurrentModel):
         return self.title
 
     def get_absolute_url(self):
-        return reverse("entry_detail", kwargs={'pk': self.pk})
+        return reverse("resource_detail", kwargs={'pk': self.pk})
 
     class Meta:
-        verbose_name_plural = 'Entries'
         ordering = ('-creation_date', )
 
 

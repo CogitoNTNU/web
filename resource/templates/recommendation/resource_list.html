@@ -1,0 +1,24 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+
+<div class="ui text container">
+
+<h1>Resources</h1>
+{% if perms.recommendation.create_resource %}
+    <a class="mini ui blue button"  href="{% url "resource_form"%}">New</a>
+{% endif %}
+
+{% for resource in resource_list %}
+    <h2><a class="cogito_col_dkgray" href="{% url 'resource_detail' pk=resource.pk %}">{{ resource.title }}</a></h2>
+    <p><strong>{{ resource.medium }} by {{ resource.creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
+    {% if resource.description %}
+        <p>{{ resource.description|safe|linebreaks }}</p>
+    {% else %}
+        <p><em>No description available</em></p>
+    {% endif %}
+{% endfor %}
+</div>
+
+{% endblock %}

@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     'web',
     'concurrency',
     'news',
-    'recommendation',
+    'resource',
     'user_profile',
 
     'ckeditor',
