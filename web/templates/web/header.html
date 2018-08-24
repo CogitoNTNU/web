@@ -16,14 +16,23 @@
             <a class="item" href="{% url 'resource_list' %}">
                 Resources
             </a>
+            <a class="item" href="{% url 'project_list' %}">
+                Projects
+            </a>
             <a class="item" href="{% url 'about' %}">
                 About
             </a>
             {% if user.is_authenticated %}
                 <div class="ui dropdown item">
-                    <div class="text">{{ user.first_name }}</div>
+                    <div class="text">
+                        {% if user.first_name %}{{ user.first_name }}
+                        {% else %}{{ user.username }}{% endif %}
+                    </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
+                        <a class="item" href="{% url 'profile' username=user.username %}">
+                            Profile
+                        </a>
                         <a class="item" href="{% url 'logout' %}">
                             Logout
                         </a>
