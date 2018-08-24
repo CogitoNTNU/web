@@ -23,7 +23,7 @@ class ProfileForm(forms.ModelForm):
             picture = self.cleaned_data.get('picture', False)
             if picture:
                 if picture.__size > 4 * 1024 * 1024:
-                    raise ValidationError( "Image file too large ( > 4mb )")
+                    raise ValidationError("Image file too large ( > 4mb )")
                 return picture
             else:
                 raise ValidationError("Couldn't read uploaded image")

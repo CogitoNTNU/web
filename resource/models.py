@@ -62,7 +62,7 @@ class Tag(models.Model):
     name = models.CharField(
         blank=False,
         unique=True,
-        max_length=100,
+        max_length=50,
     )
 
     def __str__(self):

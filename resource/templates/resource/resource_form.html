@@ -11,10 +11,13 @@
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
+
+        {% if perms.resource.create_tag %}
         <div class="ui icon button" data-tooltip="Not finding the tag(s) you're looing for?
         Click here to add your own!" data-position="bottom center" id="helper">
-            <a href="{% url "tag_form" %}"><i class="question icon"></i></a>
+            <a href="{% url "tag_form" %}"><i class="exclamation icon"></i></a>
         </div>
+        {% endif %}
 
         <script>
             $('.ui.dropdown')

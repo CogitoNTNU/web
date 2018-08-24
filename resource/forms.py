@@ -43,5 +43,7 @@ class TagForm(forms.ModelForm):
     def clean(self):
         name = str(self.cleaned_data['name']).upper()
         other_tags = [str(t).upper() for t in Tag.objects.all()]
+        if not name.isalnum():
+            raise forms.ValidationError("Tags can only contain alphanumerical characters")
         if name in other_tags:
             raise forms.ValidationError("This tag already exists")

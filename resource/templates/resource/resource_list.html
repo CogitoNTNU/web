@@ -6,7 +6,7 @@
 <div class="ui text container">
 
 <h1>Resources</h1>
-{% if perms.recommendation.create_resource %}
+{% if perms.resource.create_resource %}
     <a class="mini ui blue button"  href="{% url "resource_form"%}">New</a>
 {% endif %}
 

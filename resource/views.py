@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView
+from django.contrib import messages
 
 from .helpers import get_related_resources
 from .forms import ResourceForm, TagForm
@@ -33,7 +34,8 @@ class CreateTagView(PermissionRequiredMixin, CreateView):
     redirect_field_name = 'recommend/resource_list.html'
     form_class = TagForm
     model = Tag
-    success_url = '/recommend/tag/add/'
+    success_url = '/resources/tag/add/'
+    success_message = 'Tag added to database!'
 
 
 ###########################################################
