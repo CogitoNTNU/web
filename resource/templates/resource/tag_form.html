@@ -8,6 +8,15 @@
 <div class="ui text container">
     <form class="ui form" method="POST">
         <h1>New {{ view.model|get_class|lower }}</h1>
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="ui primary button">Add tag</button>
