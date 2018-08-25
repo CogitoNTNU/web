@@ -33,9 +33,11 @@ class ProjectForm(forms.ModelForm):
 
     class Meta:
         model = Project
-        fields = ('title', 'description', 'application_end', 'form_link')
+        fields = ('title', 'description', 'form_link', 'application_end')
 
         widgets = {
-            'application_end': forms.DateInput(attrs={'medium': 'date'}),
+            'application_end': forms.DateInput(attrs={'medium': 'date',
+                                                      'class': 'ui input left icon',
+                                                      'id': 'application_end'}),
             'form_link': forms.URLInput(),
         }
