@@ -6,10 +6,14 @@ from .models import Profile, Skill, Project
 
 
 class ProfileForm(forms.ModelForm):
+    # Because of potential problems with user uploaded images (uploading of explicit content)
+    # I've disabled user uploaded profile pictures for the time being. Also cant get it to work on
+    # the production server
 
     class Meta:
         model = Profile
-        fields = ('picture', 'skills', )
+        # fields = ('picture', 'skills', )
+        fields = 'skills'
 
         try:
             widgets = {  # The first object in the tuple is the external representation, the second the internal
@@ -19,6 +23,7 @@ class ProfileForm(forms.ModelForm):
         except OperationalError:
             pass
 
+        """
         def clean(self):
             picture = self.cleaned_data.get('picture', False)
             if picture:
@@ -27,6 +32,7 @@ class ProfileForm(forms.ModelForm):
                 return picture
             else:
                 raise ValidationError("Couldn't read uploaded image")
+        """
 
 
 class ProjectForm(forms.ModelForm):
