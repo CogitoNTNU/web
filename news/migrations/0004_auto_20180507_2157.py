@@ -22,7 +22,7 @@ class Migration(migrations.Migration):
                 ('end_time', models.TimeField(blank=True, null=True)),
                 ('location', models.CharField(blank=True, max_length=100, null=True)),
                 ('location_url', models.URLField(blank=True, null=True)),
-                ('hoopla_url', models.URLField(blank=True, null=True)),
+                ('signup_url', models.URLField(blank=True, null=True)),
                 ('facebook_url', models.URLField(blank=True, null=True)),
             ],
             options={

@@ -59,7 +59,7 @@ class EventCreate(PermissionRequiredMixin, CreateView):
     model = Event
     template_name = 'news/article_create.html'
     fields = ('title', 'ingress', 'content', 'start_date', 'start_time', 'end_date', 'end_time', 'location',
-              'location_url', 'hoopla_url', 'facebook_url')
+              'location_url', 'signup_url', 'facebook_url')
     success_url = reverse_lazy('events')
     permission_required = (
         'news.add_event'
@@ -70,7 +70,7 @@ class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     model = Event
     template_name = 'news/article_update.html'
     fields = ('title', 'ingress', 'content', 'start_date', 'start_time', 'end_date', 'end_time', 'location',
-              'location_url', 'hoopla_url', 'facebook_url')
+              'location_url', 'signup_url', 'facebook_url')
     success_url = reverse_lazy('events')
     permission_required = (
         'news.change_event'

@@ -48,7 +48,7 @@ class Event(Article):
         blank=True,
         null=True,
     )
-    hoopla_url = models.URLField(
+    signup_url = models.URLField(
         max_length=200,
         blank=True,
         null=True,
