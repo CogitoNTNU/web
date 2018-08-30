@@ -1,5 +1,4 @@
 from django import forms
-from django.core.exceptions import ValidationError
 from django.db import OperationalError
 
 from .models import Profile, Skill, Project
@@ -28,10 +27,10 @@ class ProfileForm(forms.ModelForm):
             picture = self.cleaned_data.get('picture', False)
             if picture:
                 if picture.__size > 4 * 1024 * 1024:
-                    raise ValidationError("Image file too large ( > 4mb )")
+                    raise forms.ValidationError("Image file too large ( > 4mb )")
                 return picture
             else:
-                raise ValidationError("Couldn't read uploaded image")
+                raise forms.ValidationError("Couldn't read uploaded image")
         """
 
 

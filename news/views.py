@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
 
 from concurrency.views import ConcurrentUpdate
+from news.forms import EventForm
 from news.models import Article, Event
 
 
@@ -58,8 +59,7 @@ class EventList(ListView):
 class EventCreate(PermissionRequiredMixin, CreateView):
     model = Event
     template_name = 'news/article_create.html'
-    fields = ('title', 'ingress', 'content', 'start_date', 'start_time', 'end_date', 'end_time', 'location',
-              'location_url', 'signup_url', 'facebook_url')
+    form_class = EventForm
     success_url = reverse_lazy('events')
     permission_required = (
         'news.add_event'

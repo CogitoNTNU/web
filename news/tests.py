@@ -1,8 +1,12 @@
+import datetime
+
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase, Client
 from django.urls import reverse
+from django import forms
 
-from news.models import Article
+from news.forms import EventForm
+from news.models import Article, Event
 
 
 class ArticleTest(TestCase):
@@ -112,3 +116,75 @@ class ConcurrencyTest(TestCase):
     def test_invalid_form(self):
         response = self.client.post(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
+
+
+class EventTest(TestCase):
+    # The error messages must mirror the ones in EventForm.clean()
+
+    def test_form_clean_method_date(self):
+        # Set event to end the day before it begins
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() - datetime.timedelta(days=1),
+            }
+        )
+        # import pdb; pdb.set_trace()
+        self.assertEquals(
+            ['start_date must occur before or at the same time as end_date'],
+            form.errors['__all__']
+        )
+
+    def test_form_clean_method_date_fine(self):
+        # Set event to end the day before it begins
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+            }
+        )
+        self.assertEqual(None, form.errors.get('__all__'), None)
+
+    def test_form_clean_method_time_1(self):
+        # Set time with no dates chosen
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_time': '12:00',
+                'end_time': '13:00',
+            }
+        )
+        self.assertEquals(
+            ["time fields require date fields to be filled"],
+            form.errors['__all__']
+        )
+
+    def test_form_clean_method_time_2(self):
+        # Set event to end an hour before it begins
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today(),
+                'start_time': '12:00',
+                'end_time': '11:00',
+            }
+        )
+        self.assertEquals(
+            ["start_time must occur before end_time when start_date==end_date"],
+            form.errors['__all__']
+        )
+
+    def test_clean_method_fine(self):
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'start_time': '12:00',
+                'end_time': '13:00',
+            }
+        )
+        self.assertEqual(None, form.errors.get('__all__', None))
