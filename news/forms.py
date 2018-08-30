@@ -31,5 +31,3 @@ class EventForm(forms.ModelForm):
 
         if start_date == end_date and start_time > end_time:
             raise forms.ValidationError("start_time must occur before end_time when start_date==end_date")
-
-
