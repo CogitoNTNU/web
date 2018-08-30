@@ -44,6 +44,7 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'application_end': forms.DateInput(attrs={'medium': 'date',
                                                       'class': 'ui input left icon',
-                                                      'id': 'application_end'}),
+                                                      'id': 'application_end',
+                                                      'type': 'date'}),
             'form_link': forms.URLInput(),
         }
