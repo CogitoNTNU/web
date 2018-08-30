@@ -6,6 +6,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from concurrency.models import ConcurrentModel
 
 
+# Note: Article, except for being the super of Event, no longer does anything. It's just a pain to remove
 class Article(ConcurrentModel):
     title = models.CharField(
         max_length=100
