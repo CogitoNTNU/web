@@ -58,8 +58,7 @@ class Event(Article):
         blank=True,
         null=True,
     )
-    published = models.BooleanField(
-    )
+    published = models.BooleanField()
 
     class Meta:
         ordering = (
