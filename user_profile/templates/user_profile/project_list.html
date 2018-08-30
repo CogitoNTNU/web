@@ -1,0 +1,26 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+
+<div class="ui text container">
+
+    <h1>Projects</h1>
+    {% if perms.recommendation.create_project %}
+        <a class="mini ui blue button"  href="{% url "project_form" %}">New</a>
+    {% endif %}
+
+    {% for project in project_list %}
+        <div class="project-listing">
+            <h2><a href="{% url 'project' pk=project.pk %}">{{ project.title }}</a></h2>
+            {% if project.description %}
+                <p>{{ project.description|safe|linebreaks }}</p>
+            {% else %}
+                <p><em>No description available</em></p>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

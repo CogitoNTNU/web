@@ -12,13 +12,15 @@ STATIC_URL = '/static/'
 SOCIAL_AUTH_DATAPORTEN_KEY = ''
 SOCIAL_AUTH_DATAPORTEN_SECRET = ''
 
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+
 try:
     from .local_settings import *
 except ImportError:
     pass
-
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Application definition
 
@@ -29,15 +31,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'web',
     'concurrency',
     'news',
+    'resource',
+    'user_profile',
+
     'ckeditor',
     'contentbox',
     'dataporten',
     'groups',
     'social_django',
-    'ckeditor_uploader',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
@@ -131,7 +137,7 @@ CKEDITOR_CONFIGS = {
             ['Blockquote', 'CodeSnippet'],
             ['Outdent', 'Indent'],
             ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink', 'Image'],
+            ['Link', 'Unlink', 'Image', 'File'],
             ['RemoveFormat', 'Source', 'Maximize'],
             ['Format', 'Font', 'FontSize'],
         ],
@@ -139,6 +145,7 @@ CKEDITOR_CONFIGS = {
             [
                 'codesnippet',
                 'uploadimage',
+                'uploadwidget',
             ]),
     }
 }

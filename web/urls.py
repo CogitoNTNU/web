@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include, re_path
+from django.urls import path, include
 from django.views.generic import RedirectView
 
 from contentbox.models import ContentBox
@@ -18,5 +18,7 @@ urlpatterns = [
     path('contentbox/', include('contentbox.urls')),
     path('committees/', CommitteeList.as_view(), name='committees'),
     path('ckeditor/', include('ckeditor_uploader.urls')),
+    path('resources/', include('resource.urls')),
+    path('profiles/', include('user_profile.urls')),
     ContentBox.url('about'),
 ]
