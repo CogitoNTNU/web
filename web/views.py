@@ -5,5 +5,5 @@ from news.models import Event
 
 
 class Home(ListView):
-    queryset = Event.objects.filter(start_date__gte=timezone.now())
+    queryset = Event.objects.filter(start_date__gte=timezone.now(), published=True)
     template_name = 'web/index.html'

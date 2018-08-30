@@ -1,7 +1,7 @@
 from django.urls import path
 
 from news.views import ArticleUpdate, ArticleView, ArticleCreate, ArticleList, ArticleDelete, EventList, EventCreate, \
-    EventDelete, EventUpdate, EventView
+    EventDelete, EventUpdate, EventView, DraftList
 
 urlpatterns = [
     path('article/<int:pk>/', ArticleView.as_view(), name='article'),
@@ -14,4 +14,5 @@ urlpatterns = [
     path('event/new/', EventCreate.as_view(), name='event-create'),
     path('event/<int:pk>/update/', EventUpdate.as_view(), name='event-update'),
     path('event/<int:pk>/delete/', EventDelete.as_view(), name='event-delete'),
+    path('events/drafts/', DraftList.as_view(), name='drafts')
 ]

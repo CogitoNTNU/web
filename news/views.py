@@ -52,8 +52,13 @@ class EventView(DetailView):
 
 
 class EventList(ListView):
-    model = Event
+    queryset = Event.objects.filter(published=True)
     template_name = 'news/events.html'
+
+
+class DraftList(ListView):
+    queryset = Event.objects.filter(published=False)
+    template_name = 'news/drafts.html'
 
 
 class EventCreate(PermissionRequiredMixin, CreateView):
