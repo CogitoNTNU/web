@@ -99,9 +99,11 @@ def profile(request, username):
             for skill in form.cleaned_data['skills']:
                 user.profile.skills.add(skill)
                 skill.members.add(user.profile)
+            """
             user.profile.picture.delete()
             user.profile.picture = form.cleaned_data['picture']
             user.profile.save()
+            """
             return HttpResponseRedirect(reverse('profile', kwargs={'username': username}))
 
     return render(
