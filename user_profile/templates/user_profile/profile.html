@@ -47,7 +47,7 @@
             <h3>Skills</h3>
             <p>
             {% for skill in profile.skills.all %}
-                <a href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>,
+                <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
             {% empty %}
                 <em>No skills listed</em>
             {% endfor %}
