@@ -21,4 +21,6 @@ urlpatterns = [
     path('resources/', include('resource.urls')),
     path('profiles/', include('user_profile.urls')),
     ContentBox.url('about'),
+    ContentBox.url('about/vedtekter'),
+    ContentBox.url('about/business'),
 ]
