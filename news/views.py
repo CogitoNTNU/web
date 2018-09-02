@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
 
+from django import forms
 from concurrency.views import ConcurrentUpdate
 from news.forms import EventForm
 from news.models import Article, Event
@@ -71,10 +72,11 @@ class EventCreate(PermissionRequiredMixin, CreateView):
     )
 
 
+# Because of the implementation of ConcurrentUpdate, fields cannot be substituted with form
 class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     model = Event
     template_name = 'news/article_update.html'
-    form_class = EventForm
+    form = EventForm
     success_url = reverse_lazy('events')
     permission_required = (
         'news.change_event'
