@@ -19,9 +19,21 @@
             <a class="item" href="{% url 'project_list' %}">
                 Projects
             </a>
-            <a class="item" href="{% url 'about' %}">
-                About
-            </a>
+                <div class="ui dropdown item">
+                    <div class="text">About</div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="{% url 'about' %}">
+                            About
+                        </a>
+                        <a class="item" href="{% url 'about/vedtekter' %}">
+                            Status
+                        </a>
+                        <a class="item" href="{% url 'about/business' %}">
+                            Enterprise
+                        </a>
+                    </div>
+                </div>
             {% if user.is_authenticated %}
                 <div class="ui dropdown item">
                     <div class="text">
