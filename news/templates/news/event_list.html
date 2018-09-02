@@ -17,7 +17,7 @@
                     {% endif %}
                 </p>
                 <div class="description">
-                    <p>{{ event.ingress|default:""|truncatechars:200 }}</p>
+                    <p>{{ event.ingress|default:""|truncatechars:280 }}</p>
                 </div>
                 <div class="extra">
                     <span>{{ event.start_date|date:"d M Y" }}, {{ event.start_time }}
