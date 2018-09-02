@@ -74,8 +74,7 @@ class EventCreate(PermissionRequiredMixin, CreateView):
 class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     model = Event
     template_name = 'news/article_update.html'
-    fields = ('title', 'ingress', 'content', 'start_date', 'start_time', 'end_date', 'end_time', 'location',
-              'location_url', 'signup_url', 'facebook_url')
+    form_class = EventForm
     success_url = reverse_lazy('events')
     permission_required = (
         'news.change_event'
