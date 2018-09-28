@@ -22,11 +22,13 @@
                 <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
             {% endif %}
 
-            {% if profile.user.committee.all %}
-                <h4>{{ profile.user.committee.all }}</h4>
-            {% else %}
-                <h4><em>Non-member</em></h4>
-            {% endif %}
+                <h4>
+                    {% for group in profile.user.groups.all %}
+                        {{ group }}
+                    {% empty %}
+                        <em>Non-member</em>
+                    {% endfor %}
+                </h4>
 
             {% if edit %}
                 <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
