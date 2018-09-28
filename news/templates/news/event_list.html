@@ -20,7 +20,7 @@
                     <p>{{ event.ingress|default:""|truncatechars:280 }}</p>
                 </div>
                 <div class="extra">
-                    <span>{{ event.start_date|date:"d M Y" }}, {{ event.start_time }}
+                    <span>{{ event.start_date|date:"d M Y" }} {{ event.start_time }}
                     {% if event.start_time %} - {{ event.start_time }} {% endif %}</span>
                     {% if event.location %}
                         <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>

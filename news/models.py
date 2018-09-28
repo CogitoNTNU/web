@@ -20,7 +20,7 @@ class Article(ConcurrentModel):
         blank=True,
         null=True,
     )
-    published = models.BooleanField()
+    published = models.BooleanField(default=False)
     datetime_published = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
