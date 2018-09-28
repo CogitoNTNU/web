@@ -83,6 +83,7 @@ class Project(models.Model):
         default=False,
     )
     form_link = models.CharField(
+        null=True,
         blank=True,
         max_length=750,
     )
