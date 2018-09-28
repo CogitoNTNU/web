@@ -21,15 +21,13 @@
             {% else %}
                 <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
             {% endif %}
-
-                <h4>
-                    {% for group in profile.user.groups.all %}
-                        {{ group }}
-                    {% empty %}
-                        <em>Non-member</em>
-                    {% endfor %}
-                </h4>
-
+            <h4>
+                {% for group in profile.user.groups.all %}
+                    {{ group }}
+                {% empty %}
+                    <em>Non-member</em>
+                {% endfor %}
+            </h4>
             {% if edit %}
                 <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
             {% endif %}
