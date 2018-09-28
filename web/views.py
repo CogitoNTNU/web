@@ -7,8 +7,8 @@ from news.models import Event, Article
 
 
 class Home(ListView):
-    queryset_event = Event.objects.filter(start_date__gte=timezone.now(), published=True)
-    queryset_article = Article.objects.filter().exclude(id__in=Event.objects.all())
-    queryset = list(chain(queryset_event, queryset_article))
+    # queryset_event = Event.objects.filter(start_date__gte=timezone.now(), published=True)
+    # queryset_article = Article.objects.filter().exclude(id__in=Event.objects.all())
+    queryset = Article.objects.filter(published=True).exclude(id__in=Event.objects.filter(start_date__gte=timezone.now()))
 
     template_name = 'web/index.html'
