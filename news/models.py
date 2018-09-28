@@ -2,6 +2,7 @@ from datetime import date, time
 
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils import timezone
 
 from concurrency.models import ConcurrentModel
 
@@ -19,6 +20,8 @@ class Article(ConcurrentModel):
         blank=True,
         null=True,
     )
+    published = models.BooleanField()
+    datetime_published = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.title
@@ -59,7 +62,6 @@ class Event(Article):
         blank=True,
         null=True,
     )
-    published = models.BooleanField()
 
     class Meta:
         ordering = (
