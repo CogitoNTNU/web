@@ -3,6 +3,7 @@ from django.db import OperationalError
 
 from .models import Resource, Tag
 
+
 class ResourceForm(forms.ModelForm):
 
     class Meta:

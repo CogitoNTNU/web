@@ -17,10 +17,10 @@
         <p><em>Tagged as: {% for tag in tags %} {{tag}},  {% endfor %}</em></p>
     {% endif %}
 
-    {% if perms.recommendation.change_resource %}
+    {% if perms.resource.change_resource %}
         <a class="mini ui blue button"  href="{% url "edit_resource" pk=resource.pk %}">Edit</a>
     {% endif %}
-    {% if perms.recommendation.delete_resource %}
+    {% if perms.resource.delete_resource %}
         <a class="mini ui blue button"  href="{% url "delete_resource" pk=resource.pk %}">Delete</a>
     {% endif %}
 

@@ -6,7 +6,7 @@
 <div class="ui text container">
 
     <h1>Projects</h1>
-    {% if perms.recommendation.add_project %}
+    {% if perms.user_profile.add_project %}
         <a class="mini ui blue button"  href="{% url "project_form" %}">New</a>
     {% endif %}
 
