@@ -14,8 +14,8 @@
             Drafts
         </h1>
         {% if perms.news.add_event %}
-        <a class="ui blue button" href="{% url "event-create" %}">Add</a>
         <a class="ui blue button" href="{% url "events" %}">Events</a>
+        <a class="ui blue button" href="{% url "articles" %}">Articles</a>
         {% endif %}
         {% include "news/event_list.html" %}
     </div>

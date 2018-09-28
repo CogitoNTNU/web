@@ -16,7 +16,7 @@ class ArticleView(DetailView):
 
 
 class ArticleList(ListView):
-    queryset = Article.objects.filter(event=None)
+    queryset = Article.objects.filter(event=None, published=True)
     template_name = 'news/articles.html'
 
 
@@ -69,7 +69,7 @@ class EventList(ListView):
 
 
 class DraftList(ListView):
-    queryset = Event.objects.filter(published=False)
+    queryset = Article.objects.filter(published=False)
     template_name = 'news/drafts.html'
 
 
