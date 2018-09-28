@@ -23,13 +23,6 @@ class Profile(models.Model):
         primary_key=True,
         related_name='profile',
     )
-    committee = models.ForeignKey(
-        Committee,
-        on_delete=models.DO_NOTHING,
-        blank=True,
-        null=True,
-        default=None,
-    )
     picture = models.ImageField(
         default=None,
         blank=True,
