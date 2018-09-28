@@ -83,8 +83,6 @@ class Project(models.Model):
         default=False,
     )
     form_link = models.CharField(
-        unique=True,
-        null=True,  # Must have null=True else unique=True will throw errors at blank resources
         blank=True,
         max_length=750,
     )
