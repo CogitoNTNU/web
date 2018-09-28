@@ -19,21 +19,21 @@
             <a class="item" href="{% url 'project_list' %}">
                 Projects
             </a>
-                <div class="ui dropdown item">
-                    <div class="text">About</div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item" href="{% url 'about' %}">
-                            About
-                        </a>
-                        <a class="item" href="{% url 'about/statutes' %}">
-                            Statutes
-                        </a>
-                        <a class="item" href="{% url 'about/business' %}">
-                            Enterprise
-                        </a>
-                    </div>
+            <div class="ui dropdown item">
+                <div class="text">About</div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="{% url 'about' %}">
+                        About
+                    </a>
+                    <a class="item" href="{% url 'about/statutes' %}">
+                        Statutes
+                    </a>
+                    <a class="item" href="{% url 'about/business' %}">
+                        Enterprise
+                    </a>
                 </div>
+            </div>
             {% if user.is_authenticated %}
                 <div class="ui dropdown item">
                     <div class="text">
@@ -50,14 +50,15 @@
                         </a>
                     </div>
                 </div>
-                {% block scripts %}
-                    <script>$('.dropdown').dropdown();</script>
-                {% endblock scripts %}
             {% else %}
                 <a class="item" href="{% url 'login' %}">
                     Login
                 </a>
             {% endif %}
+
+            {% block scripts %}
+                    <script>$('.dropdown').dropdown();</script>
+            {% endblock scripts %}
         </div>
     </div>
 </div>
