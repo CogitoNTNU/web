@@ -6,34 +6,36 @@ from .models import Resource, Tag
 
 class ResourceForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(ResourceForm, self).__init__(*args, **kwargs)
+        choices = [(str(obj), obj) for obj in Tag.objects.all()]
+        self.fields['tags'] = forms.ChoiceField(
+            widget=forms.SelectMultiple(),
+            choices=choices,
+            attrs={'class': 'ui multiple search selection dropdown'},
+        )
+
     class Meta:
         model = Resource
         fields = ['title', 'creator', 'link', 'description', 'grade', 'medium', 'tags', ]
 
-        """
         # Not sure if the try/except-clause is necessary, but better safe than sorry
-        try:
-            widgets = {
-                'tags': forms.SelectMultiple(choices=[(obj, str(obj)) for obj in Tag.objects.all()],
-                                             attrs={'class': 'ui multiple search selection dropdown'}),
-                'medium': forms.Select(choices=(
-                                        ("Course", "Course"),
-                                        ("Paper", "Paper"),
-                                        ("Book", "Book"),
-                                        ("Online-course", "Online course"),
-                                        ("Video", "Video"),
-                                        ("Other", "Other"),
-                                )),
-                'grade': forms.Select(choices=(
-                                    ("beginner", "Beginner"),
-                                    ("intermediate", "Intermediate"),
-                                    ("advanced", "Advanced"),
-                                )),
-                'link': forms.URLInput(),
-            }
-        except OperationalError:
-            pass
-        """
+        widgets = {
+            'medium': forms.Select(choices=(
+                                    ("Course", "Course"),
+                                    ("Paper", "Paper"),
+                                    ("Book", "Book"),
+                                    ("Online-course", "Online course"),
+                                    ("Video", "Video"),
+                                    ("Other", "Other"),
+                            )),
+            'grade': forms.Select(choices=(
+                                ("beginner", "Beginner"),
+                                ("intermediate", "Intermediate"),
+                                ("advanced", "Advanced"),
+                            )),
+            'link': forms.URLInput(),
+        }
 
 
 class TagForm(forms.ModelForm):
