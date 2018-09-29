@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
 
 from django import forms
@@ -14,14 +16,14 @@ class ArticleView(DetailView):
 
 
 class ArticleList(ListView):
-    queryset = Article.objects.filter(event=None)
+    queryset = Article.objects.filter(event=None, published=True)
     template_name = 'news/articles.html'
 
 
 class ArticleCreate(PermissionRequiredMixin, CreateView):
     model = Article
     template_name = 'news/article_create.html'
-    fields = ('title', 'ingress', 'content')
+    fields = ('title', 'ingress', 'content', 'published',)
     success_url = reverse_lazy('articles')
     permission_required = (
         'news.add_article'
@@ -31,11 +33,20 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
 class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     model = Article
     template_name = 'news/article_update.html'
-    fields = ('title', 'ingress', 'content')
+    fields = ArticleCreate.fields
     success_url = reverse_lazy('articles')
     permission_required = (
         'news.change_article'
     )
+
+    # If someone moves an article from draft to published: set published datetime to now
+    def form_valid(self, form):
+        article = form.save(commit=False)
+        if Article.objects.get(pk=self.kwargs['pk']).published is False \
+                and article.published is True:
+            article.datetime_published = timezone.now()
+        article.save()
+        return HttpResponseRedirect(reverse_lazy('events'))
 
 
 class ArticleDelete(PermissionRequiredMixin, DeleteView):
@@ -58,7 +69,7 @@ class EventList(ListView):
 
 
 class DraftList(ListView):
-    queryset = Event.objects.filter(published=False)
+    queryset = Article.objects.filter(published=False)
     template_name = 'news/drafts.html'
 
 
@@ -77,10 +88,17 @@ class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     model = Event
     template_name = 'news/article_update.html'
     form = EventForm
-    success_url = reverse_lazy('events')
     permission_required = (
         'news.change_event'
     )
+
+    def form_valid(self, form):
+        event = form.save(commit=False)
+        if Event.objects.get(pk=self.kwargs['pk']).published is False \
+                and event.published is True:
+            event.datetime_published = timezone.now()
+        event.save()
+        return HttpResponseRedirect(reverse_lazy('events'))
 
 
 class EventDelete(PermissionRequiredMixin, DeleteView):

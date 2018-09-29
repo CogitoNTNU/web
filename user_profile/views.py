@@ -32,7 +32,8 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
     redirect_field_name = '/'
 
     def test_func(self):
-        return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager
+        return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager \
+                or self.request.user.has_perm('change_project')
 
 
 class DeleteProjectView(UserPassesTestMixin, DeleteView):
@@ -42,7 +43,8 @@ class DeleteProjectView(UserPassesTestMixin, DeleteView):
 
     # Should be same the same in DeleteProject and EditProject
     def test_func(self):
-        return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager
+        return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager \
+                or self.request.user.has_perm('delete_project')
 
 ##############################################
 
