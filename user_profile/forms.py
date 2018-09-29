@@ -9,19 +9,15 @@ class ProfileForm(forms.ModelForm):
     # I've disabled user uploaded profile pictures for the time being. Also cant get it to work on
     # the production server
 
+    def __init__(self, *args, **kwargs):
+        super(ProfileForm, self).__init__(*args, **kwargs)
+        choices = [(str(obj), obj) for obj in Skill.objects.all()]
+        self.fields['skills'] = forms.ChoiceField(widget=forms.SelectMultiple(), choices=choices)
+
     class Meta:
         model = Profile
         # fields = ('picture', 'skills', )
         fields = ('skills', )
-
-        if Skill.objects.all().exists():
-            try:
-                widgets = {  # The first object in the tuple is the external representation, the second the internal
-                    'skills': forms.SelectMultiple(choices=[(str(obj), obj) for obj in Skill.objects.all()],
-                                                   attrs={'class': 'ui multiple search selection dropdown'}),
-                }
-            except OperationalError:
-                pass
 
         """
         def clean(self):
