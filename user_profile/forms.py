@@ -11,17 +11,14 @@ class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
-        choices = [(str(obj), obj) for obj in Skill.objects.all()]
-        self.fields['skills'] = forms.ChoiceField(
-            widget=forms.SelectMultiple(),
-            choices=choices,
-            attrs={'class': 'ui multiple search selection dropdown'},
-        )
+        self.fields['skills'].form = forms.SelectMultiple()
+        self.fields['skills'].widget.attrs['class'] = 'ui multiple search selection dropdown'
 
     class Meta:
         model = Profile
         # fields = ('picture', 'skills', )
         fields = ('skills', )
+
 
         """
         def clean(self):

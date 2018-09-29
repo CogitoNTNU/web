@@ -8,18 +8,13 @@ class ResourceForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ResourceForm, self).__init__(*args, **kwargs)
-        choices = [(str(obj), obj) for obj in Tag.objects.all()]
-        self.fields['tags'] = forms.ChoiceField(
-            widget=forms.SelectMultiple(),
-            choices=choices,
-            attrs={'class': 'ui multiple search selection dropdown'},
-        )
+        self.fields['tags'].form = forms.SelectMultiple()
+        self.fields['tags'].widget.attrs['class'] = 'ui multiple search selection dropdown'
 
     class Meta:
         model = Resource
         fields = ['title', 'creator', 'link', 'description', 'grade', 'medium', 'tags', ]
 
-        # Not sure if the try/except-clause is necessary, but better safe than sorry
         widgets = {
             'medium': forms.Select(choices=(
                                     ("Course", "Course"),
