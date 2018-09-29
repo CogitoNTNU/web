@@ -14,6 +14,7 @@ class ProfileForm(forms.ModelForm):
         # fields = ('picture', 'skills', )
         fields = ('skills', )
 
+        """
         try:
             widgets = {  # The first object in the tuple is the external representation, the second the internal
                 'skills': forms.SelectMultiple(choices=[(str(obj), obj) for obj in Skill.objects.all()],
@@ -21,6 +22,7 @@ class ProfileForm(forms.ModelForm):
             }
         except OperationalError:
             pass
+        """
 
         """
         def clean(self):
