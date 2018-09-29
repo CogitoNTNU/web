@@ -14,14 +14,11 @@ SOCIAL_AUTH_DATAPORTEN_SECRET = ''
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
+# STATIC OG MEDIA are place in the folder above the project-folder
+STATIC_ROOT = os.path.join(BASE_DIR, '../static/')
+MEDIA_ROOT = os.path.join(BASE_DIR, '../media/')
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
 
 # Application definition
 
@@ -163,3 +160,8 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+try:
+    from .local_settings import *
+except ImportError:
+    pass
