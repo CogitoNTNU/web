@@ -14,15 +14,14 @@ class ProfileForm(forms.ModelForm):
         # fields = ('picture', 'skills', )
         fields = ('skills', )
 
-        """
-        try:
-            widgets = {  # The first object in the tuple is the external representation, the second the internal
-                'skills': forms.SelectMultiple(choices=[(str(obj), obj) for obj in Skill.objects.all()],
-                                               attrs={'class': 'ui multiple search selection dropdown'}),
-            }
-        except OperationalError:
-            pass
-        """
+        if Skill.objects.all().exists():
+            try:
+                widgets = {  # The first object in the tuple is the external representation, the second the internal
+                    'skills': forms.SelectMultiple(choices=[(str(obj), obj) for obj in Skill.objects.all()],
+                                                   attrs={'class': 'ui multiple search selection dropdown'}),
+                }
+            except OperationalError:
+                pass
 
         """
         def clean(self):
