@@ -10,6 +10,7 @@ class ResourceForm(forms.ModelForm):
         model = Resource
         fields = ['title', 'creator', 'link', 'description', 'grade', 'medium', 'tags', ]
 
+        """
         # Not sure if the try/except-clause is necessary, but better safe than sorry
         try:
             widgets = {
@@ -32,6 +33,7 @@ class ResourceForm(forms.ModelForm):
             }
         except OperationalError:
             pass
+        """
 
 
 class TagForm(forms.ModelForm):
