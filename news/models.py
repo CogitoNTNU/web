@@ -26,6 +26,11 @@ class Article(ConcurrentModel):
     def __str__(self):
         return self.title
 
+    class Meta:
+        ordering = (
+            '-datetime_published',
+        )
+
 
 class Event(Article):
     start_date = models.DateField(
