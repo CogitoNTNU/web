@@ -9,7 +9,12 @@
     <div class="ui container">
         <div class="main grid">
             <div>
-                <h1>News</h1>
+                <h1>
+                    News
+                    {% if perms.news.add_article %}
+                        <a href="{% url 'article-create' %}" class="tiny ui blue button">New Article</a>
+                    {% endif %}
+                </h1>
                 {% include "news/event_list.html" %}
             </div>
             <div style="overflow: hidden;">
