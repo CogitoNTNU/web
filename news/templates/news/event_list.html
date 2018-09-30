@@ -1,3 +1,5 @@
+{% load helpers %}
+
 <div class="ui items">
     {% for event in object_list %}
         <div class="big item">
@@ -19,25 +21,27 @@
                 <div class="description">
                     <p>{{ event.ingress|default:""|truncatechars:280 }}</p>
                 </div>
-                <div class="extra">
-                    <span>{{ event.start_date|date:"d M Y" }} {{ event.start_time }}
-                    {% if event.start_time %} - {{ event.start_time }} {% endif %}</span>
-                    {% if event.location %}
-                        <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>
-                            <span>{{ event.location }}</span>
-                        </a>
-                    {% endif %}
-                    {% if event.facebook_url %}
-                        <a href="{{ event.facebook_url }}">
-                            <i class="ui facebook icon"></i>
-                        </a>
-                    {% endif %}
-                    {% if event.signup_url %}
-                        <a href="{{ event.signup_url }}">
-                            <i class="ui calendar icon"></i>
-                        </a>
-                    {% endif %}
-                </div>
+                {% if event|get_class|lower == 'event' %}
+                    <div class="extra">
+                        <span>{{ event.start_date|date:"d M Y" }} {{ event.start_time }}
+                        {% if event.start_time %} - {{ event.start_time }} {% endif %}</span>
+                        {% if event.location %}
+                            <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>
+                                <span>{{ event.location }}</span>
+                            </a>
+                        {% endif %}
+                        {% if event.facebook_url %}
+                            <a href="{{ event.facebook_url }}">
+                                <i class="ui facebook icon"></i>
+                            </a>
+                        {% endif %}
+                        {% if event.signup_url %}
+                            <a href="{{ event.signup_url }}">
+                                <i class="ui calendar icon"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
             </div>
         </div>
     {% empty %}
