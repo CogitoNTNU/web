@@ -90,7 +90,7 @@ class Committee(models.Model):
         on_delete=models.CASCADE,
     )
     description = models.TextField()
-    email = models.EmailField()
+    email = models.EmailField(blank=True)
     image = models.ImageField(blank=True)
 
     @property

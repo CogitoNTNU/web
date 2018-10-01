@@ -1,14 +1,18 @@
-from itertools import chain
-
 from django.utils import timezone
 from django.views.generic import ListView
 
 from news.models import Event, Article
+from itertools import chain
+
 
 
 class Home(ListView):
-    queryset_event = Event.objects.filter(start_date__gte=timezone.now(), published=True)
-    queryset_article = Article.objects.filter().exclude(id__in=Event.objects.all())
-    queryset = list(chain(queryset_event, queryset_article))
-
+    """
+    queryset = Article.objects.filter(published=True)\
+        .exclude(id__in=Event.objects.filter(end_date__lt=timezone.now()))\
+        .order_by('-datetime_published')
+    """
+    articles = Article.objects.filter(published=True).exclude(id__in=Event.objects.all())
+    events = Event.objects.filter(end_date__gt=timezone.now())
+    queryset = sorted(chain(articles, events), key=lambda o: o.datetime_published)
     template_name = 'web/index.html'

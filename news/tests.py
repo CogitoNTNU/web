@@ -145,7 +145,7 @@ class EventTest(TestCase):
                 'end_date': datetime.date.today() + datetime.timedelta(days=1),
             }
         )
-        self.assertEqual(None, form.errors.get('__all__'), None)
+        self.assertEqual(None, form.errors.get('__all__', None))
 
     def test_form_clean_method_time_1(self):
         # Set time with no dates chosen

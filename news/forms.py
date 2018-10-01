@@ -6,7 +6,7 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        exclude = ['concurrency_user', 'concurrency_key', 'concurrency_time']
+        exclude = ['concurrency_user', 'concurrency_key', 'concurrency_time', 'datetime_published']
 
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date'}),

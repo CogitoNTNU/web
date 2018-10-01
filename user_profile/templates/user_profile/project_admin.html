@@ -21,7 +21,7 @@
                     </a>
                 </div>
                 <div class="content">
-                    <a class="header" >{{ user.username }}</a>
+                    <a class="header" >{{ user.first_name }} {{ user.last_name }}</a>
                     <div class="meta">
                         <span class="date">{{ user.profile.committee }}</span>
                     </div>
@@ -58,7 +58,7 @@
                         </a>
                     </div>
                     <div class="content">
-                        <a class="header" >{{ user.username }}</a>
+                        <a class="header" >{{ user.first_name }}</a>
                     </div>
                 </div>
             {% endfor %}

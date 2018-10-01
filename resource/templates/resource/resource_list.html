@@ -14,7 +14,7 @@
     <h2><a class="cogito_col_dkgray" href="{% url 'resource_detail' pk=resource.pk %}">{{ resource.title }}</a></h2>
     <p><strong>{{ resource.medium }} by {{ resource.creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
     {% if resource.description %}
-        <p>{{ resource.description|safe|linebreaks }}</p>
+        <p>{{ resource.description|safe|linebreaks|truncatechars:280 }}</p>
     {% else %}
         <p><em>No description available</em></p>
     {% endif %}
