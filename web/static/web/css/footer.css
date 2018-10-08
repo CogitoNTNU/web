@@ -4,6 +4,11 @@
     padding-top: 50px;
 }
 
+.footer .image {
+    padding: 10px;
+    margin: 10px;
+}
+
 .footer, .footer a {
     color: #ffffff;
 }
