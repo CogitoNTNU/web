@@ -1,7 +1,5 @@
 from django import forms
-from django.db import OperationalError
-
-from .models import Profile, Skill, Project
+from .models import Profile
 
 
 class ProfileForm(forms.ModelForm):
@@ -31,17 +29,3 @@ class ProfileForm(forms.ModelForm):
                 raise forms.ValidationError("Couldn't read uploaded image")
         """
 
-
-class ProjectForm(forms.ModelForm):
-
-    class Meta:
-        model = Project
-        fields = ('title', 'description', 'form_link', 'application_end')
-
-        widgets = {
-            'application_end': forms.DateInput(attrs={'medium': 'date',
-                                                      'class': 'ui input left icon',
-                                                      'id': 'application_end',
-                                                      'type': 'date'}),
-            'form_link': forms.URLInput(),
-        }
