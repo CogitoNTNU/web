@@ -99,5 +99,5 @@ class ProjectTest2(TestCase):
 
     def test_apply(self):
         response = self.client.post(reverse('apply_to_project', args=(self.project.pk,)))
-        self.assertEqual(response.url, '/profiles/project/' + str(self.project.pk) + '/')
+        self.assertEqual(response.url, f'/project/{str(self.project.pk)}/')
 

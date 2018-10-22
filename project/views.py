@@ -13,7 +13,7 @@ from project.forms import ProjectForm
 
 class CreateProjectView(PermissionRequiredMixin, CreateView):
     redirect_field_name = '/'
-    permission_required = 'user_profile.add_project'
+    permission_required = 'project.add_project'
     model = Project
     form_class = ProjectForm
 
@@ -54,7 +54,7 @@ def administrate_project(request, pk):
     if not request.user == project.manager:
         return HttpResponseRedirect("/")
 
-    return render(request, 'user_profile/../project/templates/project/project_admin.html', {'project': project})
+    return render(request, 'project/project_admin.html', {'project': project})
 
 
 def apply_to_project(request, pk):
