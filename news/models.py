@@ -57,6 +57,9 @@ class Event(Article):
         blank=True,
         null=True,
     )
+    location_external = models.BooleanField(
+        default=False
+    )
     signup_url = models.URLField(
         max_length=200,
         blank=True,
