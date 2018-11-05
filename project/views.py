@@ -68,7 +68,7 @@ def apply_to_project(request, pk):
                 project.members.filter(username=user.username).exists():
             return HttpResponse("You have already applied to this project")
         try:
-            if project.application_end < datetime.date.today():
+            if not project.application_open:
                 return HttpResponse("Applications have ended for this project")
         except TypeError:
             return HttpResponse("This project does not have an application date set")
