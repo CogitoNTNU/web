@@ -62,10 +62,7 @@ def apply_to_project(request, pk):
         user = get_object_or_404(User, username=request.user.username)
         project = get_object_or_404(Project, pk=pk)
 
-        # if not rejected, already an applicant or already a member
-        if project.applicants.filter(username=user.username).exists() or \
-                project.rejected_applicants.filter(username=user.username).exists() or \
-                project.members.filter(username=user.username).exists():
+        if project.applicant_pool.users.filter(username=user.username).exists():
             return HttpResponse("You have already applied to this project")
         try:
             if not project.application_open:
@@ -73,8 +70,8 @@ def apply_to_project(request, pk):
         except TypeError:
             return HttpResponse("This project does not have an application date set")
 
-        project.applicants.add(user)
-        project.save()
+        project.applicant_pool.users.add(user)
+        project.applicant_pool.save()
         if project.form_link:
             return HttpResponseRedirect(project.form_link)
 
@@ -86,8 +83,7 @@ def apply_to_project(request, pk):
 def manage_applicant(request, pk, username, accept):
     project = get_object_or_404(Project, pk=pk)
     user = get_object_or_404(User, username=username)
-    if request.method == 'POST' and project.manager == request.user:
-        project.applicants.remove(user)
+    if request.method == 'POST' and request.user is project.manager:
         if accept:
             project.members.add(user)
         else:

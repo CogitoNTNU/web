@@ -6,6 +6,27 @@ from django.db import models
 from django.urls import reverse
 
 
+class ApplicantPool(models.Model):
+
+    name = models.CharField(
+        blank=False,
+        max_length=80,
+    )
+    users = models.ManyToManyField(
+        User,
+        related_name='project_applications',
+        blank=True,
+    )
+    form_link = models.CharField(
+        null=True,
+        blank=True,
+        max_length=750,
+    )
+
+    def __str__(self):
+        return self.name
+
+
 class Project(models.Model):
 
     title = models.CharField(
@@ -16,14 +37,15 @@ class Project(models.Model):
         blank=True,
         max_length=5000,
     )
+    applicant_pool = models.ForeignKey(
+        ApplicantPool,
+        related_name='project',
+        blank=False,
+        on_delete=models.CASCADE,
+    )
     members = models.ManyToManyField(
         User,
         related_name='project_memberships',
-        blank=True,
-    )
-    applicants = models.ManyToManyField(  # applicant becomes either member or rejected.
-        User,
-        related_name='project_applications',
         blank=True,
     )
     rejected_applicants = models.ManyToManyField(
@@ -44,11 +66,6 @@ class Project(models.Model):
     finished = models.BooleanField(
         default=False,
     )
-    form_link = models.CharField(
-        null=True,
-        blank=True,
-        max_length=750,
-    )
 
     def __str__(self):
         return self.title
@@ -59,3 +76,4 @@ class Project(models.Model):
     @property
     def application_open(self):
         return datetime.date.today() <= self.application_end
+

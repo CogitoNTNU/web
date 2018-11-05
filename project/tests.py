@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase
 from django.urls import reverse
-from .models import Project
+from .models import Project, ApplicantPool
 
 
 class ProjectTest(TestCase):
@@ -23,7 +23,11 @@ class ProjectTest(TestCase):
             description='DESCRIPTION',
             manager=self.user,
         )
-        self.project.applicants.add(self.user2)
+        self.applicant_pool = ApplicantPool.objects.create(
+            name='TITLE',
+        )
+        self.applicant_pool.users.add(self.user2)
+        self.project.applicant_pool = self.applicant_pool
 
     def test_str(self):
         self.assertEqual(str(self.project), self.project.title)
