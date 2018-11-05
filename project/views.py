@@ -2,10 +2,11 @@ import datetime
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 
 from project.models import Project
 from project.forms import ProjectForm
@@ -46,15 +47,14 @@ class DeleteProjectView(UserPassesTestMixin, DeleteView):
         return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager \
                 or self.request.user.has_perm('delete_project')
 
+
+class ProjectAdminDetailView(UserPassesTestMixin, DetailView):
+    model = Project
+
+    def test_func(self):
+        return self.request.user == self.object.manager
+
 ##############################################
-
-
-def administrate_project(request, pk):
-    project = get_object_or_404(Project, pk=pk)
-    if not request.user == project.manager:
-        return HttpResponseRedirect("/")
-
-    return render(request, 'project/project_admin.html', {'project': project})
 
 
 def apply_to_project(request, pk):
@@ -94,8 +94,7 @@ def manage_applicant(request, pk, username, accept):
             project.rejected_applicants.add(user)
         return HttpResponseRedirect(reverse('project_admin', kwargs={'pk': pk}))
 
-    else:
-        return HttpResponse("Something went wrong")
+    return PermissionDenied()
 
 
 def accept_applicant(request, pk, username):
