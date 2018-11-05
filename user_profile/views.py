@@ -28,7 +28,6 @@ def profile(request, username):
     return render(request, 'user_profile/profile.html', {'profile': user.profile, 'form': ProfileForm()})
 
 
-"""
 class ProfileView(DetailView):
     model = Profile
     pk_url_kwarg = 'username'
@@ -62,7 +61,3 @@ class ProfileView(DetailView):
             if request.user == user:
                 user.profile.skills.set(form.cleaned_data['skills'])
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
-
-"""
-
-
