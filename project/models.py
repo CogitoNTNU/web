@@ -22,6 +22,10 @@ class ApplicantPool(models.Model):
         blank=True,
         max_length=750,
     )
+    application_end = models.DateField(
+        blank=True,
+        null=True,
+    )
 
     def __str__(self):
         return self.name
@@ -56,10 +60,6 @@ class Project(models.Model):
     manager = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        blank=True,
-        null=True,
-    )
-    application_end = models.DateField(
         blank=True,
         null=True,
     )

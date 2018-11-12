@@ -2,13 +2,13 @@ import datetime
 from django.contrib.auth.mixins import PermissionRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.contrib import messages
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 
-from project.models import Project
+from project.models import Project, ApplicantPool
 from project.forms import ProjectForm
 
 
@@ -19,9 +19,19 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     form_class = ProjectForm
 
     # ensures that the user who created the project is set as its manager, also adds them to the members field
-    def form_valid(self, form):
+    def form_valid(self, form, **kwargs):
+        form_link = form.cleaned_data.pop('form_link', None)
+        application_end = form.cleaned_data.pop('application_end', None)
         project = form.save(commit=False)
         project.manager = self.request.user
+        try:
+            project.applicant_pool
+        except ObjectDoesNotExist:
+            project.applicant_pool = ApplicantPool.objects.create(name=project.title + '_pool')
+            if form_link:
+                project.applicant_pool.form_link = form_link
+            if application_end:
+                project.applicant_pool.application_end = application_end
         project.save()
         project.members.add(self.request.user)
         return HttpResponseRedirect(reverse('project', kwargs={'pk': project.pk}))
@@ -31,6 +41,16 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
     model = Project
     form_class = ProjectForm
     redirect_field_name = '/'
+
+    def get_form(self, form_class=None):
+        """Return an instance of the form to be used in this view."""
+        if form_class is None:
+            form_class = self.get_form_class()
+        form = form_class(**self.get_form_kwargs())
+
+        # remove application_end field, as it is only to be used on project creation
+        form.fields.pop('application_end', None)
+        return form
 
     def test_func(self):
         return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager \
