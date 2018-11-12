@@ -12,7 +12,7 @@ class ApplicantPool(models.Model):
         blank=False,
         max_length=80,
     )
-    users = models.ManyToManyField(
+    applicants = models.ManyToManyField(
         User,
         related_name='project_applications',
         blank=True,
@@ -22,7 +22,7 @@ class ApplicantPool(models.Model):
         blank=True,
         max_length=750,
     )
-    application_end = models.DateField(
+    application_end_date = models.DateField(
         blank=True,
         null=True,
     )
@@ -75,5 +75,6 @@ class Project(models.Model):
 
     @property
     def application_open(self):
-        return datetime.date.today() <= self.application_end
+        return self.applicant_pool.application_end_date is None or \
+               datetime.date.today() <= self.applicant_pool.application_end_date
 

@@ -28,9 +28,9 @@
     <p>{{ project.description|safe }}</p>
 
     {% if user.is_authenticated %}
-        {% if project.application_open and project.application_end %}
-            <p>Applications open up to (and including) <strong>{{ project.application_end|date:"d M Y" }}</strong></p>
-            {% if user not in project.applicants.all and user not in project.members.all and user not in project.rejected_applicants.all %}
+        {% if project.application_open %}
+            <p>Applications open up to (and including) <strong>{{ project.applicant_pool.application_end|date:"d M Y" }}</strong></p>
+            {% if user not in project.applicant_pool.applicants.all%}
                 <form method="post" action="{% url "apply_to_project" pk=project.pk %}">
                     {% csrf_token %}
                     <button type="submit" class="ui blue button">Apply</button>

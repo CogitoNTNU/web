@@ -36,6 +36,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
         project.manager = self.request.user
         project.save()
         project.members.add(self.request.user)
+        project.applicant_pool.applicants.add(self.request.user)
         return HttpResponseRedirect(reverse('project', kwargs={'pk': project.pk}))
 
 
@@ -72,9 +73,10 @@ class DeleteProjectView(UserPassesTestMixin, DeleteView):
 
 class ProjectAdminDetailView(UserPassesTestMixin, DetailView):
     model = Project
+    template_name = 'project/project_admin.html'
 
     def test_func(self):
-        return self.request.user == self.object.manager
+        return self.request.user == self.get_object().manager
 
 ##############################################
 
@@ -84,7 +86,7 @@ def apply_to_project(request, pk):
         user = get_object_or_404(User, username=request.user.username)
         project = get_object_or_404(Project, pk=pk)
 
-        if project.applicant_pool.users.filter(username=user.username).exists():
+        if project.applicant_pool.applicants.filter(username=user.username).exists():
             return HttpResponse("You have already applied to this project")
         try:
             if not project.application_open:
@@ -92,10 +94,10 @@ def apply_to_project(request, pk):
         except TypeError:
             return HttpResponse("This project does not have an application date set")
 
-        project.applicant_pool.users.add(user)
+        project.applicant_pool.applicants.add(user)
         project.applicant_pool.save()
-        if project.form_link:
-            return HttpResponseRedirect(project.form_link)
+        if project.applicant_pool.form_link:
+            return HttpResponseRedirect(project.applicant_pool.form_link)
 
         messages.success(request, 'You have successfully applied to ' + str(project))
         return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))
@@ -105,7 +107,7 @@ def apply_to_project(request, pk):
 def manage_applicant(request, pk, username, accept):
     project = get_object_or_404(Project, pk=pk)
     user = get_object_or_404(User, username=username)
-    if request.method == 'POST' and request.user is project.manager:
+    if request.method == 'POST' and request.user == project.manager:
         if accept:
             project.members.add(user)
         else:
@@ -116,8 +118,8 @@ def manage_applicant(request, pk, username, accept):
 
 
 def accept_applicant(request, pk, username):
-    return manage_applicant(request, pk, username, True)
+    return manage_applicant(request, pk, username, accept=True)
 
 
 def reject_applicant(request, pk, username):
-    return manage_applicant(request, pk, username, False)
+    return manage_applicant(request, pk, username, accept=False)
