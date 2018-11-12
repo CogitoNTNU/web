@@ -23,7 +23,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
         form_link = form.cleaned_data.pop('form_link', None)
         application_end = form.cleaned_data.pop('application_end', None)
         project = form.save(commit=False)
-        project.manager = self.request.user
+
         try:
             project.applicant_pool
         except ObjectDoesNotExist:
@@ -32,6 +32,8 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
                 project.applicant_pool.form_link = form_link
             if application_end:
                 project.applicant_pool.application_end = application_end
+
+        project.manager = self.request.user
         project.save()
         project.members.add(self.request.user)
         return HttpResponseRedirect(reverse('project', kwargs={'pk': project.pk}))
