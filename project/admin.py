@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from project.models import Project, ApplicantPool
+from project.models import Project, Collection
 
 admin.site.register(Project)
-admin.site.register(ApplicantPool)
+admin.site.register(Collection)

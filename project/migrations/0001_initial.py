@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ApplicantPool',
+            name='Collection',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=80)),
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('description', ckeditor_uploader.fields.RichTextUploadingField(blank=True, max_length=5000)),
                 ('application_end', models.DateField(blank=True, null=True)),
                 ('finished', models.BooleanField(default=False)),
-                ('applicant_pool', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='project', to='project.ApplicantPool')),
+                ('collection', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='project', to='project.Collection')),
                 ('manager', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
                 ('members', models.ManyToManyField(blank=True, related_name='project_memberships', to=settings.AUTH_USER_MODEL)),
                 ('rejected_applicants', models.ManyToManyField(blank=True, related_name='project_rejections', to=settings.AUTH_USER_MODEL)),

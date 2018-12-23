@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase
 from django.urls import reverse
-from .models import Project, ApplicantPool
+from .models import Project, Collection
 
 
 class ProjectTest(TestCase):
@@ -18,18 +18,18 @@ class ProjectTest(TestCase):
         self.user = User.objects.create_user(username=self.username, password=self.password)
         self.client.login(username=self.username, password=self.password)
 
-        self.applicant_pool = ApplicantPool.objects.create(
+        self.collection= Collection.objects.create(
             name='TITLE',
         )
         self.project = Project.objects.create(
             title='TITLE',
             description='DESCRIPTION',
             manager=self.user,
-            applicant_pool=self.applicant_pool,
+            collection=self.collection,
         )
 
         self.user2 = User.objects.create_user(username='TEST_USER2', password=self.password)
-        self.applicant_pool.applicants.add(self.user2)
+        self.collection.applicants.add(self.user2)
 
     def test_str(self):
         self.assertEqual(str(self.project), self.project.title)
@@ -90,14 +90,14 @@ class ProjectTest2(TestCase):
         self.user = User.objects.create_user(username=self.username, password=self.password)
         self.user2 = User.objects.create_user(username='TEST_USER2', password=self.password)
         self.client.login(username=self.username, password=self.password)
-        self.applicant_pool = ApplicantPool.objects.create(
+        self.collection = Collection.objects.create(
             name='TITLE',
             application_end_date=datetime.date.today() + datetime.timedelta(days=1)
         )
         self.project = Project.objects.create(
             title='TITLE',
             description='DESCRIPTION',
-            applicant_pool=self.applicant_pool,
+            collection=self.collection,
         )
 
     def test_update(self):

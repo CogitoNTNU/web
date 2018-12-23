@@ -7,9 +7,9 @@
     <h1>Manage project</h1>
 
     <h2>Applicants:</h2>
-    {% if project.applicant_pool.applicants.all %}
+    {% if project.collection.applicants.all %}
      <div class="ui cards four   column stackable grid center aligned ">
-        {% for user in project.applicant_pool.applicants.all %}
+        {% for user in project.collection.applicants.all %}
             {% if user not in project.members.all and user not in project.rejected_applicants.all %}
             <div class="ui card">
                 <div class="image">

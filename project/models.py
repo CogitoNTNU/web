@@ -6,7 +6,7 @@ from django.db import models
 from django.urls import reverse
 
 
-class ApplicantPool(models.Model):
+class Collection(models.Model):
 
     name = models.CharField(
         blank=False,
@@ -41,8 +41,8 @@ class Project(models.Model):
         blank=True,
         max_length=5000,
     )
-    applicant_pool = models.ForeignKey(
-        ApplicantPool,
+    collection = models.ForeignKey(
+        Collection,
         related_name='project',
         blank=False,
         on_delete=models.CASCADE,
@@ -63,9 +63,6 @@ class Project(models.Model):
         blank=True,
         null=True,
     )
-    finished = models.BooleanField(
-        default=False,
-    )
 
     def __str__(self):
         return self.title
@@ -75,6 +72,6 @@ class Project(models.Model):
 
     @property
     def application_open(self):
-        return self.applicant_pool.application_end_date is None or \
-               datetime.date.today() <= self.applicant_pool.application_end_date
+        return self.collection.application_end_date is None or \
+               datetime.date.today() <= self.collection.application_end_date
 

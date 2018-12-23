@@ -8,7 +8,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 
-from project.models import Project, ApplicantPool
+from project.models import Project, Collection
 from project.forms import ProjectForm
 
 
@@ -25,18 +25,18 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
         project = form.save(commit=False)
 
         try:
-            project.applicant_pool
+            project.collection
         except ObjectDoesNotExist:
-            project.applicant_pool = ApplicantPool.objects.create(name=project.title + '_pool')
+            project.collection = Collection.objects.create(name=project.title + '_pool')
             if form_link:
-                project.applicant_pool.form_link = form_link
+                project.collection.form_link = form_link
             if application_end:
-                project.applicant_pool.application_end = application_end
+                project.collection.application_end = application_end
 
         project.manager = self.request.user
         project.save()
         project.members.add(self.request.user)
-        project.applicant_pool.applicants.add(self.request.user)
+        project.collection.applicants.add(self.request.user)
         return HttpResponseRedirect(reverse('project', kwargs={'pk': project.pk}))
 
 
@@ -63,7 +63,7 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
 class DeleteProjectView(UserPassesTestMixin, DeleteView):
     model = Project
     redirect_field_name = '/'
-    success_url = reverse_lazy('project_list')
+    success_url = reverse_lazy('project_collection_list')
 
     # Should be same the same in DeleteProject and EditProject
     def test_func(self):
@@ -86,7 +86,7 @@ def apply_to_project(request, pk):
         user = get_object_or_404(User, username=request.user.username)
         project = get_object_or_404(Project, pk=pk)
 
-        if project.applicant_pool.applicants.filter(username=user.username).exists():
+        if project.collection.applicants.filter(username=user.username).exists():
             return HttpResponse("You have already applied to this project")
         try:
             if not project.application_open:
@@ -94,10 +94,10 @@ def apply_to_project(request, pk):
         except TypeError:
             return HttpResponse("This project does not have an application date set")
 
-        project.applicant_pool.applicants.add(user)
-        project.applicant_pool.save()
-        if project.applicant_pool.form_link:
-            return HttpResponseRedirect(project.applicant_pool.form_link)
+        project.collection.applicants.add(user)
+        project.collection.save()
+        if project.collection.form_link:
+            return HttpResponseRedirect(project.collection.form_link)
 
         messages.success(request, 'You have successfully applied to ' + str(project))
         return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))
