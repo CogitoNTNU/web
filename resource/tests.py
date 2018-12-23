@@ -52,6 +52,21 @@ class ResourceTest(TestCase):
         response = self.client.get(reverse('delete_resource', args=(self.resource.pk,)))
         self.assertEqual(response.status_code, 200)
 
+    def test_create(self):
+        response = self.client.post(reverse('resource_form'),
+                                    {'title': 'title', 'creator': 'creator',
+                                     'link': 'link.com', 'description': 'description',
+                                     'grade': 'beginner', 'medium': 'paper'}
+                                    )
+        self.assertEqual(response.url, '/login/?recommend/resource_detail.html=/resources/create/')
+        self.add_permission('add_resource')
+        response = self.client.post(reverse('resource_form'),
+                                    {'title': 'title', 'creator': 'creator',
+                                     'description': 'description', 'grade': 'beginner',
+                                     'medium': 'paper'}
+                                    )
+        self.assertEqual(response.url, '/resources/2/')
+
 
 class TagTest(TestCase):
     def add_permission(self, codename, user=None):
