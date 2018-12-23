@@ -60,6 +60,7 @@ class ResourceTest(TestCase):
                                     )
         self.assertTrue(response.status_code == 403 or
                         response.url == '/login/?recommend/resource_detail.html=/resources/create/')
+        self.assertEqual(response.status_code, 302)
         self.add_permission('add_resource')
         response = self.client.post(reverse('resource_form'),
                                     {'title': 'title', 'creator': 'creator',
