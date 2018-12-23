@@ -33,8 +33,8 @@ class ResourceUpdateView(PermissionRequiredMixin, UpdateView):
 class TagCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'resource.add_tag'
     redirect_field_name = 'recommend/resource_list.html'
-    form_class = TagForm
     model = Tag
+    form_class = TagForm
     success_url = '/resources/tag/add/'
     success_message = '%(name)s was added successfully!'
 

@@ -2,6 +2,7 @@ from django.contrib.auth.models import Permission, User
 from django.test import TestCase
 from django.urls import reverse
 
+from resource.forms import TagForm
 from .models import Resource, Tag
 
 
@@ -76,3 +77,28 @@ class TagTest(TestCase):
         self.add_permission('add_tag')
         response = self.client.get(reverse('tag_form'))
         self.assertEqual(response.status_code, 200)
+
+    def test_create_1(self):
+        # require permission to create tags
+        response = self.client.post(reverse('tag_form'), {'name': 'name'})
+        self.assertNotEqual(response.status_code, 200)
+        self.add_permission('add_tag')
+        response = self.client.post(reverse('tag_form'), {'name': 'name'})
+        self.assertEqual(response.status_code, 200)
+
+    def test_create_2(self):
+        # test duplicate name prevention
+        self.add_permission('add_tag')
+        self.client.post(reverse('tag_form'), {'name': 'name'})
+        form = TagForm({'name': 'name'})
+        self.assertEquals(
+            ["This tag already exists"],
+            form.errors['__all__']
+        )
+
+    def test_create_3(self):
+        form = TagForm({'name': 'na_me'})
+        self.assertEquals(
+            ["Tags can only contain alphanumerical characters"],
+            form.errors['__all__']
+        )
