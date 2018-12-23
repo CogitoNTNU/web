@@ -63,7 +63,7 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
 class DeleteProjectView(UserPassesTestMixin, DeleteView):
     model = Project
     redirect_field_name = '/'
-    success_url = reverse_lazy('project_collection_list')
+    success_url = reverse_lazy('collection_list')
 
     # Should be same the same in DeleteProject and EditProject
     def test_func(self):

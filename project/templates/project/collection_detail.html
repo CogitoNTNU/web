@@ -1,0 +1,39 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="ui text container">
+
+    <h2>{{ collection.name}}</h2>
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% for project in collection.projects %}
+        <h2>project.title</h2>
+        <p>project.description</p>
+    {% endfor %}
+
+    {% if user.is_authenticated %}
+        {% if project.application_open %}
+            <p>Applications open up to (and including) <strong>{{ project.collection.application_end|date:"d M Y" }}</strong></p>
+            {% if user not in project.collection.applicants.all%}
+                <form method="post" action="{% url "apply_to_project" pk=project.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="ui blue button">Apply</button>
+                </form>
+            {% else %}
+                <p><em>Application received</em></p>
+            {% endif %}
+        {% else %}
+            <p>Applications closed</p>
+        {% endif %}
+    {% endif %}
+
+</div>
+{% endblock %}

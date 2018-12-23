@@ -6,7 +6,7 @@ from project.views import ProjectAdminDetailView, accept_applicant, reject_appli
     apply_to_project, CreateProjectView
 
 urlpatterns = [
-    path('', ListView.as_view(model=Collection), name='project_collection_list'),
+    path('', ListView.as_view(model=Collection), name='collection_list'),
     path('<int:pk>/admin/', ProjectAdminDetailView.as_view(), name='project_admin'),
 
     path('<int:pk>/accept/<username>/', accept_applicant, name='accept_applicant'),

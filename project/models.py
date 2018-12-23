@@ -12,6 +12,10 @@ class Collection(models.Model):
         blank=False,
         max_length=80,
     )
+    description = models.CharField(
+        blank=True,
+        max_length=1000,
+    )
     applicants = models.ManyToManyField(
         User,
         related_name='project_applications',
@@ -43,7 +47,7 @@ class Project(models.Model):
     )
     collection = models.ForeignKey(
         Collection,
-        related_name='project',
+        related_name='projects',
         blank=False,
         on_delete=models.CASCADE,
     )
