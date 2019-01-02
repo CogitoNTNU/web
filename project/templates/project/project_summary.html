@@ -1,1 +1,19 @@
-<p>{{ project.title }}</p>
+<div class="item">
+    <div class="ui tiny image">
+        {% if project.thumbnail %}
+            <img src="../media/{{ project.thumbnail.name }}">
+        {% else %}
+            <img src="/static/web/img/avatar_placeholder.png">
+        {% endif %}
+    </div>
+    <div class="content">
+      <div class="header"><a class="cogito_col_dkgray" href="{% url 'project' pk=project.pk %}">{{ project.title }}</a></div>
+      <div class="meta">
+        <span class="members">{{ project.members.count }} members</span>
+      </div>
+      <div class="description">
+        {{ project.description|safe|linebreaks|truncatechars:"140" }}
+      </div>
+    </div>
+  </div>
+

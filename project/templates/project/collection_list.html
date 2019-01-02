@@ -5,15 +5,16 @@
 
 <div class="ui text container">
 
-    <h1>Projects</h1>
+    <h1>Our Projects:
     {% if perms.project.add_project %}
         <a class="mini ui blue button"  href="{% url "project_form" %}">New project</a>
         <a class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
-    {% endif %}
+    {% endif %}</h1>
 
+    <div class="ui segment">
     {% for collection in collection_list %}
-        <div class="project-listing">
-            <h2><a href="{% url 'collection' pk=collection.pk %}">{{ collection.title }}</a></h2>
+        <div class="ui container">
+            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}">{{ collection.name }}</a></h2>
             {% if collection.description %}
                 <p>{{ collection.description|safe|linebreaks }}</p>
             {% else %}
@@ -21,11 +22,16 @@
             {% endif %}
 
             {% for project in collection.projects.all %}
-                {% include 'project/project_summary.html' %}
+                <div class="ui vertical segment">
+                    <div class="ui items">
+                        {% include 'project/project_summary.html' %}
+                    </div>
+                </div>
             {% endfor %}
-            
+            </div>
         </div>
     {% endfor %}
+    </div>
 
 </div>
 
