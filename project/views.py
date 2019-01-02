@@ -12,6 +12,13 @@ from project.models import Project, Collection
 from project.forms import ProjectForm
 
 
+class CreateCollectionView(PermissionRequiredMixin, CreateView):
+    permission_required = 'project.add_collection'
+    model = Collection
+    fields = '__all__'
+    redirect_field_name = '/'
+
+
 class CreateProjectView(PermissionRequiredMixin, CreateView):
     redirect_field_name = '/'
     permission_required = 'project.add_project'
@@ -20,18 +27,7 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
 
     # ensures that the user who created the project is set as its manager, also adds them to the members field
     def form_valid(self, form, **kwargs):
-        form_link = form.cleaned_data.pop('form_link', None)
-        application_end = form.cleaned_data.pop('application_end', None)
         project = form.save(commit=False)
-
-        try:
-            project.collection
-        except ObjectDoesNotExist:
-            project.collection = Collection.objects.create(name=project.title + '_pool')
-            if form_link:
-                project.collection.form_link = form_link
-            if application_end:
-                project.collection.application_end = application_end
 
         project.manager = self.request.user
         project.save()

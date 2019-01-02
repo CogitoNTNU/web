@@ -45,6 +45,9 @@ class Project(models.Model):
         blank=True,
         max_length=5000,
     )
+    thumbnail = models.ImageField(
+        blank=True,
+    )
     collection = models.ForeignKey(
         Collection,
         related_name='projects',

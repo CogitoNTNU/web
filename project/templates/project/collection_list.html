@@ -7,17 +7,23 @@
 
     <h1>Projects</h1>
     {% if perms.project.add_project %}
-        <a class="mini ui blue button"  href="{% url "collection_form" %}">New Collection</a>
+        <a class="mini ui blue button"  href="{% url "project_form" %}">New project</a>
+        <a class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
     {% endif %}
 
     {% for collection in collection_list %}
         <div class="project-listing">
-            <h2><a href="{% url 'project' pk=collection.pk %}">{{ collection.title }}</a></h2>
+            <h2><a href="{% url 'collection' pk=collection.pk %}">{{ collection.title }}</a></h2>
             {% if collection.description %}
                 <p>{{ collection.description|safe|linebreaks }}</p>
             {% else %}
                 <p><em>No description available</em></p>
             {% endif %}
+
+            {% for project in collection.projects.all %}
+                {% include 'project/project_summary.html' %}
+            {% endfor %}
+            
         </div>
     {% endfor %}
 
