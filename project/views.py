@@ -92,7 +92,7 @@ def apply_to_collection(request, pk):
         collection.applicants.add(user)
         collection.save()
         if collection.form_link:
-            return HttpResponseRedirect(collection.collection.form_link)
+            return HttpResponseRedirect(collection.form_link)
 
         messages.success(request, 'You have successfully applied to ' + str(collection))
         return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))

@@ -1,5 +1,6 @@
 {% extends 'web/base.html' %}
 {% load staticfiles %}
+{% load helpers %}
 
 {% block body %}
 <div class="ui text container">
@@ -25,7 +26,9 @@
                     <img class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
                 {% endif %}
                 <h2>{{ project.title }}</h2>
-                <em><p>project lead: <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager }}</a></p></em>
+                <em><p>project lead:
+                    <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
+                </p></em>
                 <p>{{ project.description|safe|linebreaks }}</p>
             </div>
         </div>

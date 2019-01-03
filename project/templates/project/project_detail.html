@@ -1,5 +1,6 @@
 {% extends 'web/base.html' %}
 {% load staticfiles %}
+{% load helpers %}
 
 {% block body %}
 <div class="ui text container">
@@ -15,7 +16,7 @@
             <a href="{% url "delete_project" pk=project.pk %}"><button class="ui red button">Delete</button></a>
         {% endif %}
     {% endif %}
-    <p>-Created by <em>{{ project.manager }}</em></p>
+    <p>-Project lead: <em>{{ project.manager|name }}</em></p>
 
     {% if messages %}
         <ul class="messages">
@@ -27,6 +28,7 @@
 
     <p>{{ project.description|safe }}</p>
 
+    <!-- DISPLAY APPLICATION INFO/BUTTON
     {% if user.is_authenticated %}
         {% if project.application_open %}
             <p>Applications open up to (and including) <strong>{{ project.collection.application_end|date:"d M Y" }}</strong></p>
@@ -41,8 +43,9 @@
         {% else %}
             <p>Applications closed</p>
         {% endif %}
-    {% endif %}
+    {% endif %} -->
 
+    <!-- DISPLAY CURRENT PROJECT MEMBERS
     <h3>Members:</h3>
     {% if project.members.all %}
         <p>
@@ -52,7 +55,7 @@
         </p>
     {% else %}
         <p><strong><em>This project currently has no members</em></strong></p>
-    {% endif %}
+    {% endif %} -->
 
 </div>
 {% endblock %}

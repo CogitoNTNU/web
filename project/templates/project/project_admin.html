@@ -22,8 +22,7 @@
                     </a>
                 </div>
                 <div class="content">
-                    <a class="header" >{% if user.first_name %}{{ user.first_name }} {{ user.last_name }}
-                        {% else %} {{ user.username }}{% endif %}</a>
+                    <a class="header" >{{ user|name }}</a>
                     <div class="meta">
                         <span class="date">{{ user.profile.committee }}</span>
                     </div>
@@ -61,8 +60,7 @@
                         </a>
                     </div>
                     <div class="content">
-                        <a class="header" >{% if user.first_name %}{{ user.first_name }} {{ user.last_name }}
-                        {% else %} {{ user.username }}{% endif %}</a>
+                        <a class="header" >{{ user.name }}</a>
                     </div>
                 </div>
             {% endfor %}
