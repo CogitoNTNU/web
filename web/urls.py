@@ -20,7 +20,7 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('resources/', include('resource.urls')),
     path('profiles/', include('user_profile.urls')),
-    path('project/', include('project.urls')),
+    path('projects/', include('project.urls')),
     ContentBox.url('about'),
     ContentBox.url('about/statutes'),
     ContentBox.url('about/business'),

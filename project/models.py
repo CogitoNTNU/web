@@ -12,7 +12,9 @@ class Collection(models.Model):
         blank=False,
         max_length=80,
     )
-    description = models.TextField()
+    description = models.TextField(
+        max_length=500
+    )
     applicants = models.ManyToManyField(
         User,
         related_name='project_applications',
@@ -28,8 +30,15 @@ class Collection(models.Model):
         null=True,
     )
 
+    @property
+    def application_open(self):
+        return (self.application_end_date is None) or (datetime.date.today() <= self.application_end_date)
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("collection", kwargs={'pk': self.pk})
 
 
 class Project(models.Model):
@@ -63,7 +72,7 @@ class Project(models.Model):
     )
     manager = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
         blank=True,
         null=True,
     )
@@ -73,9 +82,3 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse("project", kwargs={'pk': self.pk})
-
-    @property
-    def application_open(self):
-        return self.collection.application_end_date is None or \
-               datetime.date.today() <= self.collection.application_end_date
-

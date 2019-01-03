@@ -31,9 +31,9 @@
         {% if project.application_open %}
             <p>Applications open up to (and including) <strong>{{ project.collection.application_end|date:"d M Y" }}</strong></p>
             {% if user not in project.collection.applicants.all%}
-                <form method="post" action="{% url "apply_to_project" pk=project.pk %}">
+                <form method="post" action="{% url "apply_to_collection" pk=collection.pk %}">
                     {% csrf_token %}
-                    <button type="submit" class="ui blue button">Apply</button>
+                    <button type="submit" class="ui blue button" >Apply</button>
                 </form>
             {% else %}
                 <p><em>Application received</em></p>

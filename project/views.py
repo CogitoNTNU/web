@@ -20,7 +20,6 @@ class CreateCollectionView(PermissionRequiredMixin, CreateView):
 
 
 class CreateProjectView(PermissionRequiredMixin, CreateView):
-    redirect_field_name = '/'
     permission_required = 'project.add_project'
     model = Project
     form_class = ProjectForm
@@ -77,25 +76,25 @@ class ProjectAdminDetailView(UserPassesTestMixin, DetailView):
 ##############################################
 
 
-def apply_to_project(request, pk):
+def apply_to_collection(request, pk):
     if request.method == 'POST':
         user = get_object_or_404(User, username=request.user.username)
-        project = get_object_or_404(Project, pk=pk)
+        collection = get_object_or_404(Collection, pk=pk)
 
-        if project.collection.applicants.filter(username=user.username).exists():
+        if collection.applicants.filter(username=user.username).exists():
             return HttpResponse("You have already applied to this project")
         try:
-            if not project.application_open:
+            if not collection.application_open:
                 return HttpResponse("Applications have ended for this project")
         except TypeError:
             return HttpResponse("This project does not have an application date set")
 
-        project.collection.applicants.add(user)
-        project.collection.save()
-        if project.collection.form_link:
-            return HttpResponseRedirect(project.collection.form_link)
+        collection.applicants.add(user)
+        collection.save()
+        if collection.form_link:
+            return HttpResponseRedirect(collection.collection.form_link)
 
-        messages.success(request, 'You have successfully applied to ' + str(project))
+        messages.success(request, 'You have successfully applied to ' + str(collection))
         return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))
     return HttpResponseRedirect('/')
 
