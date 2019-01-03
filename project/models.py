@@ -12,10 +12,7 @@ class Collection(models.Model):
         blank=False,
         max_length=80,
     )
-    description = models.CharField(
-        blank=True,
-        max_length=1000,
-    )
+    description = models.TextField()
     applicants = models.ManyToManyField(
         User,
         related_name='project_applications',
