@@ -15,7 +15,7 @@ from project.forms import ProjectForm
 class CreateCollectionView(PermissionRequiredMixin, CreateView):
     permission_required = 'project.add_collection'
     model = Collection
-    fields = '__all__'
+    fields = ('name', 'description', 'form_link', 'application_end_date',)
     redirect_field_name = '/'
 
 
