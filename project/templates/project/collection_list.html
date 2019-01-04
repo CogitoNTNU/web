@@ -21,7 +21,7 @@
             </h2>
 
             {% if collection.description %}
-                <p>{{ collection.description|safe|linebreaks }}</p>
+                <p>{{ collection.description|safe|linebreaks|truncatechars:"280" }}</p>
             {% else %}
                 <p><em>No description available</em></p>
             {% endif %}

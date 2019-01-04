@@ -51,7 +51,7 @@
         {% if collection.application_open %}
             <p>Applications open up to (and including): <strong>{{ collection.application_end_date|date:"d M Y" }}</strong></p>
             {% if not user.is_authenticated %}
-                <p>You must be logged in to apply to our projects</p>
+                <p><em>You must be logged in to apply to our projects</em></p>
             {% elif user not in project.collection.applicants.all%}
                 <form method="post" action="{% url "apply_to_collection" pk=collection.pk %}">
                     {% csrf_token %}
