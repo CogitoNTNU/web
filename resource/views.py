@@ -1,5 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
@@ -54,3 +56,23 @@ def view_resource(request, pk):
     return render(request,
                   'resource/resource_detail.html',
                   context={'resource': resource, 'related': related_resources, 'tags': resource.tags.all()})
+
+
+def add_remove_starred(request):
+    username = request.GET.get('username', None)
+    pk = request.GET.get('pk', None)
+    user = User.objects.get(username=username)
+    resource = Resource.objects.get(id=pk)
+
+    is_starred = user.starred_resources.filter(id=pk).exists()
+    print(is_starred)
+    if is_starred:
+        user.starred_resources.remove(resource)
+    else:
+        user.starred_resources.add(resource)
+
+    data = {
+        'is_starred': not is_starred,
+    }
+
+    return JsonResponse(data)

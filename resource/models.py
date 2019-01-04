@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
@@ -46,6 +47,11 @@ class Resource(ConcurrentModel):
         settings.AUTH_USER_MODEL,
         null=True,
         on_delete=models.DO_NOTHING,
+    )
+    starred_by = models.ManyToManyField(
+        User,
+        blank=True,
+        related_name='starred_resources',
     )
 
     def __str__(self):

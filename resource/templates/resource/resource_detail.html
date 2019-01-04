@@ -8,42 +8,82 @@
 {% endblock %}
 
 {% block body %}
+    <div class="ui text container">
+        <h1>{{ resource.title  }}
+            {% if resource in request.user.starred_resources.all %}
+            <i id="star_icon" data-content="Remove from favorites" onClick="star_clicked();"
+               class="small star icon link yellow"></i>
+            {% else %}
+                <i id="star_icon" data-content="Add to favorites" onClick="star_clicked();"
+               class="small star outline icon link"></i>
+            {% endif %}
+        </h1>
+        <p><strong>{{ resource.medium }} by {{ resource.creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
 
-<div class="ui text container">
-    <h1>{{ resource.title }}</h1>
-    <p><strong>{{ resource.medium }} by {{ resource.creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
+        {% if resource.tags %}
+            <p><em>Tagged as: {{ tags|join:", " }}</em></p>
+        {% endif %}
 
-    {% if resource.tags %}
-        <p><em>Tagged as: {% for tag in tags %} {{tag}},  {% endfor %}</em></p>
-    {% endif %}
+        {% if perms.resource.change_resource %}
+            <a class="mini ui blue button"  href="{% url "edit_resource" pk=resource.pk %}">Edit</a>
+        {% endif %}
+        {% if perms.resource.delete_resource %}
+            <a class="mini ui blue button"  href="{% url "delete_resource" pk=resource.pk %}">Delete</a>
+        {% endif %}
 
-    {% if perms.resource.change_resource %}
-        <a class="mini ui blue button"  href="{% url "edit_resource" pk=resource.pk %}">Edit</a>
-    {% endif %}
-    {% if perms.resource.delete_resource %}
-        <a class="mini ui blue button"  href="{% url "delete_resource" pk=resource.pk %}">Delete</a>
-    {% endif %}
+        <p>{{ resource.description|safe|linebreaks}}</p>
+        {% if resource.link %}
+        <a href="{{resource.link}}" class="big ui blue button">Go to</a>
+        {% endif %}
+        <p><br></p>
+    </div>
 
-    <p>{{ resource.description|safe|linebreaks}}</p>
-    {% if resource.link %}
-    <a href="{{resource.link}}" class="big ui blue button">Go to</a>
-    {% endif %}
-    <p><br></p>
-</div>
+    <div class="ui cards five column stackable grid center aligned ">
+        {% for rel_resource in related %}
+        <a class="card column" href="{% url "resource_detail" pk=rel_resource.pk %}">
+            <div class="content">
+                <div class="header">{{ rel_resource.title }}</div>
+                <div class="meta">{{ rel_resource.medium }} by {{ rel_resource.creator }}</div>
+                <div class="description">{{ rel_resource.description|truncatechars:140|safe }}</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
 
-<!-- vil gjerne ha et vertikalt slideshow som viser 4 cards om gangen. Vet ikke hvordan -->
-<div class="ui cards five column stackable grid center aligned ">
-    {% for rel_resource in related %}
-    <a class="card column" href="{% url "resource_detail" pk=rel_resource.pk %}">
-        <div class="content">
-            <div class="header">{{ rel_resource.title }}</div>
-            <div class="meta">{{ rel_resource.medium }} by {{ rel_resource.creator }}</div>
-            <div class="description">{{ rel_resource.description|truncatechars:140|safe }}</div>
-        </div>
-    </a>
-    {% endfor %}
-</div>
+    <script>
+        var star_icon = $('#star_icon');
+        star_icon.popup({
+            on: 'hover'
+        });
 
+        function star() {
+            star_icon[0].classList.remove('outline');
+            star_icon[0].classList.add('yellow');
+            star_icon[0].setAttribute('data-content', 'Remove from favorites')
+        }
+        function unstar() {
+            star_icon[0].classList.add('outline');
+            star_icon[0].classList.remove('yellow');
+            star_icon[0].setAttribute('data-content', 'Add to favorites')
+        }
+        function star_clicked() {
+            $.ajax({
+                url: '{% url "star" %}',
+                data: {
+                    'username': "{{ request.user.username }}",
+                    'pk': "{{ resource.pk }}",
+                },
+                dataType: 'json',
+                success: function(data) {
+                    if (data.is_starred) {
+                        star();
+                    } else {
+                        unstar();
+                    }
+                }
+            })
+        }
 
+    </script>
 
 {% endblock %}
