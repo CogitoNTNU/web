@@ -5,7 +5,6 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
-from django.contrib import messages
 
 from .helpers import get_related_resources
 from .forms import ResourceForm, TagForm
@@ -65,14 +64,13 @@ def add_remove_starred(request):
     resource = Resource.objects.get(id=pk)
 
     is_starred = user.starred_resources.filter(id=pk).exists()
-    print(is_starred)
     if is_starred:
         user.starred_resources.remove(resource)
     else:
         user.starred_resources.add(resource)
 
     data = {
-        'is_starred': not is_starred,
+        'is_starred': not is_starred,  # is inverted in the if-statement
     }
 
     return JsonResponse(data)

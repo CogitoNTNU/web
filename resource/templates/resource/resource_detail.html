@@ -75,6 +75,7 @@
                 },
                 dataType: 'json',
                 success: function(data) {
+                    // if starred on server, appear as starred
                     if (data.is_starred) {
                         star();
                     } else {
