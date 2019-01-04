@@ -6,11 +6,14 @@ from django.db import models
 from django.urls import reverse
 
 
-class ApplicantPool(models.Model):
+class Collection(models.Model):
 
     name = models.CharField(
         blank=False,
         max_length=80,
+    )
+    description = models.TextField(
+        max_length=500
     )
     applicants = models.ManyToManyField(
         User,
@@ -27,8 +30,15 @@ class ApplicantPool(models.Model):
         null=True,
     )
 
+    @property
+    def application_open(self):
+        return (self.application_end_date is None) or (datetime.date.today() <= self.application_end_date)
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("collection", kwargs={'pk': self.pk})
 
 
 class Project(models.Model):
@@ -41,9 +51,12 @@ class Project(models.Model):
         blank=True,
         max_length=5000,
     )
-    applicant_pool = models.ForeignKey(
-        ApplicantPool,
-        related_name='project',
+    thumbnail = models.ImageField(
+        blank=True,
+    )
+    collection = models.ForeignKey(
+        Collection,
+        related_name='projects',
         blank=False,
         on_delete=models.CASCADE,
     )
@@ -59,12 +72,9 @@ class Project(models.Model):
     )
     manager = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
+        on_delete=models.DO_NOTHING,
         blank=True,
         null=True,
-    )
-    finished = models.BooleanField(
-        default=False,
     )
 
     def __str__(self):
@@ -72,9 +82,3 @@ class Project(models.Model):
 
     def get_absolute_url(self):
         return reverse("project", kwargs={'pk': self.pk})
-
-    @property
-    def application_open(self):
-        return self.applicant_pool.application_end_date is None or \
-               datetime.date.today() <= self.applicant_pool.application_end_date
-

@@ -8,35 +8,30 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 
-from project.models import Project, ApplicantPool
+from project.models import Project, Collection
 from project.forms import ProjectForm
 
 
-class CreateProjectView(PermissionRequiredMixin, CreateView):
+class CreateCollectionView(PermissionRequiredMixin, CreateView):
+    permission_required = 'project.add_collection'
+    model = Collection
+    fields = ('name', 'description', 'form_link', 'application_end_date',)
     redirect_field_name = '/'
+
+
+class CreateProjectView(PermissionRequiredMixin, CreateView):
     permission_required = 'project.add_project'
     model = Project
     form_class = ProjectForm
 
     # ensures that the user who created the project is set as its manager, also adds them to the members field
     def form_valid(self, form, **kwargs):
-        form_link = form.cleaned_data.pop('form_link', None)
-        application_end = form.cleaned_data.pop('application_end', None)
         project = form.save(commit=False)
-
-        try:
-            project.applicant_pool
-        except ObjectDoesNotExist:
-            project.applicant_pool = ApplicantPool.objects.create(name=project.title + '_pool')
-            if form_link:
-                project.applicant_pool.form_link = form_link
-            if application_end:
-                project.applicant_pool.application_end = application_end
 
         project.manager = self.request.user
         project.save()
         project.members.add(self.request.user)
-        project.applicant_pool.applicants.add(self.request.user)
+        project.collection.applicants.add(self.request.user)
         return HttpResponseRedirect(reverse('project', kwargs={'pk': project.pk}))
 
 
@@ -44,16 +39,6 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
     model = Project
     form_class = ProjectForm
     redirect_field_name = '/'
-
-    def get_form(self, form_class=None):
-        """Return an instance of the form to be used in this view."""
-        if form_class is None:
-            form_class = self.get_form_class()
-        form = form_class(**self.get_form_kwargs())
-
-        # remove application_end field, as it is only to be used on project creation
-        form.fields.pop('application_end', None)
-        return form
 
     def test_func(self):
         return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager \
@@ -63,7 +48,7 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
 class DeleteProjectView(UserPassesTestMixin, DeleteView):
     model = Project
     redirect_field_name = '/'
-    success_url = reverse_lazy('project_list')
+    success_url = reverse_lazy('collection_list')
 
     # Should be same the same in DeleteProject and EditProject
     def test_func(self):
@@ -81,26 +66,26 @@ class ProjectAdminDetailView(UserPassesTestMixin, DetailView):
 ##############################################
 
 
-def apply_to_project(request, pk):
+def apply_to_collection(request, pk):
     if request.method == 'POST':
         user = get_object_or_404(User, username=request.user.username)
-        project = get_object_or_404(Project, pk=pk)
+        collection = get_object_or_404(Collection, pk=pk)
 
-        if project.applicant_pool.applicants.filter(username=user.username).exists():
+        if collection.applicants.filter(username=user.username).exists():
             return HttpResponse("You have already applied to this project")
         try:
-            if not project.application_open:
+            if not collection.application_open:
                 return HttpResponse("Applications have ended for this project")
         except TypeError:
             return HttpResponse("This project does not have an application date set")
 
-        project.applicant_pool.applicants.add(user)
-        project.applicant_pool.save()
-        if project.applicant_pool.form_link:
-            return HttpResponseRedirect(project.applicant_pool.form_link)
+        collection.applicants.add(user)
+        collection.save()
+        if collection.form_link:
+            return HttpResponseRedirect(collection.form_link)
 
-        messages.success(request, 'You have successfully applied to ' + str(project))
-        return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))
+        messages.success(request, 'You have successfully applied to ' + str(collection))
+        return HttpResponseRedirect(reverse('collection', kwargs={'pk': pk}))
     return HttpResponseRedirect('/')
 
 

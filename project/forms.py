@@ -1,25 +1,14 @@
 from django import forms
 
-from project.models import Project, ApplicantPool
+from project.models import Project, Collection
 
 
 class ProjectForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['applicant_pool'].widget.attrs['class'] = 'ui multiple search selection dropdown'
-
-    applicant_pool = forms.ModelChoiceField(required=False, queryset=ApplicantPool.objects.all())
-    application_end = forms.DateField()
+        self.fields['collection'].widget.attrs['class'] = 'ui multiple search selection dropdown'
 
     class Meta:
         model = Project
-        fields = ('title', 'description', 'applicant_pool', )
-
-        widgets = {
-            'application_end_date': forms.DateInput(attrs={'medium': 'date',
-                                                      'class': 'ui input left icon',
-                                                      'id': 'application_end',
-                                                      'type': 'date'}),
-            'form_link': forms.URLInput(),
-        }
+        fields = ('title', 'description', 'thumbnail', 'collection',)

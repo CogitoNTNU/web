@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load helpers %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'web/css/nav.css' %}">
 
@@ -21,7 +22,7 @@
             <a class="item" href="{% url 'resource_list' %}">
                 Resources
             </a>
-            <a class="item" href="{% url 'project_list' %}">
+            <a class="item" href="{% url 'collection_list' %}">
                 Projects
             </a>
             <div class="ui dropdown item">
@@ -42,8 +43,7 @@
             {% if user.is_authenticated %}
                 <div class="ui dropdown item">
                     <div class="text">
-                        {% if user.first_name %}{{ user.first_name }}
-                        {% else %}{{ user.username }}{% endif %}
+                        {{ user|name }}
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
