@@ -1,4 +1,3 @@
-from django.conf.urls import url
 from django.urls import path
 from .models import Resource
 from django.views.generic import ListView
@@ -14,5 +13,5 @@ urlpatterns = [
     path('tag/add/', TagCreateView.as_view(), name="tag_form"),
     path('', ListView.as_view(model=Resource), name="resource_list"),
 
-    url(r'^star/$', add_remove_starred, name="star")
+    path('star/', add_remove_starred, name="star"),
 ]
