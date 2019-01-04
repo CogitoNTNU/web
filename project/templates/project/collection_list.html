@@ -11,10 +11,15 @@
         <a class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
     {% endif %}</h1>
 
-    <div class="ui segment">
     {% for collection in collection_list %}
+    <div class="ui segment">
         <div class="ui container">
-            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}">{{ collection.name }}</a></h2>
+            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}">{{ collection.name }}</a>
+                {% if collection.application_open and user not in collection.applicants %}
+                    <a href="{% url 'collection' pk=collection.pk %}#apply" class="ui tiny green button">Apply now</a>
+                {% endif %}
+            </h2>
+
             {% if collection.description %}
                 <p>{{ collection.description|safe|linebreaks }}</p>
             {% else %}
@@ -28,8 +33,8 @@
                     </div>
                 </div>
             {% endfor %}
-            </div>
         </div>
+    </div>
     {% endfor %}
     </div>
 

@@ -40,16 +40,6 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
     form_class = ProjectForm
     redirect_field_name = '/'
 
-    def get_form(self, form_class=None):
-        """Return an instance of the form to be used in this view."""
-        if form_class is None:
-            form_class = self.get_form_class()
-        form = form_class(**self.get_form_kwargs())
-
-        # remove application_end field, as it is only to be used on project creation
-        form.fields.pop('application_end', None)
-        return form
-
     def test_func(self):
         return self.request.user == get_object_or_404(Project, pk=self.kwargs['pk']).manager \
                 or self.request.user.has_perm('change_project')
@@ -95,7 +85,7 @@ def apply_to_collection(request, pk):
             return HttpResponseRedirect(collection.form_link)
 
         messages.success(request, 'You have successfully applied to ' + str(collection))
-        return HttpResponseRedirect(reverse('project', kwargs={'pk': pk}))
+        return HttpResponseRedirect(reverse('collection', kwargs={'pk': pk}))
     return HttpResponseRedirect('/')
 
 

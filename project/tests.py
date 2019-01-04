@@ -34,23 +34,34 @@ class ProjectTest(TestCase):
     def test_str(self):
         self.assertEqual(str(self.project), self.project.title)
 
-    def test_view(self):
+    def test_project_detail_view(self):
         response = self.client.get(reverse('project', args=(self.project.pk,)))
         self.assertEqual(response.status_code, 200)
 
-    def test_list_view(self):
-        response = self.client.get(reverse('project_list'))
+    def test_collection_detail_view(self):
+        response = self.client.get(reverse('collection', args=(self.project.pk,)))
+        self.assertEqual(response.status_code, 200)
+
+    def test_collection_list_view(self):
+        response = self.client.get(reverse('collection_list'))
         self.assertEqual(response.status_code, 200)
 
     def test_admin_view(self):
         response = self.client.get(reverse('project_admin', args=(self.project.pk,)))
         self.assertEqual(response.status_code, 200)
 
-    def test_add(self):
+    def test_add_project(self):
         response = self.client.get(reverse('project_form'))
         self.assertNotEqual(response.status_code, 200)
         self.add_permission('add_project')
         response = self.client.get(reverse('project_form'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_add_collection(self):
+        response = self.client.get(reverse('collection_form'))
+        self.assertNotEqual(response.status_code, 200)
+        self.add_permission('add_collection')
+        response = self.client.get(reverse('collection_form'))
         self.assertEqual(response.status_code, 200)
 
     def test_update(self):
@@ -62,7 +73,7 @@ class ProjectTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_apply(self):
-        response = self.client.post(reverse('apply_to_project', args=(self.project.pk,)))
+        response = self.client.post(reverse('apply_to_collection', args=(self.project.pk,)))
         self.assertEqual(response.status_code, 302)
 
     def test_reject_applicant(self):
@@ -113,6 +124,6 @@ class ProjectTest2(TestCase):
         self.assertNotEqual(response.status_code, 200)
 
     def test_apply(self):
-        response = self.client.post(reverse('apply_to_project', args=(self.project.pk,)))
-        self.assertEqual(response.url, f'/project/{self.project.pk}/')
+        response = self.client.post(reverse('apply_to_collection', args=(self.project.pk,)))
+        self.assertEqual(response.url, f'/projects/collection/{self.collection.pk}/')
 

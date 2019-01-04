@@ -25,32 +25,50 @@
                 {% else %}
                     <img class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
                 {% endif %}
-                <h2>{{ project.title }}</h2>
-                <em><p>project lead:
+                <h2>{{ project.title }}
+                <span style="font-size: 14px; font-weight: normal;">
+                    <em> - project lead:
                     <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
-                </p></em>
-                <p>{{ project.description|safe|linebreaks }}</p>
+                </em>
+                </span>
+                </h2>
+                <div class="ui styled fluid accordion">
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        Description
+                    </div>
+                    <div class="content">
+                        <p>{{ project.description|safe|linebreaks }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     {% endfor %}
 
-    <div class="ui segment">
-        {% if user.is_authenticated %}
-            {% if collection.application_open %}
-                <p>Applications open up to (and including): <strong>{{ collection.application_end_date|date:"d M Y" }}</strong></p>
-                {% if user not in project.collection.applicants.all%}
-                    <form method="post" action="{% url "apply_to_collection" pk=collection.pk %}">
-                        {% csrf_token %}
-                        <button type="submit" class="ui blue button">Apply</button>
-                    </form>
-                {% else %}
-                    <p><em>Application received</em></p>
-                {% endif %}
+    <p></p>
+
+    <div class="ui segment" id="apply">
+        {% if collection.application_open %}
+            <p>Applications open up to (and including): <strong>{{ collection.application_end_date|date:"d M Y" }}</strong></p>
+            {% if not user.is_authenticated %}
+                <p>You must be logged in to apply to our projects</p>
+            {% elif user not in project.collection.applicants.all%}
+                <form method="post" action="{% url "apply_to_collection" pk=collection.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="ui blue button">Apply</button>
+                </form>
             {% else %}
-                <p>Applications closed</p>
+                <p><em>Your application has been received</em></p>
             {% endif %}
+        {% else %}
+            <p>Applications closed</p>
         {% endif %}
     </div>
 
 </div>
+
+    <script>
+        $('.ui.accordion')
+        .accordion();
+    </script>
 {% endblock %}

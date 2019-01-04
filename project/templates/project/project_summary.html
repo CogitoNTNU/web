@@ -7,7 +7,11 @@
         {% endif %}
     </div>
     <div class="content">
-      <div class="header"><a class="cogito_col_dkgray" href="{% url 'project' pk=project.pk %}">{{ project.title }}</a></div>
+      <div class="header">{{ project.title }}
+        {% if request.user == project.manager or perms.project.change_project %}
+            <a href="{% url 'project' pk=project.pk %}" class="ui very tiny blue button">Manage</a>
+        {% endif %}
+      </div>
       <div class="meta">
         <span class="members">{{ project.members.count }} members</span>
       </div>
