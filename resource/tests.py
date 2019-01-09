@@ -23,6 +23,7 @@ class ResourceTest(TestCase):
         self.password = 'TEST_PASS'
         self.user = User.objects.create_user(username=self.username, password=self.password)
         self.client.login(username=self.username, password=self.password)
+        self.user2 = User.objects.create_user(username='TEST_USER2', password=self.password)
 
     def test_str(self):
         self.assertEqual(str(self.resource), self.resource.title)
@@ -50,6 +51,12 @@ class ResourceTest(TestCase):
         self.assertNotEqual(response.status_code, 200)
         self.add_permission('delete_resource')
         response = self.client.get(reverse('delete_resource', args=(self.resource.pk,)))
+        self.assertEqual(response.status_code, 200)
+
+    def test_star_resource(self):
+        response = self.client.get(f'/resources/star/?username={self.user2.username}&pk={self.resource.pk}')
+        self.assertEqual(response.status_code, 403)
+        response = self.client.get(f'/resources/star/?username={self.user.username}&pk={self.resource.pk}')
         self.assertEqual(response.status_code, 200)
 
     def test_create(self):

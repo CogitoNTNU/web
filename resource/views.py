@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
@@ -63,14 +64,18 @@ def add_remove_starred(request):
     user = User.objects.get(username=username)
     resource = Resource.objects.get(id=pk)
 
-    is_starred = user.starred_resources.filter(id=pk).exists()
-    if is_starred:
-        user.starred_resources.remove(resource)
+    if request.user == user:
+        is_starred = user.starred_resources.filter(id=pk).exists()
+        if is_starred:
+            user.starred_resources.remove(resource)
+        else:
+            user.starred_resources.add(resource)
+
+        data = {
+            'is_starred': not is_starred,  # is inverted in the if-statement
+        }
+
+        return JsonResponse(data)
+
     else:
-        user.starred_resources.add(resource)
-
-    data = {
-        'is_starred': not is_starred,  # is inverted in the if-statement
-    }
-
-    return JsonResponse(data)
+        raise PermissionDenied()
