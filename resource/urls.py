@@ -11,7 +11,7 @@ urlpatterns = [
     path('<int:pk>/delete/', ResourceChangeView.as_view(), name="delete_resource"),
     path('<int:pk>/', view_resource, name="resource_detail"),
     path('tag/add/', TagCreateView.as_view(), name="tag_form"),
-    path('', ListView.as_view(model=Resource), name="resource_list"),
+    path('', ListView.as_view(model=Resource, paginate_by=10), name="resource_list"),
 
     path('star/', add_remove_starred, name="star"),
 ]

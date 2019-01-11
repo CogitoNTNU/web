@@ -19,6 +19,8 @@
         <p><em>No description available</em></p>
     {% endif %}
 {% endfor %}
+
+{% include 'project_wide/pagination.html' with url='resources'%}
 </div>
 
 {% endblock %}

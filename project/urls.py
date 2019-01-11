@@ -6,7 +6,7 @@ from project.views import ProjectAdminDetailView, accept_applicant, reject_appli
     EditProjectView, CreateProjectView, CreateCollectionView, apply_to_collection
 
 urlpatterns = [
-    path('', ListView.as_view(queryset=Collection.objects.filter(projects__isnull=False)), name='collection_list'),
+    path('', ListView.as_view(queryset=Collection.objects.filter(projects__isnull=False), paginate_by=3), name='collection_list'),
     path('collection/<int:pk>/', DetailView.as_view(model=Collection), name='collection'),
     path('collection/new/', CreateCollectionView.as_view(), name='collection_form'),
 
