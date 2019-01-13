@@ -14,11 +14,8 @@ class ProfileForm(forms.ModelForm):
 
     class Meta:
         model = Profile
-        # fields = ('picture', 'skills', )
-        fields = ('skills', )
+        fields = ('picture', 'skills', )
 
-
-        """
         def clean(self):
             picture = self.cleaned_data.get('picture', False)
             if picture:
@@ -27,5 +24,3 @@ class ProfileForm(forms.ModelForm):
                 return picture
             else:
                 raise forms.ValidationError("Couldn't read uploaded image")
-        """
-
