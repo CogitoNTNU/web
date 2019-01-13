@@ -17,7 +17,7 @@
         <div class="column">
 
             {% if profile.picture %}
-                <img class="small bordered rounded ui image" src="../../media/{{ profile.picture.name }}">
+                <img class="small bordered rounded ui image" src="{{ profile.picture.url }}">
             {% else %}
                 <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
             {% endif %}
