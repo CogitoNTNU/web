@@ -52,7 +52,10 @@ class Project(models.Model):
         max_length=5000,
     )
     thumbnail = models.ImageField(
+        default=None,
         blank=True,
+        null=True,
+        upload_to='web/img/projects/',
     )
     collection = models.ForeignKey(
         Collection,

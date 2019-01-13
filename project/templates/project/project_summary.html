@@ -1,9 +1,9 @@
 <div class="item">
     <div class="ui tiny image">
         {% if project.thumbnail %}
-            <img src="../media/{{ project.thumbnail.name }}">
+            <img class="small bordered rounded ui image" src="{{ profile.picture.url }}">
         {% else %}
-            <img src="/static/web/img/avatar_placeholder.png">
+            <img src="/static/web/img/avatar_placeholder.png" class="small bordered rounded ui image">
         {% endif %}
     </div>
     <div class="content">
