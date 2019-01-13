@@ -17,7 +17,7 @@
         <div class="column">
 
             {% if profile.picture %}
-                <img class="small bordered rounded ui image" src="../media/{{ profile.picture.name }}">
+                <img class="small bordered rounded ui image" src="../../media/{{ profile.picture.name }}">
             {% else %}
                 <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
             {% endif %}
@@ -54,7 +54,7 @@
                 </div>
                 <div class="active content">
                     {% for skill in profile.skills.all %}
-                        <a class="tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
+                        <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
                     {% empty %}
                         <p><em>No skills listed</em></p>
                     {% endfor %}

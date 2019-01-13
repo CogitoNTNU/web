@@ -18,10 +18,10 @@ def profile(request, username):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
         if form.is_valid() and request.user == user:
-            skills = form.cleaned_data['skills']
+            skills, picture = form.cleaned_data['skills'], form.cleaned_data['picture']
             user.profile.skills.set(skills)
-            for skill in form.cleaned_data['skills']:
-                skill.members.add(user.profile)
+            user.profile.picture = picture
+            user.profile.save()
 
             return HttpResponseRedirect(reverse('profile', kwargs={'username': username}))
 
