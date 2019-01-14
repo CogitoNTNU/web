@@ -1,0 +1,13 @@
+{% with single_page as sp %}
+
+{% if sp.base_appearance %}
+    {% extends 'web/base.html' %}
+
+    {% block body %}
+        {% include 'single_page/sp_content.html' %}
+    {% endblock %}
+{% else %}
+    {% include 'single_page/sp_content.html' %}
+{% endif %}
+
+{% endwith %}
