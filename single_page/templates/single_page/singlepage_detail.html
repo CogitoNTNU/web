@@ -1,13 +1,23 @@
-{% with single_page as sp %}
+{% extends 'web/base.html' %}
 
-{% if sp.base_appearance %}
-    {% extends 'web/base.html' %}
+{% block header %}
+    {{ singlepage.url }}
+{% endblock %}
 
-    {% block body %}
-        {% include 'single_page/sp_content.html' %}
-    {% endblock %}
-{% else %}
-    {% include 'single_page/sp_content.html' %}
-{% endif %}
+{% block body %}
+{% with singlepage as sp %}
+    <div class="ui text container">
+        {% if perms.delete_singlepage %}
+            <a class="mini ui red button"  href="{% url "delete_single_page" slug=sp.slug %}">Delete</a>
+        {% endif %}
+        <p>
+            {{ sp.content|safe }}
+        </p>
 
+        {% for file in sp.files.all %}
+            <p><a href="{{ file.file.url }}">{{ file.file.filename }}</a></p>
+        {% endfor %}
+    </div>
 {% endwith %}
+{% endblock %}
+

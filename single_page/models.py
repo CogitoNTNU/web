@@ -1,6 +1,31 @@
+import os
+
 from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse
+
+
+class ImagePage(models.Model):
+    image = models.ImageField(
+        blank=False,
+        upload_to="image_page/files/%Y/%m/%d",
+    )
+    slug = models.SlugField(
+        blank=False,
+        unique=True,
+        primary_key=True,
+        verbose_name='url',
+    )
+
+    def __str__(self):
+        return self.slug + f' - {self.filename}'
+
+    def get_absolute_url(self):
+        return reverse("single_image", kwargs={'slug': self.slug})
+
+    @property
+    def filename(self):
+        return os.path.basename(self.image.name)
 
 
 class SinglePage(models.Model):
@@ -8,13 +33,11 @@ class SinglePage(models.Model):
         blank=True,
         null=True,
     )
-    base_appearance = models.BooleanField(
-        default=True,
-    )
     slug = models.SlugField(
         blank=False,
         unique=True,
         primary_key=True,
+        verbose_name='url',
     )
 
     def __str__(self):
@@ -24,6 +47,10 @@ class SinglePage(models.Model):
         return reverse("single_page", kwargs={'slug': self.slug})
 
 
-class FeedFile(models.Model):
+class SingleFile(models.Model):
     file = models.FileField(upload_to="single_page/files/%Y/%m/%d")
-    feed = models.ForeignKey(SinglePage, on_delete=models.CASCADE, related_name='files')
+    page = models.ForeignKey(SinglePage, on_delete=models.CASCADE, related_name='files')
+
+    @property
+    def filename(self):
+        return os.path.basename(self.file.name)

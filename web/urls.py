@@ -10,7 +10,6 @@ from web import settings
 from web.views import Home
 
 urlpatterns = [
-    path('', include('single_page.urls'), name='single_page'),
     path('admin/', admin.site.urls),
     path('complete/<str:backend>/', login_wrapper),
     path('', include('social_django.urls', namespace='social')),
@@ -27,6 +26,7 @@ urlpatterns = [
     ContentBox.url('about'),
     ContentBox.url('about/statutes'),
     ContentBox.url('about/business'),
+    path('', include('single_page.urls'), name='single_page'),
 ]
 
 if settings.DEBUG:
