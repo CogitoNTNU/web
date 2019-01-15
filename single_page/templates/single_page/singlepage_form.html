@@ -14,4 +14,27 @@
         <button type="submit" class="big ui primary button">Save</button>
     </form>
 </div>
+
+<script>
+
+$("#id_slug").change(function () {
+    var url = $(this).val();
+
+    function check_unique_url() {
+        $.ajax({
+            url: '{% url "check_url" %}',
+            data: {
+                'username': url,
+            },
+            dataType: 'json',
+            success: function(data) {
+                if (data.is_taken) {
+                    url.setCustomValidity("This url already resolves to some other page");
+                }
+            }
+        })
+    }
+});
+
+</script>
 {% endblock %}

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.urls import resolve, Resolver404
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from single_page.models import SinglePage, SingleFile, SingleImage
 
@@ -43,9 +44,7 @@ class SinglePageChangeView(PermissionRequiredMixin, UpdateView):
 
     def get_form(self, form_class=None):
         form = super().get_form()
-        form.fields['files'] = forms.FileField(widget=forms.FileInput(
-            attrs={'multiple': '', 'enctype': 'multipart/form-data'}), required=False
-        )
+        form.fields['files'] = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
         return form
 
     def post(self, request, *args, **kwargs):
@@ -71,3 +70,14 @@ def image_view(request, slug):
     image = SingleImage.objects.get(slug=slug)
     image_data = open(image.image.path, "rb").read()
     return HttpResponse(image_data, content_type="image/png")
+
+
+def url_exists(request):
+    path = request.GET.get('path', None)
+    try:
+        resolve(path)
+    except Resolver404:
+        return JsonResponse({'url_taken': True})
+
+    return JsonResponse({'url_taken': False})
+
