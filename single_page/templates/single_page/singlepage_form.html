@@ -30,6 +30,8 @@ $("#id_slug").change(function () {
             success: function(data) {
                 if (data.is_taken) {
                     url.setCustomValidity("This url already resolves to some other page");
+                } else {
+                    url.setCustomValidity("");
                 }
             }
         })
