@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ImagePage',
+            name='SingleImage',
             fields=[
                 ('image', models.ImageField(upload_to='image_page/files/%Y/%m/%d')),
                 ('slug', models.SlugField(primary_key=True, serialize=False, unique=True, verbose_name='url')),

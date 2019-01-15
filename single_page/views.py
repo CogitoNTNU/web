@@ -2,7 +2,19 @@ from django import forms
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponse
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
-from single_page.models import SinglePage, SingleFile, ImagePage
+from single_page.models import SinglePage, SingleFile, SingleImage
+
+
+class SingleImageDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'single_page.delete_singleimage'
+    model = SingleImage
+    template_name = 'web/confirm_delete.html'
+
+
+class SingleImageCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'single_page.add_singleimage'
+    model = SingleImage
+    fields = '__all__'
 
 
 class SinglePageCreateView(PermissionRequiredMixin, CreateView):
@@ -56,6 +68,6 @@ class SinglePageDeleteView(PermissionRequiredMixin, DeleteView):
 
 
 def image_view(request, slug):
-    image = ImagePage.objects.get(slug=slug)
+    image = SingleImage.objects.get(slug=slug)
     image_data = open(image.image.path, "rb").read()
     return HttpResponse(image_data, content_type="image/png")

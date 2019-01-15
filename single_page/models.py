@@ -5,7 +5,7 @@ from django.db import models
 from django.urls import reverse
 
 
-class ImagePage(models.Model):
+class SingleImage(models.Model):
     image = models.ImageField(
         blank=False,
         upload_to="image_page/files/%Y/%m/%d",
