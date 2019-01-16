@@ -207,6 +207,8 @@ class EventTest(TestCase):
         data = {'title': 'TITLE',
                 'start_date': datetime.date.today(),
                 'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'start_time': '12:00',
+                'end_time': '13:00',
                 'published': True}
         self.add_permission('change_event')
         response = self.client.post(reverse('event-update', kwargs={'pk': self.event.pk}), data)

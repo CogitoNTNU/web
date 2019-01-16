@@ -95,13 +95,14 @@ class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     def post(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
+        response = super().post(request, *args, **kwargs)
         if form.is_valid():
             event = form.save(commit=False)
             if Event.objects.get(pk=self.kwargs['pk']).published is False \
                     and event.published is True:
                 event.datetime_published = timezone.now()
             event.save()
-        return super().post(request, *args, **kwargs)
+        return response
 
 
 class EventDelete(PermissionRequiredMixin, DeleteView):
