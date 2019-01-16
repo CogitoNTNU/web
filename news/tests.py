@@ -52,16 +52,14 @@ class ArticleTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_event_form_valid(self):
-        data = {
-                'title': 'TITLE',
+        self.event = Event.objects.create(title='TITLE', start_date=datetime.date.today(),
+                                          end_date=datetime.date.today() + datetime.timedelta(days=1))
+        data = {'title': 'TITLE',
                 'start_date': datetime.date.today(),
-                'end_date': datetime.date.today() + datetime.timedelta(days=1),
-                'start_time': '12:00',
-                'end_time': '13:00',
-            }
-        self.add_permission('add_event')
-        response = self.client.post(reverse('event-create'), data)
-        self.assertEqual(response.status_code, 302)
+                'end_date': datetime.date.today() + datetime.timedelta(days=1)}
+        self.add_permission('change_event')
+        response = self.client.post(reverse('event-update', kwargs={'pk': self.event.pk}), data)
+        self.assertEqual(response.status_code, 200)
 
 
 class ConcurrencyTest(TestCase):
