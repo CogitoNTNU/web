@@ -3,7 +3,6 @@ import datetime
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase, Client
 from django.urls import reverse
-from django import forms
 
 from news.forms import EventForm
 from news.models import Article, Event
@@ -51,6 +50,18 @@ class ArticleTest(TestCase):
         self.add_permission('delete_article')
         response = self.client.get(reverse('article-delete', args=(self.article.pk,)))
         self.assertEqual(response.status_code, 200)
+
+    def test_event_form_valid(self):
+        data = {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'start_time': '12:00',
+                'end_time': '13:00',
+            }
+        self.add_permission('add_event')
+        response = self.client.post(reverse('event-create'), data)
+        self.assertEqual(response.status_code, 302)
 
 
 class ConcurrencyTest(TestCase):
@@ -188,3 +199,4 @@ class EventTest(TestCase):
             }
         )
         self.assertEqual(None, form.errors.get('__all__', None))
+
