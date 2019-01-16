@@ -17,26 +17,31 @@
 
 <script>
 
-$("#id_slug").change(function () {
-    var url = $(this).val();
-
-    function check_unique_url() {
-        $.ajax({
-            url: '{% url "check_url" %}',
-            data: {
-                'username': url,
-            },
-            dataType: 'json',
-            success: function(data) {
-                if (data.is_taken) {
-                    url.setCustomValidity("This url already resolves to some other page");
-                } else {
-                    url.setCustomValidity("");
-                }
+/*
+function check_unique_url(url) {
+    $.ajax({
+        url: '',
+        data: {
+            'url': url.val(),
+        },
+        dataType: 'json',
+        success: function(data) {
+            console.log(data)
+            if (data.url_taken) {
+                url[0].setCustomValidity('This url already resolves to some other page');
+            } else {
+                url[0].setCustomValidity("");
             }
-        })
-    }
+        }
+    })
+}
+
+$("#id_slug").change(function () {
+    let url_field = $(this);
+    check_unique_url(url_field);
+
 });
+*/
 
 </script>
 {% endblock %}
