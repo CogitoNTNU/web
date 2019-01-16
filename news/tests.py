@@ -51,16 +51,6 @@ class ArticleTest(TestCase):
         response = self.client.get(reverse('article-delete', args=(self.article.pk,)))
         self.assertEqual(response.status_code, 200)
 
-    def test_event_form_valid(self):
-        self.event = Event.objects.create(title='TITLE', start_date=datetime.date.today(),
-                                          end_date=datetime.date.today() + datetime.timedelta(days=1))
-        data = {'title': 'TITLE',
-                'start_date': datetime.date.today(),
-                'end_date': datetime.date.today() + datetime.timedelta(days=1)}
-        self.add_permission('change_event')
-        response = self.client.post(reverse('event-update', kwargs={'pk': self.event.pk}), data)
-        self.assertEqual(response.status_code, 200)
-
 
 class ConcurrencyTest(TestCase):
     def add_permission(self, codename, user=None):
@@ -128,6 +118,21 @@ class ConcurrencyTest(TestCase):
 
 
 class EventTest(TestCase):
+    def add_permission(self, codename, user=None):
+        user = self.user if not user else user
+        permission = Permission.objects.get(codename=codename)
+        user.user_permissions.add(permission)
+
+    def setUp(self):
+        self.event = Event.objects.create(
+            title='TITLE',
+            start_date=datetime.date.today(),
+            end_date=datetime.date.today() + datetime.timedelta(days=1),
+        )
+        self.username = 'TEST_USER'
+        self.password = 'TEST_PASS'
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.client.login(username=self.username, password=self.password)
     # The error messages must mirror the ones in EventForm.clean()
 
     def test_form_clean_method_date(self):
@@ -198,3 +203,11 @@ class EventTest(TestCase):
         )
         self.assertEqual(None, form.errors.get('__all__', None))
 
+    def test_event_update_form_valid(self):
+        data = {'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'published': True}
+        self.add_permission('change_event')
+        response = self.client.post(reverse('event-update', kwargs={'pk': self.event.pk}), data)
+        self.assertEqual(response.status_code, 200)

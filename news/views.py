@@ -87,18 +87,21 @@ class EventCreate(PermissionRequiredMixin, CreateView):
 class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     model = Event
     template_name = 'news/article_update.html'
-    form = EventForm
+    form_class = EventForm
     permission_required = (
         'news.change_event'
     )
 
-    def form_valid(self, form):
-        event = form.save(commit=False)
-        if Event.objects.get(pk=self.kwargs['pk']).published is False \
-                and event.published is True:
-            event.datetime_published = timezone.now()
-        event.save()
-        return HttpResponseRedirect(reverse_lazy('events'))
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        if form.is_valid():
+            event = form.save(commit=False)
+            if Event.objects.get(pk=self.kwargs['pk']).published is False \
+                    and event.published is True:
+                event.datetime_published = timezone.now()
+            event.save()
+        return super().post(request, *args, **kwargs)
 
 
 class EventDelete(PermissionRequiredMixin, DeleteView):
