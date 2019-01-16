@@ -44,6 +44,13 @@ class ArticleTest(TestCase):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.status_code, 200)
 
+    def test_event_update(self):
+        data = {'title': 'TITLE',
+                'published': True}
+        self.add_permission('change_article')
+        response = self.client.post(reverse('article-update', kwargs={'pk': self.article.pk}), data)
+        self.assertEqual(response.status_code, 200)
+
     def test_delete(self):
         response = self.client.get(reverse('article-delete', args=(self.article.pk,)))
         self.assertNotEqual(response.status_code, 200)
@@ -203,7 +210,7 @@ class EventTest(TestCase):
         )
         self.assertEqual(None, form.errors.get('__all__', None))
 
-    def test_event_update_form_valid(self):
+    def test_event_update(self):
         data = {'title': 'TITLE',
                 'start_date': datetime.date.today(),
                 'end_date': datetime.date.today() + datetime.timedelta(days=1),
