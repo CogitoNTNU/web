@@ -1,7 +1,6 @@
 from django import forms
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponse, JsonResponse
-from django.urls import resolve, Resolver404
+from django.http import HttpResponse
 from django.views.generic import CreateView, UpdateView, DeleteView
 
 from single_page.forms import SinglePageForm, SingleImageForm
@@ -24,6 +23,7 @@ class SingleImageCreateView(PermissionRequiredMixin, CreateView):
 class SinglePageCreateView(PermissionRequiredMixin, CreateView):
     permission_required = 'single_page.add_singlepage'
     form_class = SinglePageForm
+    template_name = 'single_page/singlepage_form.html'
 
     def get_form(self, form_class=None):
         form = super().get_form()
@@ -43,10 +43,11 @@ class SinglePageCreateView(PermissionRequiredMixin, CreateView):
             return self.form_invalid(form)
 
 
-class SinglePageChangeView(PermissionRequiredMixin, UpdateView):
+class SinglePageUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = 'single_page.change_singlepage'
     model = SinglePage
     form_class = SinglePageForm
+    template_name = 'single_page/singlepage_form.html'
 
     def get_form(self, form_class=None):
         form = super().get_form()
@@ -57,6 +58,7 @@ class SinglePageChangeView(PermissionRequiredMixin, UpdateView):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
         files = request.FILES.getlist('files')
+        self.object = self.get_object()
         if form.is_valid():
             for file in files:
                 SingleFile.objects.create(file=file, page=self.object)

@@ -1,8 +1,5 @@
 {% extends 'web/base.html' %}
 
-{% block header %}
-    {{ singlepage.url }}
-{% endblock %}
 
 {% block body %}
 {% with singlepage as sp %}
@@ -15,9 +12,10 @@
         </p>
 
         {% for file in sp.files.all %}
-            <p><a href="{{ file.file.url }}">{{ file.file.filename }}</a></p>
+            <p><a href="{{ file.file.url }}">{{ file.filename }}</a></p>
         {% endfor %}
     </div>
 {% endwith %}
 {% endblock %}
+
 
