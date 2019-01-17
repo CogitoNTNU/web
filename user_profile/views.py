@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
@@ -24,10 +25,13 @@ def profile(request, username):
             user.profile.save()
 
             return HttpResponseRedirect(reverse('profile', kwargs={'username': username}))
+        raise PermissionDenied("")
 
     return render(request, 'user_profile/profile.html', {'profile': user.profile, 'form': ProfileForm()})
 
+"""
 
+Alternate, class-based version of the profile view 
 class ProfileView(DetailView):
     model = Profile
     pk_url_kwarg = 'username'
@@ -61,3 +65,4 @@ class ProfileView(DetailView):
             if request.user == user:
                 user.profile.skills.set(form.cleaned_data['skills'])
         return HttpResponseRedirect(request.META.get('HTTP_REFERER', '/'))
+"""

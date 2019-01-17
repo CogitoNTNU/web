@@ -1,6 +1,5 @@
-import datetime
-
 from django.contrib.auth.models import Permission, User
+from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
 
@@ -46,5 +45,18 @@ class ProfileTest(TestCase):
         self.assertEqual(response.status_code, 200)
         response = self.client.get(reverse('profile', args=(self.user2.username,)))
         self.assertEqual(response.status_code, 200)
+
+    def test_profile_post(self):
+        skill = Skill.objects.create(name='SKILL')
+        data = {'skill': skill}
+        response = self.client.post(reverse('profile', args=(self.username,)), {})
+        self.assertEqual(response.url, f'/profiles/{self.username}/')
+        response = self.client.post(reverse('profile', args=(self.username,)), data)
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.url, f'/profiles/{self.username}/')
+        response = self.client.post(reverse('profile', args=(self.user2.username,)), data)
+        self.assertEqual(response.status_code, 403)
+
+
 
 

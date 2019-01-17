@@ -2,7 +2,7 @@ from django.urls import path
 from django.views.generic import DetailView
 from .models import Skill
 
-from .views import profile, ProfileView
+from .views import profile
 
 urlpatterns = [
     path('skill/<int:pk>/', DetailView.as_view(model=Skill), name='skill'),
