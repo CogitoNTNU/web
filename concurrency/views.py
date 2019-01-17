@@ -27,8 +27,10 @@ class ConcurrentUpdate(UpdateView):
         )
         if not access:
             return render(request, 'concurrency/access_denied.html', {'object': self.get_object()})
-
-        self.fields = (*self.fields, 'concurrency_key')
+        try:
+            self.fields = (*self.fields, 'concurrency_key')
+        except TypeError:
+            self.fields = (*self.form.base_fields, 'concurrency_key')
         return super().get(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -37,7 +39,11 @@ class ConcurrentUpdate(UpdateView):
         return context
 
     def post(self, request, *args, **kwargs):
-        self.fields = (*self.fields, 'concurrency_key')
+        if hasattr(self, 'form_class') and self.form_class:
+            self.form_class.base_fields['concurrency_key'] = forms.CharField()
+        else:
+            self.fields = (*self.fields, 'concurrency_key')
+
         form = self.get_form()
         self.object = self.get_object()
         if form.is_valid():

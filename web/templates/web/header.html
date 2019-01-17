@@ -10,15 +10,60 @@
         <a class="logo" href="{% url "home" %}"><img class="logo" src="{% static "web/img/logo.svg" %}"></a>
         <a class="name cogito_col_dkgray" href="{% url "home" %}">Cogito NTNU</a>
         <div class="ui secondary menu">
-            <a class="item">
-                Arrangementer
+            {% if perms.news.change_article or perms.news.change_events %}
+            <a class="item" href="{% url 'drafts' %}">
+                Drafts
             </a>
-            <a class="item">
-                Ressurser
+            {% endif %}
+            <a class="item" href="{% url 'events' %}">
+                Events
             </a>
-            <a class="item">
-                Om oss
+            <a class="item" href="{% url 'resource_list' %}">
+                Resources
             </a>
+            <a class="item" href="{% url 'project_list' %}">
+                Projects
+            </a>
+            <div class="ui dropdown item">
+                <div class="text">About</div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <a class="item" href="{% url 'about' %}">
+                        About
+                    </a>
+                    <a class="item" href="{% url 'about/statutes' %}">
+                        Statutes
+                    </a>
+                    <a class="item" href="{% url 'about/business' %}">
+                        Enterprise
+                    </a>
+                </div>
+            </div>
+            {% if user.is_authenticated %}
+                <div class="ui dropdown item">
+                    <div class="text">
+                        {% if user.first_name %}{{ user.first_name }}
+                        {% else %}{{ user.username }}{% endif %}
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a class="item" href="{% url 'profile' username=user.username %}">
+                            Profile
+                        </a>
+                        <a class="item" href="{% url 'logout' %}">
+                            Logout
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <a class="item" href="{% url 'login' %}">
+                    Login
+                </a>
+            {% endif %}
+
+            {% block scripts %}
+                    <script>$('.dropdown').dropdown();</script>
+            {% endblock scripts %}
         </div>
     </div>
 </div>

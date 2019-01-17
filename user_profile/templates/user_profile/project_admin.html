@@ -1,0 +1,71 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<div class="ui text container">
+
+    <h1>Manage project</h1>
+
+    <h2>Applicants:</h2>
+    {% if project.applicants.all %}
+     <div class="ui cards four   column stackable grid center aligned ">
+        {% for user in project.applicants.all %}
+            <div class="ui card">
+                <div class="image">
+                    <a href="{% url "profile" username=user.username%}">
+                        {% if profile.picture %}
+                            <img class="medium bordered rounded ui image" src="../media/{{ user.profile.picture.name }}">
+                        {% else %}
+                            <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
+                        {% endif %}
+                    </a>
+                </div>
+                <div class="content">
+                    <a class="header" >{{ user.first_name }} {{ user.last_name }}</a>
+                    <div class="meta">
+                        <span class="date">{{ user.profile.committee }}</span>
+                    </div>
+                    <div class="description">
+                        <form method="post" action="{% url "accept_applicant" pk=project.pk username=user.username %}">
+                            {% csrf_token %}
+                            <button type="submit" class="tiny ui blue button">Accept</button>
+                        </form>
+                        <form method="post" action="{% url "reject_applicant" pk=project.pk username=user.username %}">
+                            {% csrf_token %}
+                            <button type="submit" class="tiny ui button">Reject</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% else %}
+        <h4><em>This project currently has no applicants</em></h4>
+    {% endif %}
+
+    <h2>Members:</h2>
+    {% if project.members.all %}
+        <div class="ui cards five column stackable grid center aligned ">
+            {% for user in project.members.all %}
+                <div class="ui card">
+                    <div class="image">
+                        <a href="{% url "profile" username=user.username%}">
+                            {% if profile.picture %}
+                                <img class="medium bordered rounded ui image" src="../media/{{ user.profile.picture.name }}">
+                            {% else %}
+                                <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
+                            {% endif %}
+                        </a>
+                    </div>
+                    <div class="content">
+                        <a class="header" >{{ user.first_name }}</a>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h4><em>This project currently has no members</em></h4>
+    {% endif %}
+
+</div>
+{% endblock %}

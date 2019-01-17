@@ -17,7 +17,7 @@
         <h1>
             {{ object.title }}
             {% if perms.news.change_article %}
-                <a href="{% url "article-update" pk=object.pk %}" style="font-size: 14px">Edit</a>
+                <a class="size14"  href="{% url "article-update" pk=object.pk %}">Edit</a>
             {% endif %}
         </h1>
         {{ object.content|safe }}

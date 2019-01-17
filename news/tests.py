@@ -1,8 +1,11 @@
+import datetime
+
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase, Client
 from django.urls import reverse
 
-from news.models import Article
+from news.forms import EventForm
+from news.models import Article, Event
 
 
 class ArticleTest(TestCase):
@@ -39,6 +42,13 @@ class ArticleTest(TestCase):
         self.assertNotEqual(response.status_code, 200)
         self.add_permission('change_article')
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
+        self.assertEqual(response.status_code, 200)
+
+    def test_event_update(self):
+        data = {'title': 'TITLE',
+                'published': True}
+        self.add_permission('change_article')
+        response = self.client.post(reverse('article-update', kwargs={'pk': self.article.pk}), data)
         self.assertEqual(response.status_code, 200)
 
     def test_delete(self):
@@ -112,3 +122,101 @@ class ConcurrencyTest(TestCase):
     def test_invalid_form(self):
         response = self.client.post(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
+
+
+class EventTest(TestCase):
+    def add_permission(self, codename, user=None):
+        user = self.user if not user else user
+        permission = Permission.objects.get(codename=codename)
+        user.user_permissions.add(permission)
+
+    def setUp(self):
+        self.event = Event.objects.create(
+            title='TITLE',
+            start_date=datetime.date.today(),
+            end_date=datetime.date.today() + datetime.timedelta(days=1),
+        )
+        self.username = 'TEST_USER'
+        self.password = 'TEST_PASS'
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.client.login(username=self.username, password=self.password)
+    # The error messages must mirror the ones in EventForm.clean()
+
+    def test_form_clean_method_date(self):
+        # Set event to end the day before it begins
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() - datetime.timedelta(days=1),
+            }
+        )
+        # import pdb; pdb.set_trace()
+        self.assertEquals(
+            ['start_date must occur before or at the same time as end_date'],
+            form.errors['__all__']
+        )
+
+    def test_form_clean_method_date_fine(self):
+        # Set event to end the day before it begins
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+            }
+        )
+        self.assertEqual(None, form.errors.get('__all__', None))
+
+    def test_form_clean_method_time_1(self):
+        # Set time with no dates chosen
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_time': '12:00',
+                'end_time': '13:00',
+            }
+        )
+        self.assertEquals(
+            ["time fields require date fields to be filled"],
+            form.errors['__all__']
+        )
+
+    def test_form_clean_method_time_2(self):
+        # Set event to end an hour before it begins
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today(),
+                'start_time': '12:00',
+                'end_time': '11:00',
+            }
+        )
+        self.assertEquals(
+            ["start_time must occur before end_time when start_date==end_date"],
+            form.errors['__all__']
+        )
+
+    def test_clean_method_fine(self):
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'start_time': '12:00',
+                'end_time': '13:00',
+            }
+        )
+        self.assertEqual(None, form.errors.get('__all__', None))
+
+    def test_event_update(self):
+        data = {'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'start_time': '12:00',
+                'end_time': '13:00',
+                'published': True}
+        self.add_permission('change_event')
+        response = self.client.post(reverse('event-update', kwargs={'pk': self.event.pk}), data)
+        self.assertEqual(response.status_code, 200)

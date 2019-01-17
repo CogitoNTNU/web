@@ -1,0 +1,99 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% load helpers %}
+
+{% block title %}Profile{% endblock %}
+{% block og_title %}Profile{% endblock %}
+
+{% block body %}
+
+<div class="ui text container">
+
+    <h1>
+        {{ profile.user }}
+    </h1>
+
+    <div class="ui stackable equal width grid">
+        <div class="column">
+
+            {% if profile.picture %}
+                <img class="small bordered rounded ui image" src="../media/{{ profile.picture.name }}">
+            {% else %}
+                <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
+            {% endif %}
+            <h4>
+                {% for group in profile.user.groups.all %}
+                    {{ group }}
+                {% empty %}
+                    <em>Non-member</em>
+                {% endfor %}
+            </h4>
+            {% if edit %}
+                <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
+            {% endif %}
+        </div>
+
+        <div class="column">
+
+            <h3>Projects</h3>
+            <p>
+            {% for project in profile.user.project_memberships.all %}
+                <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>,
+            {% empty %}
+                <em>No projects listed</em>
+            {% endfor %}
+            </p>
+
+            <h3>Skills</h3>
+            <p>
+            {% for skill in profile.skills.all %}
+                <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
+            {% empty %}
+                <em>No skills listed</em>
+            {% endfor %}
+            </p>
+
+
+            {% if edit %}
+                <h4>My project applications:</h4>
+                <ul>
+                    {% for project in profile.user.project_applications.all %}
+                        <li>
+                            <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>
+                            {% if project.form_link %}
+                                <ul>
+                                <li><a href={{ project.form_link }}>project form</a></li>
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <div class="ui modal">
+        <div class="ui text container">
+            <form class="ui form" method="POST" enctype="multipart/form-data">
+                <h1>New {{ view.model|get_class|lower }}</h1>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="ui primary button">Save</button>
+                <button type="reset" onclick="hide_modal()" class="ui button">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function show_modal() {
+            $('.ui.modal').modal('show');
+        }
+        function hide_modal() {
+            $('.ui.modal').modal('hide');
+        }
+        $('.ui.dropdown').dropdown();
+    </script>
+</div>
+
+{% endblock %}

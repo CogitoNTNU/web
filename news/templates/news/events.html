@@ -1,0 +1,18 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Events{% endblock %}
+{% block og_title %}Events{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'news/css/events.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="ui text container">
+        <h1>
+            Events
+        </h1>
+        {% include "news/event_list.html" %}
+    </div>
+{% endblock %}

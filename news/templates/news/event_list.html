@@ -1,0 +1,46 @@
+{% load helpers %}
+
+<div class="ui items">
+    {% for object in object_list %}
+        <div class="big item">
+            <div class="content">
+                <!--div class="image">
+                    <img>
+                </div-->
+                <h1 class="header">
+                    {% if object|get_class|lower == 'event' %}
+                        <a class="cogito_col_dkgray" href="{% url "event" pk=object.pk %}">{{ object.title }}</a>
+                    {% else %}
+                        <a class="cogito_col_dkgray" href="{% url "article" pk=object.pk %}">{{ object.title }}</a>
+                    {% endif %}
+                </h1>
+                <div class="description">
+                    <p>{{ object.ingress|default:""|truncatechars:280 }}</p>
+                </div>
+                {% if object|get_class|lower == 'event' %}
+                    <div class="extra">
+                        <span>{{ object.start_date|date:"d M Y" }} {{ object.start_time }}
+                        {% if object.start_time %} - {{ object.start_time }} {% endif %}</span>
+                        {% if object.location %}
+                            <a {% if object.location_url %}href="{{ object.location_url }}"{% endif %}>
+                                <span>{{ object.location }}</span>
+                            </a>
+                        {% endif %}
+                        {% if object.facebook_url %}
+                            <a href="{{ object.facebook_url }}">
+                                <i class="ui facebook icon"></i>
+                            </a>
+                        {% endif %}
+                        {% if object.signup_url %}
+                            <a href="{{ object.signup_url }}">
+                                <i class="ui calendar icon"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    {% empty %}
+        <p>No events</p>
+    {% endfor %}
+</div>
