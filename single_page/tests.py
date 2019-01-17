@@ -105,16 +105,13 @@ class ImageTest(TestCase):
     def test_delete_page(self):
         response = self.client.get(reverse('delete_single_image', kwargs={'slug': self.image.slug}))
         self.assertEqual(response.status_code, 403)
-        for permission in Permission.objects.all():
-            self.add_permission(permission.codename)
+        self.add_permission('delete_singleimage')
         response = self.client.get(reverse('delete_single_image', kwargs={'slug': self.image.slug}))
         self.assertEqual(response.status_code, 200)
 
     def test_delete_page_post(self):
         response = self.client.post(reverse('delete_single_image', kwargs={'slug': self.image.slug}))
         self.assertEqual(response.status_code, 403)
-        # self.add_permission('delete_singleimage')
-        for permission in Permission.objects.all():
-            self.add_permission(permission.codename)
+        self.add_permission('delete_singleimage')
         response = self.client.post(reverse('delete_single_image', kwargs={'slug': self.image.slug}))
         self.assertEqual(response.status_code, 302)
