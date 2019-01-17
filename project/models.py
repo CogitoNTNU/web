@@ -41,6 +41,11 @@ class Collection(models.Model):
     def get_absolute_url(self):
         return reverse("collection", kwargs={'pk': self.pk})
 
+    class Meta:
+        ordering = (
+            '-application_end_date',
+        )
+
 
 class Project(models.Model):
 
