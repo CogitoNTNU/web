@@ -3,9 +3,6 @@ from .models import Profile
 
 
 class ProfileForm(forms.ModelForm):
-    # Because of potential problems with user uploaded images (uploading of explicit content)
-    # I've disabled user uploaded profile pictures for the time being. Also cant get it to work on
-    # the production server
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -23,5 +20,3 @@ class ProfileForm(forms.ModelForm):
                 if picture.__size > 4 * 1024 * 1024:
                     raise forms.ValidationError("Image file too large ( > 4mb )")
                 return picture
-            else:
-                raise forms.ValidationError("Couldn't read uploaded image")

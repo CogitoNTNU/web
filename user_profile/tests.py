@@ -3,6 +3,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
 from django.urls import reverse
 
+from user_profile.forms import ProfileForm
 from .models import Profile, Skill
 
 
@@ -56,6 +57,13 @@ class ProfileTest(TestCase):
         self.assertEqual(response.url, f'/profiles/{self.username}/')
         response = self.client.post(reverse('profile', args=(self.user2.username,)), data)
         self.assertEqual(response.status_code, 403)
+
+    def test_profile_form_clean(self):
+        image = SimpleUploadedFile("img.png", b"file_content", content_type="image/png")
+        skill = Skill.objects.create(name='SKILL')
+        data = {'skill': skill, 'picture': image}
+        form = ProfileForm(data)
+        self.assertTrue(form.is_valid())
 
 
 
