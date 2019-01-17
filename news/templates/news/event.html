@@ -44,5 +44,8 @@
             {% endif %}
         </p>
         {{ object.content|safe }}
+        {% if event.signup_url %}
+            <a href="{{ event.signup_url }}" class="ui blue button" target="_blank">Sign Up</a>
+        {% endif %}
     </div>
 {% endblock %}
