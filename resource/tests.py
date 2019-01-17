@@ -32,6 +32,11 @@ class ResourceTest(TestCase):
         response = self.client.get(reverse('resource_detail', args=(self.resource.pk,)))
         self.assertEqual(response.status_code, 200)
 
+    def test_view_with_related(self):
+        Resource.objects.create(title='TITLE2', grade='GRADE', medium='TYPE', creator='CREATOR')
+        response = self.client.get(reverse('resource_detail', args=(self.resource.pk,)))
+        self.assertEqual(response.status_code, 200)
+
     def test_add(self):
         response = self.client.get(reverse('resource_form'))
         self.assertNotEqual(response.status_code, 200)
@@ -53,11 +58,17 @@ class ResourceTest(TestCase):
         response = self.client.get(reverse('delete_resource', args=(self.resource.pk,)))
         self.assertEqual(response.status_code, 200)
 
-    def test_star_resource(self):
+    def test_star_resource_deny(self):
         response = self.client.get(f'/resources/star/?username={self.user2.username}&pk={self.resource.pk}')
         self.assertEqual(response.status_code, 403)
         response = self.client.get(f'/resources/star/?username={self.user.username}&pk={self.resource.pk}')
         self.assertEqual(response.status_code, 200)
+
+    def test_star_unstar_resource(self):
+        self.client.get(f'/resources/star/?username={self.user.username}&pk={self.resource.pk}')
+        self.assertEqual(self.resource.starred_by.first(), self.user)
+        self.client.get(f'/resources/star/?username={self.user.username}&pk={self.resource.pk}')
+        self.assertNotEqual(self.resource.starred_by.first(), self.user)
 
     def test_create(self):
         response = self.client.post(reverse('resource_form'),
