@@ -11,6 +11,7 @@ class SingleImageDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'single_page.delete_singleimage'
     model = SingleImage
     template_name = 'web/confirm_delete.html'
+    success_url = '/'
 
 
 class SingleImageCreateView(PermissionRequiredMixin, CreateView):
@@ -77,6 +78,7 @@ class SinglePageDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'single_page.delete_singlepage'
     model = SinglePage
     template_name = 'web/confirm_delete.html'
+    success_url = '/'
 
 
 def image_view(request, slug):

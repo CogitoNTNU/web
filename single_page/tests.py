@@ -45,3 +45,10 @@ class PageTest(TestCase):
         self.add_permission('delete_singlepage')
         response = self.client.get(reverse('delete_single_page', kwargs={'slug': self.page.slug}))
         self.assertEqual(response.status_code, 200)
+
+    def test_delete_page_post(self):
+        response = self.client.post(reverse('delete_single_page', kwargs={'slug': self.page.slug}))
+        self.assertEqual(response.status_code, 403)
+        self.add_permission('delete_singlepage')
+        response = self.client.post(reverse('delete_single_page', kwargs={'slug': self.page.slug}))
+        self.assertEqual(response.status_code, 302)
