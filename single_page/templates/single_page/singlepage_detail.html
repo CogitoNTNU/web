@@ -7,6 +7,9 @@
         {% if perms.delete_singlepage %}
             <a class="mini ui red button"  href="{% url "delete_single_page" slug=sp.slug %}">Delete</a>
         {% endif %}
+        {% if perms.change_singlepage %}
+            <a class="mini ui blue button"  href="{% url "change_single_page" slug=sp.slug %}">Edit</a>
+        {% endif %}
         <p>
             {{ sp.content|safe }}
         </p>

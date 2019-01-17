@@ -54,3 +54,6 @@ class SingleFile(models.Model):
     @property
     def filename(self):
         return os.path.basename(self.file.name)
+
+    def __str__(self):
+        return f'{self.filename} - {self.page}'

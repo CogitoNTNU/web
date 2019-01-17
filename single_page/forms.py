@@ -20,11 +20,6 @@ class SingleImageForm(forms.ModelForm):
         model = SingleImage
         fields = '__all__'
 
-    def clean(self):
-        url = self.cleaned_data['slug']
-        if not url.isalnum():
-            raise forms.ValidationError("url can only contain letters and numbers")
-
 
 class SinglePageForm(forms.ModelForm):
 
@@ -33,8 +28,6 @@ class SinglePageForm(forms.ModelForm):
         fields = '__all__'
 
     def clean(self):
-        slug = self.cleaned_data['slug']
-        if not slug.isalnum():
-            raise forms.ValidationError("url can only contain letters and numbers")
+        slug = self.cleaned_data.get('slug', None)
         if conflicting_urls(slug):
             raise forms.ValidationError("url already resolves to some other path")
