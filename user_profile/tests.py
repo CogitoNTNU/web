@@ -42,6 +42,7 @@ class ProfileTest(TestCase):
         self.assertEqual(str(self.profile), self.user.username)
 
     def test_view(self):
+        self.user.first_name = 'TEST_NAME'  # test template tag for getting names
         response = self.client.get(reverse('profile', args=(self.user.username,)))
         self.assertEqual(response.status_code, 200)
         response = self.client.get(reverse('profile', args=(self.user2.username,)))
