@@ -1,11 +1,6 @@
 {% extends 'web/base.html' %}
 {% load helpers %}
 
-{% block head %}
-    <script type="text/javascript" src="/bower_components/semantic-ui-calendar/dist/calendar.min.js"></script>
-    <link rel="stylesheet" href="/bower_components/semantic-ui-calendar/dist/calendar.min.css" />
-{% endblock %}
-
 {% block title %}New {{ view.model|get_class|lower }}{% endblock %}
 {% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
 
@@ -19,4 +14,9 @@
         <button type="submit" class="big ui primary button">Save</button>
     </form>
 </div>
+
+<script>
+    // Seems impossible to get django to just render the field as type=date in the view-class
+    $('#id_application_end_date')[0].setAttribute('type', 'date');
+</script>
 {% endblock %}

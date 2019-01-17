@@ -12,8 +12,9 @@ class Collection(models.Model):
         blank=False,
         max_length=80,
     )
-    description = models.TextField(
-        max_length=500
+    description = RichTextUploadingField(
+        blank=True,
+        max_length=500,
     )
     applicants = models.ManyToManyField(
         User,
