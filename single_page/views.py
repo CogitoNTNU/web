@@ -64,13 +64,21 @@ class SinglePageUpdateView(PermissionRequiredMixin, UpdateView):
         files = request.FILES.getlist('files')
         self.object = self.get_object()
         if form.is_valid():
-            if form.cleaned_data.pop('delete_files', None):
-                for obj in SingleFile.objects.filter(page=self.object):
-                    obj.delete()
+            print("form_valid")
+            if form.cleaned_data.pop('delete_files', False):
+                print("delete files")
+                slug = kwargs['slug']
+                singlefiles = SingleFile.objects.filter(page__slug=slug)
+                print(singlefiles)
+                for file in singlefiles:
+                    print(f'{file} deleted!')
+                    file.delete()
             for file in files:
+                print(f'{file} added!')
                 SingleFile.objects.create(file=file, page=self.object)
             return self.form_valid(form)
         else:
+            print("form_invalid")
             return self.form_invalid(form)
 
 

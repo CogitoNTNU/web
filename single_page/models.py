@@ -4,6 +4,8 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.urls import reverse
 
+from web import settings
+
 
 class SingleImage(models.Model):
     image = models.ImageField(
@@ -46,10 +48,21 @@ class SinglePage(models.Model):
     def get_absolute_url(self):
         return reverse("single_page", kwargs={'slug': self.slug})
 
+    def delete(self, using=None, keep_parents=False):
+        for file in self.files.all():
+            file.delete()
+        super().delete(using, keep_parents)
+
 
 class SingleFile(models.Model):
     file = models.FileField(upload_to="single_page/files/%Y/%m/%d")
     page = models.ForeignKey(SinglePage, on_delete=models.CASCADE, related_name='files')
+
+    def delete(self, using=None, keep_parents=False):
+        if self.file:
+            if os.path.isfile(self.file.path):
+                os.remove(self.file.path)
+        super().delete(using, keep_parents)
 
     @property
     def filename(self):

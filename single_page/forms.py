@@ -29,5 +29,5 @@ class SinglePageForm(forms.ModelForm):
 
     def clean(self):
         slug = self.cleaned_data.get('slug', None)
-        if conflicting_urls(slug):
+        if slug is not None and conflicting_urls(slug):
             raise forms.ValidationError("url already resolves to some other path")
