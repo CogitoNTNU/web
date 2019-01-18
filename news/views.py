@@ -22,7 +22,7 @@ class ArticleList(ListView):
 
 class ArticleCreate(PermissionRequiredMixin, CreateView):
     model = Article
-    fields = ('title', 'ingress', 'content', 'published',)
+    fields = ('title', 'ingress', 'content', 'published', 'banner')
     template_name = 'news/article_create.html'
     success_url = reverse_lazy('articles')
     permission_required = 'news.add_article'
@@ -34,19 +34,6 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     fields = ArticleCreate.fields
     success_url = reverse_lazy('articles')
     permission_required = 'news.change_article'
-
-    # If someone moves an article from draft to published: set published datetime to now
-    def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        response = super().post(request, *args, **kwargs)
-        if form.is_valid():
-            article = form.save(commit=False)
-            if Article.objects.get(pk=self.kwargs['pk']).published is False \
-                    and article.published is True:
-                article.datetime_published = timezone.now()
-            article.save()
-        return response
 
 
 class ArticleDelete(PermissionRequiredMixin, DeleteView):
@@ -84,18 +71,6 @@ class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     form_class = EventForm
     template_name = 'news/article_update.html'
     permission_required = 'news.change_event'
-
-    def post(self, request, *args, **kwargs):
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        response = super().post(request, *args, **kwargs)
-        if form.is_valid():
-            event = form.save(commit=False)
-            if Event.objects.get(pk=self.kwargs['pk']).published is False \
-                    and event.published is True:
-                event.datetime_published = timezone.now()
-            event.save()
-        return response
 
 
 class EventDelete(PermissionRequiredMixin, DeleteView):

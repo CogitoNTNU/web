@@ -7,7 +7,6 @@ from django.utils import timezone
 from concurrency.models import ConcurrentModel
 
 
-# Note: Article, except for being the super of Event, no longer does anything. It's just a pain to remove
 class Article(ConcurrentModel):
     title = models.CharField(
         max_length=100
@@ -27,14 +26,14 @@ class Article(ConcurrentModel):
         upload_to='web/img/article/banners',
     )
     published = models.BooleanField(default=False)
-    datetime_published = models.DateTimeField(default=timezone.now)
+    datetime_created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
 
     class Meta:
         ordering = (
-            '-datetime_published',
+            '-datetime_created',
         )
 
 
