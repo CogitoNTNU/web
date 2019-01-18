@@ -27,7 +27,7 @@ class EventForm(forms.ModelForm):
         end_time = self.cleaned_data.get('end_time', None)
 
         # Don't change the Error messages without also chaning their test equivalents
-        if (start_time and not end_time) or (start_date and not end_date):
+        if (start_time or start_date) and (end_time and not end_date):
             raise forms.ValidationError("time fields require date fields to be filled")
 
         if start_date > end_date:

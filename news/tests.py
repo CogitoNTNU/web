@@ -85,6 +85,7 @@ class ConcurrencyTest(TestCase):
     def test_concurrent_edit(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         data = response.context[0].dicts[3]['form'].initial
+        data.pop('banner')
         data['title'] = self.new_title
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
         response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
@@ -104,6 +105,7 @@ class ConcurrencyTest(TestCase):
     def test_concurrent_cancel(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         data = response.context[0].dicts[3]['form'].initial
+        data.pop('banner')
         data['title'] = self.new_title
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
         self.client.post(reverse('article-update', args=(self.article.pk,)) + '?cancel=true', data)
@@ -115,6 +117,7 @@ class ConcurrencyTest(TestCase):
     def test_concurrent_save(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         data = response.context[0].dicts[3]['form'].initial
+        data.pop('banner')
         data['concurrency_key'] = ''
         response = self.clientB.post(reverse('article-update', args=(self.article.pk,)), data)
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
