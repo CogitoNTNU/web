@@ -20,6 +20,12 @@ class Article(ConcurrentModel):
         blank=True,
         null=True,
     )
+    banner = models.ImageField(
+        blank=True,
+        null=True,
+        default=None,
+        upload_to='web/img/article/banners',
+    )
     published = models.BooleanField(default=False)
     datetime_published = models.DateTimeField(default=timezone.now)
 
