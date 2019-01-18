@@ -7,7 +7,7 @@
 {% block body %}
     <div class="ui text container">
         <h1>New {{ view.model|get_class|lower }}</h1>
-        <form class="ui form" action="" method="post">
+        <form class="ui form" action="" method="post" enctype="multipart/form-data">
             <p>Note: The ingress field is currently not displayed anywhere. This may change in the future</p>
             {% csrf_token %}
             {{ form.media }}
