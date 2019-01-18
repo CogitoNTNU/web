@@ -8,7 +8,7 @@
                 <div class="image">
                 {% if object.banner %}
                     <a href="{% if class == 'event' %}{% url "event" pk=object.pk %}{% else %}{% url "article" pk=object.pk %}{% endif %}">
-                        <img class="ui image" width="90%" src="../media/{{ object.banner.name }}">
+                        <img class="ui image" width="90%" src="/media/{{ object.banner.name }}">
                     </a>
                 {% endif %}
                 </div>

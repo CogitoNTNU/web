@@ -24,7 +24,7 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
     model = Article
     fields = ('title', 'ingress', 'content', 'published', 'banner')
     template_name = 'news/article_create.html'
-    success_url = reverse_lazy('articles')
+    success_url = '/'
     permission_required = 'news.add_article'
 
 
@@ -62,7 +62,7 @@ class EventCreate(PermissionRequiredMixin, CreateView):
     model = Event
     form_class = EventForm
     template_name = 'news/article_create.html'
-    success_url = reverse_lazy('events')
+    success_url = '/'
     permission_required = 'news.add_event'
 
 
