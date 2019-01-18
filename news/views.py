@@ -51,7 +51,7 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
 
 class ArticleDelete(PermissionRequiredMixin, DeleteView):
     model = Article
-    template_name = 'news/article_delete.html'
+    template_name = 'web/confirm_delete.html'
     success_url = reverse_lazy('articles')
     permission_required = 'news.delete_article'
 
@@ -100,7 +100,7 @@ class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
 
 class EventDelete(PermissionRequiredMixin, DeleteView):
     model = Event
-    template_name = 'news/article_delete.html'
+    template_name = 'web/confirm_delete.html'
     success_url = reverse_lazy('events')
     permission_required = (
         'news.delete_event',
