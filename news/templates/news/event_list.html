@@ -43,13 +43,14 @@
                 <div class="description">
                     <p>{{ object.content|safe|default:""|truncatechars:400 }}</p>
                 </div>
-                <br>
                 <div class="link">
+                    <p>
                     {% if class == 'event' %}
                         <a href="{% url "event" pk=object.pk %}">Read more »</a>
                     {% else %}
                         <a href="{% url "article" pk=object.pk %}">Read more »</a>
                     {% endif %}
+                    </p>
                 </div>
             </div>
         </div>
