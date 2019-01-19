@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.urls import reverse
 
-from web.templatetags.helpers import name
+from web.templatetags.helpers import name, first_name
 
 
 class FrontPageTest(TestCase):
@@ -13,7 +13,7 @@ class FrontPageTest(TestCase):
     def test_name_templatetag(self):
         self.username = 'username'
         self.password = 'password'
-        self.first_name = 'first_name'
+        self.first_name = 'first name'
         self.last_name = 'last_name'
         self.user = User.objects.create(username=self.username, password=self.password)
 
@@ -22,3 +22,5 @@ class FrontPageTest(TestCase):
         self.assertEqual(name(self.user), self.first_name)
         self.user.last_name = self.last_name
         self.assertEqual(name(self.user), self.first_name + ' ' + self.last_name)
+
+        self.assertEqual(first_name(self.user), self.first_name.split(' ')[0])
