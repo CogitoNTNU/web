@@ -1,0 +1,44 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+
+<div class="ui text container">
+
+    <h1>Our Projects:
+    {% if perms.project.add_project %}
+        <a class="mini ui blue button"  href="{% url "project_form" %}">New project</a>
+        <a class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
+    {% endif %}</h1>
+
+    {% for collection in collection_list %}
+    <div class="ui segment">
+        <div class="ui container">
+            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}">Collection: {{ collection.name }}</a>
+                {% if collection.application_open and user not in collection.applicants %}
+                    <a href="{% url 'collection' pk=collection.pk %}#apply" class="ui tiny green button">Apply now</a>
+                {% endif %}
+            </h2>
+
+            {% if collection.description %}
+                <p>{{ collection.description|safe|linebreaks|truncatechars:"280" }}</p>
+            {% else %}
+                <p><em>No description available</em></p>
+            {% endif %}
+
+            {% for project in collection.projects.all %}
+                <div class="ui vertical segment">
+                    <div class="ui items">
+                        {% include 'project/project_summary.html' %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    {% include 'project_wide/pagination.html' with url='projects'%}
+
+</div>
+
+{% endblock %}

@@ -11,22 +11,21 @@
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
+        <p></p>
+
+        <button type="submit" class="big ui primary button">Save</button>
 
         {% if perms.resource.create_tag %}
-        <div class="ui icon button" data-tooltip="Not finding the tag(s) you're looing for?
-        Click here to add your own!" data-position="bottom center" id="helper">
+        <div id="add_tag" class="ui icon button" data-tooltip="Not finding the tag(s) you're looing for?
+        Click here to add your own!" data-position="bottom center" id="helper"
+        style="position: relative; bottom: 60px; left: 150px">
             <a href="{% url "tag_form" %}"><i class="exclamation icon"></i></a>
         </div>
         {% endif %}
-
-        <script>
-            $('.ui.dropdown')
-                .dropdown();
-        </script>
-
-        <!-- Skulle likt å hatt linken til add_tag ved siden av Tag-fieldet -->
-
-        <button type="submit" class="big ui primary button">Save</button>
     </form>
+
+    <script>
+        $('.ui.dropdown').dropdown();
+    </script>
 </div>
 {% endblock %}

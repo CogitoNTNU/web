@@ -5,13 +5,20 @@
 
 <div class="ui text container">
 
-<h1>Resources</h1>
+<h1>Resources
 {% if perms.resource.add_resource %}
     <a class="mini ui blue button"  href="{% url "resource_form"%}">New</a>
 {% endif %}
+</h1>
 
 {% for resource in resource_list %}
-    <h2><a class="cogito_col_dkgray" href="{% url 'resource_detail' pk=resource.pk %}">{{ resource.title }}</a></h2>
+    <h2 style="display: inline;">
+        <a class="cogito_col_dkgray" href="{% url 'resource_detail' pk=resource.pk %}">{{ resource.title }}</a>
+    </h2>
+    <p style="display: inline">{{ resource.starred_by.all.count }}
+        <i class="small star icon
+            {% if request.user in resource.starred_by.all %}yellow{% else %}grey{% endif %}"></i>
+    </p>
     <p><strong>{{ resource.medium }} by {{ resource.creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
     {% if resource.description %}
         <p>{{ resource.description|safe|linebreaks|truncatechars:280 }}</p>
@@ -19,6 +26,8 @@
         <p><em>No description available</em></p>
     {% endif %}
 {% endfor %}
+
+{% include 'project_wide/pagination.html' with url='resources'%}
 </div>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 from .models import Resource
 
 
-def get_related_resources(resource):
+def get_related_resources(resource, n=-1):
     """
     :param resource: Resource object
     :return: list of Resource objects sorted in descending order by the number of tags shared with param resource.
@@ -24,6 +24,8 @@ def get_related_resources(resource):
             pass
         finally:
             sorted_resource_list.insert(i, key)
+        if i >= n >= 0:
+            break
 
     return sorted_resource_list
 
