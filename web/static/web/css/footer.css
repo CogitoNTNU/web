@@ -10,7 +10,7 @@
 }
 
 .footer, .footer a {
-    color: #ffffff;
+    color: #000000;
 }
 
 .footer .logo {
@@ -23,7 +23,7 @@
 
 .footer .container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr 2fr;
 }
 
 .footer .logo {
@@ -46,10 +46,9 @@
 }
 
 .footer .copyright {
-    grid-column-start: 1;
-    grid-column-end: 3;
-    justify-self: center;
+    grid-column-start: 2;
     margin-bottom: 20px;
+    margin-left: 20px
 }
 
 @media screen and (max-width: 500px) {
