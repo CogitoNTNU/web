@@ -96,7 +96,7 @@
     <div class="ui modal">
         <div class="ui text container">
             <form class="ui form" method="POST" enctype="multipart/form-data">
-                <h1>New {{ view.model|get_class|lower }}</h1>
+                <h1>Edit profile</h1>
                 {% csrf_token %}
                 {{ form.as_p }}
                 <button type="submit" class="ui primary button">Save</button>

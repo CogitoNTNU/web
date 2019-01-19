@@ -26,7 +26,6 @@ class CreateProjectView(PermissionRequiredMixin, CreateView):
     # ensures that the user who created the project is set as its manager, also adds them to the members field
     def form_valid(self, form, **kwargs):
         project = form.save(commit=False)
-
         project.manager = self.request.user
         project.save()
         project.members.add(self.request.user)
@@ -47,6 +46,7 @@ class EditProjectView(UserPassesTestMixin, UpdateView):
 class DeleteProjectView(UserPassesTestMixin, DeleteView):
     model = Project
     redirect_field_name = '/'
+    template_name = 'web/confirm_delete.html'
     success_url = reverse_lazy('collection_list')
 
     # Should be same the same in DeleteProject and EditProject

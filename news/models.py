@@ -1,6 +1,8 @@
 from datetime import date, time
 from django.db import models
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.utils import timezone
+
 from concurrency.models import ConcurrentModel
 
 
@@ -23,7 +25,7 @@ class Article(ConcurrentModel):
         upload_to='web/img/article/banners',
     )
     published = models.BooleanField(default=False)
-    datetime_created = models.DateTimeField(auto_now_add=True)
+    datetime_created = models.DateTimeField(default=timezone.now())
 
     def __str__(self):
         return self.title

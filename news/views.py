@@ -1,10 +1,6 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin
-from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.utils import timezone
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
-
-from django import forms
 from concurrency.views import ConcurrentUpdate
 from news.forms import EventForm
 from news.models import Article, Event
@@ -32,7 +28,7 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     model = Article
     template_name = 'news/article_update.html'
     fields = ArticleCreate.fields
-    success_url = reverse_lazy('articles')
+    success_url = '/'
     permission_required = 'news.change_article'
 
 
@@ -71,6 +67,7 @@ class EventUpdate(PermissionRequiredMixin, ConcurrentUpdate):
     form_class = EventForm
     template_name = 'news/article_update.html'
     permission_required = 'news.change_event'
+    success_url = '/'
 
 
 class EventDelete(PermissionRequiredMixin, DeleteView):
