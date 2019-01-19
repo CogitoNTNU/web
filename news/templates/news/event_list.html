@@ -1,19 +1,18 @@
 {% load helpers %}
 
-{% with object|get_class|lower as class %}
 <div class="ui text container">
     {% for object in object_list %}
         <div class="ui vertical segment">
             <div class="content">
                 <div class="image">
                 {% if object.banner %}
-                    <a href="{% if class == 'event' %}{% url "event" pk=object.pk %}{% else %}{% url "article" pk=object.pk %}{% endif %}">
+                    <a href="{% if object|get_class|lower == 'event' %}{% url "event" pk=object.pk %}{% else %}{% url "article" pk=object.pk %}{% endif %}">
                         <img class="ui image" width="90%" src="/media/{{ object.banner.name }}">
                     </a>
                 {% endif %}
                 </div>
                 <h1 class="header">
-                    {% if class == 'event' %}
+                    {% if object|get_class|lower == 'event' %}
                         <a class="cogito_col_dkgray" href="{% url "event" pk=object.pk %}">{{ object.title }}</a>
                     {% else %}
                         <a class="cogito_col_dkgray" href="{% url "article" pk=object.pk %}">{{ object.title }}</a>
@@ -45,7 +44,7 @@
                 </div>
                 <div class="link">
                     <p>
-                    {% if class == 'event' %}
+                    {% if object|get_class|lower == 'event' %}
                         <a href="{% url "event" pk=object.pk %}">Read more »</a>
                     {% else %}
                         <a href="{% url "article" pk=object.pk %}">Read more »</a>
@@ -58,4 +57,3 @@
         <p>No events</p>
     {% endfor %}
 </div>
-{% endwith %}
