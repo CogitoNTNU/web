@@ -57,6 +57,8 @@
                     {% csrf_token %}
                     <button type="submit" class="ui blue button">Apply</button>
                 </form>
+            {% elif not collection.form_link %}
+                <em><p>These projects are not open to applicants at the moment.</p></em>
             {% else %}
                 <p><em>Your application has been received</em></p>
             {% endif %}
