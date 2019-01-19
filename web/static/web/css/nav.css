@@ -50,23 +50,17 @@
     font-size: 30px;
 }
 
-@media screen and (max-width: 767px) {
-    .nav .container {
-        grid-template-columns: 90px 1fr;
-    }
-
-    .nav .name {
-        display: none;
-    }
-}
-
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .nav .container {
         margin: 0 !important;
     }
 
     .nav .burger {
         display: inline;
+    }
+
+    .nav .name {
+      display: none;
     }
 
     .nav .menu {

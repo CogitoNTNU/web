@@ -51,13 +51,16 @@
     margin-left: 20px
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
     .footer .container {
         grid-gap: 20px;
         grid-column-end: 1;
     }
 
-    .footer .sponsor, .footer .social, .footer .logo, .footer .copyright {
+    .footer .sponsor, 
+    .footer .social, 
+    .footer .logo, 
+    .footer .copyright {
       grid-column-start: 2;
       justify-self: center;
     }
