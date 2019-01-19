@@ -1,0 +1,17 @@
+{% extends 'web/base.html' %}
+{% load helpers %}
+
+{% block title %}New {{ view.model|get_class|lower }}{% endblock %}
+{% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
+
+{% block body %}
+<div class="ui text container">
+    <form class="ui form" method="POST" enctype="multipart/form-data">
+        <h1>{{ view.model|get_class }} form</h1>
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button type="submit" class="big ui primary button">Save</button>
+    </form>
+</div>
+{% endblock %}

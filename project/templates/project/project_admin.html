@@ -1,5 +1,6 @@
 {% extends 'web/base.html' %}
 {% load staticfiles %}
+{% load helpers %}
 
 {% block body %}
 <div class="ui text container">
@@ -7,9 +8,10 @@
     <h1>Manage project</h1>
 
     <h2>Applicants:</h2>
-    {% if project.applicants.all %}
+    {% if project.collection.applicants.all %}
      <div class="ui cards four   column stackable grid center aligned ">
-        {% for user in project.applicants.all %}
+        {% for user in project.collection.applicants.all %}
+            {% if user not in project.members.all and user not in project.rejected_applicants.all %}
             <div class="ui card">
                 <div class="image">
                     <a href="{% url "profile" username=user.username%}">
@@ -21,7 +23,7 @@
                     </a>
                 </div>
                 <div class="content">
-                    <a class="header" >{{ user.first_name }} {{ user.last_name }}</a>
+                    <a class="header" >{{ user|name }}</a>
                     <div class="meta">
                         <span class="date">{{ user.profile.committee }}</span>
                     </div>
@@ -37,6 +39,7 @@
                     </div>
                 </div>
             </div>
+            {% endif %}
         {% endfor %}
     </div>
     {% else %}
@@ -58,7 +61,7 @@
                         </a>
                     </div>
                     <div class="content">
-                        <a class="header" >{{ user.first_name }}</a>
+                        <a class="header" >{{ user.name }}</a>
                     </div>
                 </div>
             {% endfor %}

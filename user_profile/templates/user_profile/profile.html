@@ -10,14 +10,14 @@
 <div class="ui text container">
 
     <h1>
-        {{ profile.user }}
+        {{ profile.user|name }}
     </h1>
 
     <div class="ui stackable equal width grid">
         <div class="column">
 
             {% if profile.picture %}
-                <img class="small bordered rounded ui image" src="../media/{{ profile.picture.name }}">
+                <img class="small bordered rounded ui image" src="{{ profile.picture.url }}">
             {% else %}
                 <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
             {% endif %}
@@ -28,46 +28,66 @@
                     <em>Non-member</em>
                 {% endfor %}
             </h4>
-            {% if edit %}
+            {% if request.user == profile.user %}
                 <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
             {% endif %}
         </div>
 
         <div class="column">
+            <div class="ui accordion">
 
-            <h3>Projects</h3>
-            <p>
-            {% for project in profile.user.project_memberships.all %}
-                <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>,
-            {% empty %}
-                <em>No projects listed</em>
-            {% endfor %}
-            </p>
-
-            <h3>Skills</h3>
-            <p>
-            {% for skill in profile.skills.all %}
-                <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
-            {% empty %}
-                <em>No skills listed</em>
-            {% endfor %}
-            </p>
-
-
-            {% if edit %}
-                <h4>My project applications:</h4>
-                <ul>
-                    {% for project in profile.user.project_applications.all %}
-                        <li>
-                            <a href="{% url "project" pk=project.pk %}">{{ project.title }}</a>
-                            {% if project.form_link %}
-                                <ul>
-                                <li><a href={{ project.form_link }}>project form</a></li>
-                                </ul>
-                            {% endif %}
-                        </li>
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    <h3 style="display: inline;">Projects</h3>
+                </div>
+                <div class="active content">
+                    {% for project in profile.user.projects.all %}
+                        <a href="{% url "project" pk=project.pk %}">{{ project.title}}</a>
+                    {% empty %}
+                        <p><em>No projects listed</em></p>
                     {% endfor %}
-                </ul>
+                </div>
+
+                <div class="active title">
+                    <i class="dropdown icon"></i>
+                    <h3 style="display: inline;">Skills</h3>
+                </div>
+                <div class="active content">
+                    {% for skill in profile.skills.all %}
+                        <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
+                    {% empty %}
+                        <p><em>No skills listed</em></p>
+                    {% endfor %}
+                </div>
+
+
+            {% if request.user == profile.user %}
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    <h3 style="display: inline;">Starred resources</h3>
+                </div>
+                <div class="content">
+                    {% for resource in profile.user.starred_resources.all %}
+                        <li style="position: relative; left: 20px"><a href="{% url "resource_detail" pk=resource.pk %}">{{ resource.title }}</a></li>
+                    {% empty %}
+                        <p><em>No favorite resources</em></p>
+                    {% endfor %}
+                </div>
+            </div>
+
+                {% if profile.user.project_applications.all %}
+                    <h4>My project applications:</h4>
+                    <ul>
+                        {% for project in profile.user.project_applications.all %}
+                            <li>
+                                <a href="{% url "project" pk=project.pk %}">{{ project.name }}</a>
+                                {% if project.form_link %}
+                                     - <a href={{ project.form_link }}>project form</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
             {% endif %}
         </div>
     </div>
@@ -81,6 +101,7 @@
                 {{ form.as_p }}
                 <button type="submit" class="ui primary button">Save</button>
                 <button type="reset" onclick="hide_modal()" class="ui button">Cancel</button>
+            <p></p>
             </form>
         </div>
     </div>
@@ -93,6 +114,7 @@
             $('.ui.modal').modal('hide');
         }
         $('.ui.dropdown').dropdown();
+        $('.ui.accordion').accordion({exclusive: false});
     </script>
 </div>
 

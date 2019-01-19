@@ -1,3 +1,4 @@
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import RedirectView
@@ -5,6 +6,7 @@ from django.views.generic import RedirectView
 from contentbox.models import ContentBox
 from dataporten.views import Logout, login_wrapper
 from groups.views import CommitteeList
+from web import settings
 from web.views import Home
 
 urlpatterns = [
@@ -20,7 +22,12 @@ urlpatterns = [
     path('ckeditor/', include('ckeditor_uploader.urls')),
     path('resources/', include('resource.urls')),
     path('profiles/', include('user_profile.urls')),
+    path('projects/', include('project.urls')),
     ContentBox.url('about'),
     ContentBox.url('about/statutes'),
     ContentBox.url('about/business'),
+    path('', include('single_page.urls'), name='single_page'),
 ]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'news',
     'resource',
     'user_profile',
+    'project',
+    'single_page',
 
     'ckeditor',
     'contentbox',
