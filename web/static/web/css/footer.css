@@ -53,15 +53,12 @@
 
 @media screen and (max-width: 500px) {
     .footer .container {
-        grid-template-columns: 1fr;
         grid-gap: 20px;
+        grid-column-end: 1;
     }
 
-    .footer .copyright {
-        grid-column-end: 2;
-    }
-
-    .footer .social, .footer .logo {
-        justify-self: center;
+    .footer .sponsor, .footer .social, .footer .logo, .footer .copyright {
+      grid-column-start: 2;
+      justify-self: center;
     }
 }
