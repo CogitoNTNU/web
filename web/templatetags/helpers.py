@@ -15,3 +15,9 @@ def name(user):
     elif user.first_name:
         return user.first_name
     return user.username
+
+@register.filter
+def first_name(user):
+    if user.first_name:
+        return user.first_name.split(" ")[0]
+    return user.username
