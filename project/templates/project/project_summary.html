@@ -7,7 +7,8 @@
         {% endif %}
     </div>
     <div class="content">
-      <div class="header">{{ project.title }}
+      <div class="header"><a href="{% url 'collection' pk=collection.pk %}" class="cogito_col_dkgray">
+          {{ project.title }}</a>
         {% if request.user == project.manager or perms.project.change_project %}
             <a href="{% url 'project' pk=project.pk %}" class="ui very tiny blue button">Manage</a>
         {% endif %}
