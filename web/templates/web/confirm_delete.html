@@ -1,15 +1,15 @@
 {% extends 'web/base.html' %}
+{% load helpers %}
 
 {% block title %}Delete "{{ object.title }}"{% endblock %}
 {% block og_title %}Delete "{{ object.title }}"{% endblock %}
 
 {% block body %}
     <div class="ui text container">
-        <h1>Delete "{{ object.title }}"</h1>
-        <p>{{ object.content|truncatechars:"100" }}</p>
+        <h1>Delete {{ object|get_class }}-object "{{ object }}"?</h1>
         <form class="ui form" action="" method="post">
             {% csrf_token %}
-            <input class="ui blue button" type="submit" value="Delete"/>
+            <input class="ui red button" type="submit" value="Delete"/>
             <button class="ui cancel button" onclick="window.history.back();" type="button">Cancel</button>
         </form>
     </div>

@@ -1,0 +1,76 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% load helpers %}
+
+{% block body %}
+<div class="ui text container">
+
+    <h1>Collection: {{ collection.name}}</h1>
+
+    {% if messages %}
+        <ul class="messages" style="font-weight: bold">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p>{{ collection.description }}</p>
+
+    {% for project in collection.projects.all %}
+        <div class="ui container">
+            <div class="ui very padded vertical segment">
+                {% if project.thumbnail %}
+                    <img class="ui small left floated image" src="/media/{{ project.thumbnail.name }}">
+                {% else %}
+                    <img class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
+                {% endif %}
+                <h2>{{ project.title }}
+                <span style="font-size: 14px; font-weight: normal;">
+                    <em> - project lead:
+                    <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
+                </em>
+                </span>
+                </h2>
+                <div class="ui styled fluid accordion">
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        Description
+                    </div>
+                    <div class="content">
+                        <p>{{ project.description|safe|linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <p></p>
+
+    <div class="ui segment" id="apply">
+        {% if collection.application_open %}
+            <p>Applications open up to (and including): <strong>{{ collection.application_end_date|date:"d M Y" }}</strong></p>
+            {% if not user.is_authenticated %}
+                <p><em>You must be logged in to apply to our projects</em></p>
+            {% elif user not in project.collection.applicants.all%}
+                <form method="post" action="{% url "apply_to_collection" pk=collection.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="ui blue button">Apply</button>
+                </form>
+            {% elif not collection.form_link %}
+                <em><p>These projects are not open to applicants at the moment.</p></em>
+            {% else %}
+                <p><em>Your application has been received</em></p>
+            {% endif %}
+        {% else %}
+            <p>Applications closed</p>
+        {% endif %}
+    </div>
+
+</div>
+
+    <script>
+        $('.ui.accordion')
+        .accordion();
+    </script>
+{% endblock %}

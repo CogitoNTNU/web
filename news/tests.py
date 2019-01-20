@@ -3,7 +3,6 @@ import datetime
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase, Client
 from django.urls import reverse
-from django import forms
 
 from news.forms import EventForm
 from news.helpers import generate_mazemap_embed
@@ -46,6 +45,13 @@ class ArticleTest(TestCase):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.status_code, 200)
 
+    def test_event_update(self):
+        data = {'title': 'TITLE',
+                'published': True}
+        self.add_permission('change_article')
+        response = self.client.post(reverse('article-update', kwargs={'pk': self.article.pk}), data)
+        self.assertEqual(response.status_code, 200)
+
     def test_delete(self):
         response = self.client.get(reverse('article-delete', args=(self.article.pk,)))
         self.assertNotEqual(response.status_code, 200)
@@ -80,6 +86,7 @@ class ConcurrencyTest(TestCase):
     def test_concurrent_edit(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         data = response.context[0].dicts[3]['form'].initial
+        data.pop('banner')
         data['title'] = self.new_title
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
         response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
@@ -99,6 +106,7 @@ class ConcurrencyTest(TestCase):
     def test_concurrent_cancel(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         data = response.context[0].dicts[3]['form'].initial
+        data.pop('banner')
         data['title'] = self.new_title
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
         self.client.post(reverse('article-update', args=(self.article.pk,)) + '?cancel=true', data)
@@ -110,6 +118,7 @@ class ConcurrencyTest(TestCase):
     def test_concurrent_save(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         data = response.context[0].dicts[3]['form'].initial
+        data.pop('banner')
         data['concurrency_key'] = ''
         response = self.clientB.post(reverse('article-update', args=(self.article.pk,)), data)
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
@@ -120,6 +129,21 @@ class ConcurrencyTest(TestCase):
 
 
 class EventTest(TestCase):
+    def add_permission(self, codename, user=None):
+        user = self.user if not user else user
+        permission = Permission.objects.get(codename=codename)
+        user.user_permissions.add(permission)
+
+    def setUp(self):
+        self.event = Event.objects.create(
+            title='TITLE',
+            start_date=datetime.date.today(),
+            end_date=datetime.date.today() + datetime.timedelta(days=1),
+        )
+        self.username = 'TEST_USER'
+        self.password = 'TEST_PASS'
+        self.user = User.objects.create_user(username=self.username, password=self.password)
+        self.client.login(username=self.username, password=self.password)
     # The error messages must mirror the ones in EventForm.clean()
 
     def test_form_clean_method_date(self):
@@ -189,6 +213,17 @@ class EventTest(TestCase):
             }
         )
         self.assertEqual(None, form.errors.get('__all__', None))
+
+    def test_event_update(self):
+        data = {'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'start_time': '12:00',
+                'end_time': '13:00',
+                'published': True}
+        self.add_permission('change_event')
+        response = self.client.post(reverse('event-update', kwargs={'pk': self.event.pk}), data)
+        self.assertEqual(response.status_code, 200)
 
     def test_generate_mazemap_embed(self):
         mazemap_url = 'https://use.mazemap.com/#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1'

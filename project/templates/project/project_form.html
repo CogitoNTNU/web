@@ -1,17 +1,13 @@
 {% extends 'web/base.html' %}
 {% load helpers %}
 
-{% block head %}
-    <script type="text/javascript" src="/bower_components/semantic-ui-calendar/dist/calendar.min.js"></script>
-    <link rel="stylesheet" href="/bower_components/semantic-ui-calendar/dist/calendar.min.css" />
-{% endblock %}
 
 {% block title %}New {{ view.model|get_class|lower }}{% endblock %}
 {% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
 
 {% block body %}
 <div class="ui text container">
-    <form class="ui form" method="POST">
+    <form class="ui form" method="POST" enctype="multipart/form-data">
         <h1>{{ view.model|get_class }} form</h1>
         {% csrf_token %}
         {{ form.media }}
@@ -20,9 +16,4 @@
     </form>
 </div>
 
-<script>
-    $('#application_end').calendar({
-      type: 'date'
-    });
-</script>
 {% endblock %}
