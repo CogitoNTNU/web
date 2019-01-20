@@ -18,7 +18,7 @@
                class="small star outline icon link"></i>
             {% endif %}
         </h1>
-        <p><strong>{{ resource.medium }} by {{ resource.creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
+        <p><strong>{{ resource.medium }} by {{ resource.content_creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
 
         {% if resource.tags %}
             <p><em>Tagged as: {{ tags|join:", " }}</em></p>
@@ -43,7 +43,7 @@
         <a class="card column" href="{% url "resource_detail" pk=rel_resource.pk %}">
             <div class="content">
                 <div class="header">{{ rel_resource.title }}</div>
-                <div class="meta">{{ rel_resource.medium }} by {{ rel_resource.creator }}</div>
+                <div class="meta">{{ rel_resource.medium }} by {{ rel_resource.content_creator }}</div>
                 <div class="description">{{ rel_resource.description|truncatechars:140|safe }}</div>
             </div>
         </a>

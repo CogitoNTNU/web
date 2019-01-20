@@ -17,7 +17,7 @@ class ResourceTest(TestCase):
             title='TITLE',
             grade='GRADE',
             medium='TYPE',
-            creator='CREATOR',
+            content_creator='CREATOR',
         )
         self.username = 'TEST_USER'
         self.password = 'TEST_PASS'
@@ -33,7 +33,7 @@ class ResourceTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_view_with_related(self):
-        Resource.objects.create(title='TITLE2', grade='GRADE', medium='TYPE', creator='CREATOR')
+        Resource.objects.create(title='TITLE2', grade='GRADE', medium='TYPE', content_creator='CREATOR')
         response = self.client.get(reverse('resource_detail', args=(self.resource.pk,)))
         self.assertEqual(response.status_code, 200)
 
@@ -72,7 +72,7 @@ class ResourceTest(TestCase):
 
     def test_create(self):
         response = self.client.post(reverse('resource_form'),
-                                    {'title': 'title', 'creator': 'creator',
+                                    {'title': 'title', 'content_creator': 'creator',
                                      'link': 'link.com', 'description': 'description',
                                      'grade': 'beginner', 'medium': 'paper'}
                                     )
@@ -81,7 +81,7 @@ class ResourceTest(TestCase):
                         response.url == '/login/?recommend/resource_detail.html=/resources/create/')
         self.add_permission('add_resource')
         response = self.client.post(reverse('resource_form'),
-                                    {'title': 'title', 'creator': 'creator',
+                                    {'title': 'title', 'content_creator': 'creator',
                                      'description': 'description', 'grade': 'beginner',
                                      'medium': 'paper'}
                                     )

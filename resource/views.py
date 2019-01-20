@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.exceptions import PermissionDenied
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
@@ -17,6 +17,12 @@ class ResourceCreateView(PermissionRequiredMixin, CreateView):
     redirect_field_name = 'recommend/resource_detail.html'
     form_class = ResourceForm
     model = Resource
+
+    def form_valid(self, form):
+        resource = form.save(commit=False)
+        resource.added_by_user = self.request.user
+        resource.save()
+        return HttpResponseRedirect(resource.get_absolute_url())
 
 
 class ResourceChangeView(PermissionRequiredMixin, DeleteView):
