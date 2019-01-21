@@ -37,7 +37,7 @@
                         <i class="dropdown icon"></i>
                         Description
                     </div>
-                    <div class="content" id="{{ project.pk }}">
+                    <div class="content" id="{{ forloop.counter }}">
                         <p>{{ project.description|safe|linebreaks }}</p>
                     </div>
                 </div>
