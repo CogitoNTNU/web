@@ -15,7 +15,7 @@
         </ul>
     {% endif %}
 
-    <p>{{ collection.description }}</p>
+    <p>{{ collection.description|safe }}</p>
 
     {% for project in collection.projects.all %}
         <div class="ui container">
@@ -52,7 +52,7 @@
             <p>Applications open up to (and including): <strong>{{ collection.application_end_date|date:"d M Y" }}</strong></p>
             {% if not user.is_authenticated %}
                 <p><em>You must be logged in to apply to our projects</em></p>
-            {% elif user not in project.collection.applicants.all%}
+            {% elif user not in collection.applicants.all%}
                 <form method="post" action="{% url "apply_to_collection" pk=collection.pk %}">
                     {% csrf_token %}
                     <button type="submit" class="ui blue button">Apply</button>
