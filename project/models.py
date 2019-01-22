@@ -18,7 +18,7 @@ class Collection(models.Model):
     )
     applicants = models.ManyToManyField(
         User,
-        related_name='project_applications',
+        related_name='collection_applications',
         blank=True,
     )
     form_link = models.CharField(
