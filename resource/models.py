@@ -36,17 +36,18 @@ class Resource(ConcurrentModel):
         max_length=150,
         blank=False,
     )
-    creator = models.CharField(
+    content_creator = models.CharField(
         max_length=150,
         blank=False,
     )
     creation_date = models.DateTimeField(
         default=timezone.now
     )
-    author = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
+    added_by_user = models.ForeignKey(
+        User,
         null=True,
         on_delete=models.DO_NOTHING,
+        related_name='created_resources'
     )
     starred_by = models.ManyToManyField(
         User,

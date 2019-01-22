@@ -75,14 +75,14 @@
                 </div>
             </div>
 
-                {% if profile.user.project_applications.all %}
+                {% if profile.user.collection_applications.all %}
                     <h4>My project applications:</h4>
                     <ul>
-                        {% for project in profile.user.project_applications.all %}
+                        {% for collection in profile.user.collection_applications.all %}
                             <li>
-                                <a href="{% url "project" pk=project.pk %}">{{ project.name }}</a>
-                                {% if project.form_link %}
-                                     - <a href={{ project.form_link }}>project form</a>
+                                <a href="{% url "collection" pk=collection.pk %}">{{ collection.name }}</a>
+                                {% if collection.form_link %}
+                                    - <a href="{{ collection.form_link }}">application</a>
                                 {% endif %}
                             </li>
                         {% endfor %}

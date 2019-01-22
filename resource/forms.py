@@ -13,7 +13,7 @@ class ResourceForm(forms.ModelForm):
 
     class Meta:
         model = Resource
-        fields = ['title', 'creator', 'link', 'description', 'grade', 'medium', 'tags', ]
+        fields = ['title', 'content_creator', 'link', 'description', 'grade', 'medium', 'tags', ]
 
         widgets = {
             'medium': forms.Select(choices=(

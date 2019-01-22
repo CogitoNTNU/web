@@ -9,14 +9,12 @@
     <div class="ui container">
         <div class="main grid">
             <div>
-                <h1>
-                    {% if perms.news.add_article %}
-                        <a href="{% url 'article-create' %}" class="tiny ui blue button">New Article</a>
-                    {% endif %}
-                    {% if perms.news.add_event %}
-                        <a href="{% url "event-create" %}" class="tiny ui blue button" >New Event</a>
-                    {% endif %}
-                </h1>
+                {% if perms.news.add_article %}
+                    <a href="{% url 'article-create' %}" class="tiny ui blue button">New Article</a>
+                {% endif %}
+                {% if perms.news.add_event %}
+                    <a href="{% url "event-create" %}" class="tiny ui blue button" >New Event</a>
+                {% endif %}
                 {% include "news/event_list.html" %}
                 {% include 'project_wide/pagination.html' with url=''%}
             </div>
