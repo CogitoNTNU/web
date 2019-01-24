@@ -15,17 +15,17 @@
         </ul>
     {% endif %}
 
-    <p>{{ collection.description }}</p>
+    <p>{{ collection.description|safe }}</p>
 
     {% for project in collection.projects.all %}
         <div class="ui container">
-            <div class="ui very padded vertical segment">
+            <div class="ui very padded vertical segment" id="{{ project.title }}">
                 {% if project.thumbnail %}
                     <img class="ui small left floated image" src="/media/{{ project.thumbnail.name }}">
                 {% else %}
                     <img class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
                 {% endif %}
-                <h2>{{ project.title }}
+                <h2 id="{{ forloop.counter }}">{{ project.title }}
                 <span style="font-size: 14px; font-weight: normal;">
                     <em> - project lead:
                     <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
@@ -37,7 +37,7 @@
                         <i class="dropdown icon"></i>
                         Description
                     </div>
-                    <div class="content">
+                    <div class="content" id="{{ forloop.counter }}-content">
                         <p>{{ project.description|safe|linebreaks }}</p>
                     </div>
                 </div>
@@ -48,20 +48,20 @@
     <p></p>
 
     <div class="ui segment" id="apply">
-        {% if collection.application_open %}
+        {% if collection.application_open and collection.form_link%}
             <p>Applications open up to (and including): <strong>{{ collection.application_end_date|date:"d M Y" }}</strong></p>
             {% if not user.is_authenticated %}
                 <p><em>You must be logged in to apply to our projects</em></p>
-            {% elif user not in project.collection.applicants.all%}
+            {% elif user not in collection.applicants.all%}
                 <form method="post" action="{% url "apply_to_collection" pk=collection.pk %}">
                     {% csrf_token %}
                     <button type="submit" class="ui blue button">Apply</button>
                 </form>
-            {% elif not collection.form_link %}
-                <em><p>These projects are not open to applicants at the moment.</p></em>
             {% else %}
                 <p><em>Your application has been received</em></p>
             {% endif %}
+        {% elif collection.application_open and not collection.form_link %}
+            <em><p>These projects are not open to applicants at the moment. Please come back at a later date</p></em>
         {% else %}
             <p>Applications closed</p>
         {% endif %}
@@ -69,8 +69,15 @@
 
 </div>
 
-    <script>
-        $('.ui.accordion')
-        .accordion();
-    </script>
+<script>
+    $('.ui.accordion')
+    .accordion();
+
+    var url = window.location.href;
+    var id = url.split('#')[1];
+    var content_div = $('#' + id + '-content')[0];
+    content_div.setAttribute('class', 'active ' + content_div.getAttribute('class'));
+
+
+</script>
 {% endblock %}

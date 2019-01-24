@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 
@@ -71,7 +71,8 @@ def apply_to_collection(request, pk):
         collection = get_object_or_404(Collection, pk=pk)
 
         if collection.applicants.filter(username=user.username).exists():
-            return HttpResponse("You have already applied to this project")
+            return HttpResponse("You have already applied to this project. "
+                                "Application forms can be found on your profile page")
         try:
             if not collection.application_open:
                 return HttpResponse("Applications have ended for this project")
