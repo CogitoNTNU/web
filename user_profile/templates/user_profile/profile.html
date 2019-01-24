@@ -41,7 +41,7 @@
                     <h3 style="display: inline;">Projects</h3>
                 </div>
                 <div class="active content">
-                    {% for project in profile.user.projects.all %}
+                    {% for project in profile.user.project_memberships.all %}
                         <a href="{% url "project" pk=project.pk %}">{{ project.title}}</a>
                     {% empty %}
                         <p><em>No projects listed</em></p>
@@ -73,7 +73,6 @@
                         <p><em>No favorite resources</em></p>
                     {% endfor %}
                 </div>
-            </div>
 
                 {% if profile.user.collection_applications.all %}
                     <h4>My project applications:</h4>
@@ -89,6 +88,7 @@
                     </ul>
                 {% endif %}
             {% endif %}
+            </div>
         </div>
     </div>
 

@@ -15,7 +15,7 @@
             <div class="ui card">
                 <div class="image">
                     <a href="{% url "profile" username=user.username%}">
-                        {% if profile.picture %}
+                        {% if user.profile.picture %}
                             <img class="medium bordered rounded ui image" src="/media/{{ user.profile.picture.name }}">
                         {% else %}
                             <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
@@ -34,7 +34,7 @@
                         </form>
                         <form method="post" action="{% url "reject_applicant" pk=project.pk username=user.username %}">
                             {% csrf_token %}
-                            <button type="submit" class="tiny ui button">Reject</button>
+                            <button type="submit" class="ui tiny red button">Reject</button>
                         </form>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                 <div class="ui card">
                     <div class="image">
                         <a href="{% url "profile" username=user.username%}">
-                            {% if profile.picture %}
+                            {% if user.profile.picture %}
                                 <img class="medium bordered rounded ui image" src="/media/{{ user.profile.picture.name }}">
                             {% else %}
                                 <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
@@ -61,7 +61,7 @@
                         </a>
                     </div>
                     <div class="content">
-                        <a class="header" >{{ user.name }}</a>
+                        <a class="header" >{{ user|name}}</a>
                     </div>
                 </div>
             {% endfor %}
