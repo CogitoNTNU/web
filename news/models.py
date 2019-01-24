@@ -57,11 +57,16 @@ class Event(Article):
         null=True,
     )
     location_url = models.URLField(
-        max_length=200,
+        max_length=250,
         blank=True,
         null=True,
     )
-    location_external = models.BooleanField(
+    location_url_embed = models.URLField(
+        max_length=250,
+        blank=True,
+        null=True,
+    )
+    location_off_campus = models.BooleanField(
         default=False
     )
     signup_url = models.URLField(

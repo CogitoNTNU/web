@@ -202,6 +202,23 @@ class EventTest(TestCase):
             form.errors['__all__']
         )
 
+    def test_form_clean_method_location_url(self):
+        # Set location url to an invalid link
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today(),
+                'start_time': '12:00',
+                'end_time': '13:00',
+                'location_url': 'invalid.com'
+            }
+        )
+        self.assertEquals(
+            ["location url not recognized as valid Maze map link, check 'not mazemap' or fix link"],
+            form.errors['__all__']
+        )
+
     def test_clean_method_fine(self):
         form = EventForm(
             {
@@ -210,6 +227,7 @@ class EventTest(TestCase):
                 'end_date': datetime.date.today() + datetime.timedelta(days=1),
                 'start_time': '12:00',
                 'end_time': '13:00',
+                'location_url': 'https://use.mazemap.com/#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1',
             }
         )
         self.assertEqual(None, form.errors.get('__all__', None))
@@ -225,9 +243,39 @@ class EventTest(TestCase):
         response = self.client.post(reverse('event-update', kwargs={'pk': self.event.pk}), data)
         self.assertEqual(response.status_code, 200)
 
+    def test_event_save_method_location_embed(self):
+        # Generate and save valid mazemap embed url if location_url is valid
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'start_time': '12:00',
+                'end_time': '13:00',
+                'location_url': 'https://use.mazemap.com/#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1',
+            }
+        )
+        event = form.save()
+        self.assertEqual(event.location_url_embed, 'https://use.mazemap.com/embed.html#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1')
+
+    def test_event_save_method_remove_embed(self):
+        # If removing location url from event, remove generated mazemap embed.
+        form = EventForm(
+            {
+                'title': 'TITLE',
+                'start_date': datetime.date.today(),
+                'end_date': datetime.date.today() + datetime.timedelta(days=1),
+                'start_time': '12:00',
+                'end_time': '13:00',
+                'location_url_embed': 'https://use.mazemap.com/embed.html#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1'
+            }
+        )
+        event = form.save()
+        self.assertEqual(event.location_url_embed, None)
+
     def test_generate_mazemap_embed(self):
         mazemap_url = 'https://use.mazemap.com/#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1'
         mazemap_embed_url = 'https://use.mazemap.com/embed.html#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1'
         self.assertEqual(mazemap_embed_url, generate_mazemap_embed(mazemap_url))
-        self.assertEqual('', generate_mazemap_embed('www.google.com'))
-        self.assertEqual('', generate_mazemap_embed(None))
+        self.assertEqual(None, generate_mazemap_embed('www.google.com'))
+        self.assertEqual(None, generate_mazemap_embed(None))

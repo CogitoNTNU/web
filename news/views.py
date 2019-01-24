@@ -44,13 +44,6 @@ class EventView(DetailView):
     model = Event
     template_name = 'news/event.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        mazemap_embed_url = generate_mazemap_embed(context['event'].location_url)
-        if mazemap_embed_url is not '':
-            context['mazemap_embed'] = mazemap_embed_url
-        return context
-
 
 class EventList(ListView):
     queryset = Event.objects.filter(published=True)
