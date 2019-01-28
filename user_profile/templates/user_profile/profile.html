@@ -22,11 +22,7 @@
                 <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
             {% endif %}
             <h4>
-                {% for group in profile.user.groups.all %}
-                    {{ group }}
-                {% empty %}
-                    <em>Non-member</em>
-                {% endfor %}
+                {{ profile.user.groups.all|join:', ' }}
             </h4>
             {% if request.user == profile.user %}
                 <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
@@ -41,7 +37,7 @@
                     <h3 style="display: inline;">Projects</h3>
                 </div>
                 <div class="active content">
-                    {% for project in profile.user.projects.all %}
+                    {% for project in profile.user.project_memberships.all %}
                         <a href="{% url "project" pk=project.pk %}">{{ project.title}}</a>
                     {% empty %}
                         <p><em>No projects listed</em></p>
@@ -73,7 +69,6 @@
                         <p><em>No favorite resources</em></p>
                     {% endfor %}
                 </div>
-            </div>
 
                 {% if profile.user.collection_applications.all %}
                     <h4>My project applications:</h4>
@@ -89,6 +84,7 @@
                     </ul>
                 {% endif %}
             {% endif %}
+            </div>
         </div>
     </div>
 

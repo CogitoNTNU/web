@@ -25,7 +25,7 @@
                 {% else %}
                     <img class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
                 {% endif %}
-                <h2>{{ project.title }}
+                <h2 id="{{ forloop.counter }}">{{ project.title }}
                 <span style="font-size: 14px; font-weight: normal;">
                     <em> - project lead:
                     <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
@@ -37,7 +37,7 @@
                         <i class="dropdown icon"></i>
                         Description
                     </div>
-                    <div class="content" id="{{ forloop.counter }}">
+                    <div class="content" id="{{ forloop.counter }}-content">
                         <p>{{ project.description|safe|linebreaks }}</p>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
 
     var url = window.location.href;
     var id = url.split('#')[1];
-    var content_div = $('#' + id)[0];
+    var content_div = $('#' + id + '-content')[0];
     content_div.setAttribute('class', 'active ' + content_div.getAttribute('class'));
 
 
