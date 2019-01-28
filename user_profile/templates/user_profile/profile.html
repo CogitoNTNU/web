@@ -22,11 +22,7 @@
                 <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
             {% endif %}
             <h4>
-                {% for group in profile.user.groups.all %}
-                    {{ group }}
-                {% empty %}
-                    <em>Non-member</em>
-                {% endfor %}
+                {{ profile.user.groups.all|join:', ' }}
             </h4>
             {% if request.user == profile.user %}
                 <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
