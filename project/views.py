@@ -99,7 +99,7 @@ def manage_applicant(request, pk, username, accept):
             project.rejected_applicants.add(user)
         return HttpResponseRedirect(reverse('project_admin', kwargs={'pk': pk}))
 
-    return PermissionDenied()
+    raise PermissionDenied()
 
 
 def accept_applicant(request, pk, username):
