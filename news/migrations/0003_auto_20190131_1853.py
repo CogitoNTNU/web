@@ -23,11 +23,6 @@ class Migration(migrations.Migration):
             field=models.URLField(blank=True, max_length=250, null=True),
         ),
         migrations.AlterField(
-            model_name='article',
-            name='datetime_created',
-            field=models.DateTimeField(default=datetime.datetime(2019, 1, 31, 17, 53, 54, 999816, tzinfo=utc)),
-        ),
-        migrations.AlterField(
             model_name='event',
             name='location_url',
             field=models.URLField(blank=True, max_length=250, null=True),
