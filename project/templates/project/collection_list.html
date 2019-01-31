@@ -8,8 +8,11 @@
     <h1>Our Projects:
     {% if perms.project.add_project %}
         <a class="mini ui blue button"  href="{% url "project_form" %}">New project</a>
+    {% endif %}
+    {% if perms.project.add_collection %}
         <a class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
-    {% endif %}</h1>
+    {% endif %}
+    </h1>
 
     {% for collection in collection_list %}
     <div class="ui segment">
