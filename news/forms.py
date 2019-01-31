@@ -46,9 +46,10 @@ class EventForm(forms.ModelForm):
 
     def save(self, commit=True):
         event = super().save(commit=False)
-        location_url = self.cleaned_data.get('location_url', None)
-        location_off_campus = self.cleaned_data.get('location_off_campus', None)
+        location_url = event.location_url
+        location_off_campus = event.location_off_campus
 
+        # Check if should generate or remove mazemap embed.
         if not location_off_campus and location_url:
             event.location_url_embed = generate_mazemap_embed(location_url)
         elif (location_url is None or location_off_campus) \

@@ -244,7 +244,7 @@ class EventTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_event_save_method_location_embed(self):
-        # Generate and save valid mazemap embed url if location_url is valid
+        # Generate and save valid mazemap embed url when location_url is valid
         form = EventForm(
             {
                 'title': 'TITLE',
@@ -259,7 +259,7 @@ class EventTest(TestCase):
         self.assertEqual(event.location_url_embed, 'https://use.mazemap.com/embed.html#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1')
 
     def test_event_save_method_remove_embed(self):
-        # If removing location url from event, remove generated mazemap embed.
+        # Create event with location, then remove it; location embed should be deleted.
         form = EventForm(
             {
                 'title': 'TITLE',
@@ -267,15 +267,16 @@ class EventTest(TestCase):
                 'end_date': datetime.date.today() + datetime.timedelta(days=1),
                 'start_time': '12:00',
                 'end_time': '13:00',
-                'location_url_embed': 'https://use.mazemap.com/embed.html#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1'
+                'location_url': 'https://use.mazemap.com/#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1'
             }
         )
         event = form.save()
-        self.assertEqual(event.location_url_embed, None)
+        event.location_url = None
+        event_modified = EventForm(instance=event).save()
+        self.assertEqual(event_modified.location_url_embed, None)
 
     def test_generate_mazemap_embed(self):
         mazemap_url = 'https://use.mazemap.com/#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1'
         mazemap_embed_url = 'https://use.mazemap.com/embed.html#v=1&zlevel=1&left=10.4009369&right=10.4053974&top=63.4169602&bottom=63.4159496&campusid=1&sharepoitype=point&sharepoi=10.40328%2C63.41655%2C1'
         self.assertEqual(mazemap_embed_url, generate_mazemap_embed(mazemap_url))
         self.assertEqual(None, generate_mazemap_embed('www.google.com'))
-        self.assertEqual(None, generate_mazemap_embed(None))
