@@ -12,7 +12,10 @@
         </h1>
         {% for skill in skill_list %}
             <div>
-                {{ skill }}
+               <h2> {{ skill }} </h2>
+                {% for user in skill.users.all %}
+                    <p>{{ user }} kan {{ skill }}</p>
+                {% endfor %}
             </div>
         {% endfor %}
     </div>
