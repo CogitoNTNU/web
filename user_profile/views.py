@@ -35,7 +35,6 @@ class SkillListView(ListView):
 
 
 
-
 """
 
 Alternate, class-based version of the profile view 

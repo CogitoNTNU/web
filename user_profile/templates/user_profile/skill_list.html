@@ -12,11 +12,27 @@
         </h1>
         {% for skill in skill_list %}
             <div>
-               <h2> {{ skill }} </h2>
+               <h3> {{ skill }} </h3>
+                <div class="ui column grid">
+
+                <!-- #TODO: Add text "Ingen brukere med denne ferdigheten" if skill.users.all is empty -->
+
                 {% for user in skill.users.all %}
-                    <p>{{ user }} kan {{ skill }}</p>
+                    <div class="column" style="width: 80px;">
+
+                        {% if profile.picture %}
+                            <img class="bordered rounded ui image" src="{{ user.picture.url }}">
+                        {% else %}
+                            <img class="bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
+                        {% endif %}
+
+                        <a href="{% url 'profile' user %}"> {{ user }} </a> <!-- Her returnerer user.username ingenting -->
+
+                    </div>
                 {% endfor %}
+                </div>
             </div>
+            <br>
         {% endfor %}
     </div>
 {% endblock %}
