@@ -50,7 +50,9 @@
                 </div>
                 <div class="active content">
                     {% for skill in profile.skills.all %}
-                        <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
+
+                        <a class="ui link" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a><br>
+
                     {% empty %}
                         <p><em>No skills listed</em></p>
                     {% endfor %}
