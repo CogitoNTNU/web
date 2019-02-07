@@ -1,0 +1,16 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'web/css/error_404.css' %}">
+
+{% block title %}Ai, ai, ai. Not found!!1{% endblock %}
+
+
+{% block body %}
+    <div class="error_404">
+        <div class="ui container">
+            <a class="logo" href="{% url "home" %}"><img class="ui centered medium image" src="{% static "web/img/logo_404.svg" %}"></a>
+            <div class="message">Ai, ai, ai. Not even our advanced neural network figured out where you were going..</div>
+        </div>
+    </div>
+{% endblock %}

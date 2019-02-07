@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.utils import timezone
 from django.views.generic import ListView
 
@@ -14,3 +15,7 @@ class Home(ListView):
         #events = Event.objects.filter(end_date__gt=timezone.now())
         events = Event.objects.all()
         return list(reversed(sorted(chain(articles, events), key=lambda o: o.datetime_created)))
+
+
+def handler404(request, *args, **argv):
+    return render(request, 'web/404.html', status=404)
