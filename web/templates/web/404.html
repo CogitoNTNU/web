@@ -8,9 +8,10 @@
 
 {% block body %}
     <div class="error_404">
-        <div class="ui container">
-            <a class="logo" href="{% url "home" %}"><img class="ui centered medium image" src="{% static "web/img/logo_404.svg" %}"></a>
-            <div class="message">Ai, ai, ai. Not even our advanced neural network figured out where you were going..</div>
-        </div>
+        <br class="ui container">
+        <a class="logo" href="{% url "home" %}"><img class="ui centered medium image" src="{% static "web/img/logo_404.svg" %}"></a>
+        <br/>
+        <div class="ui text container center aligned">404</div>
+        <div class="ui text container center aligned">Not even our advanced neural network managed to figure out where you were going...</div>
     </div>
 {% endblock %}

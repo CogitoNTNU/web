@@ -3,6 +3,7 @@
     border-bottom: #eeeeee 1px solid;
 }
 
-.error_404, .message {
+.error_404 .error_message {
     text-align: center;
+    font-size: 24px;
 }
