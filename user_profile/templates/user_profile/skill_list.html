@@ -33,7 +33,7 @@
                             {% else %}
                                 <img class="bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
                             {% endif %}
-                            <div style="text-align: center">
+                            <div style="text-align: center" data-tooltip="{{ profile.user.first_name }} {{ profile.user.last_name }}">
                                 {% if profile.user.first_name and profile.user.last_name %}
                                     {{ profile.user.first_name }} {{ profile.user.last_name }}
                                 {% else %}
