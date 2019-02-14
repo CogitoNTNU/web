@@ -21,15 +21,21 @@
 
                 <!-- #TODO: Add text "Ingen brukere med denne ferdigheten" if skill.users.all is empty -->
 
-                {% for user in skill.users.all %}
+                {% for profile in skill.users.all %}
                     <div class="column" style="width: 110px;">
-                        <a href="{% url 'profile' user %}">
+                        <a href="{% url 'profile' profile %}">
                             {% if profile.picture %}
-                                <img class="bordered rounded ui image" src="{{ user.picture.url }}">
+                                <img class="bordered rounded ui image" src="{{ profile.picture.url }}">
                             {% else %}
                                 <img class="bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
                             {% endif %}
-                            <div style="text-align: center">{{ user }}</div><!-- Her returnerer user.username ingenting -->
+                            <div style="text-align: center">
+                                {% if profile.user.first_name and profile.user.last_name %}
+                                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                                {% else %}
+                                    {{ profile }}
+                                {% endif %}
+                            </div>
                         </a>
 
                     </div>
