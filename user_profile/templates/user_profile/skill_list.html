@@ -15,21 +15,21 @@
             <div>
                <h3>
                    <!-- TODO: Place css in css file in static -->
-                   <a href="{% url 'skill' pk=skill.pk %}" style="color: black; text-decoration: underline;"> {{ skill }} </a>
+                   <a href="{% url 'skill' pk=skill.pk %}" style="color: black;"> {{ skill }} </a>
                </h3>
                 <div class="ui column grid">
 
                 <!-- #TODO: Add text "Ingen brukere med denne ferdigheten" if skill.users.all is empty -->
 
                 {% for user in skill.users.all %}
-                    <div class="column" style="width: 80px;">
+                    <div class="column" style="width: 110px;">
                         <a href="{% url 'profile' user %}">
                             {% if profile.picture %}
                                 <img class="bordered rounded ui image" src="{{ user.picture.url }}">
                             {% else %}
                                 <img class="bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
                             {% endif %}
-                            {{ user }}<!-- Her returnerer user.username ingenting -->
+                            <div style="text-align: center">{{ user }}</div><!-- Her returnerer user.username ingenting -->
                         </a>
 
                     </div>
