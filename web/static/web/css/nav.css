@@ -79,6 +79,10 @@
         border-bottom: #eeeeee 1px solid !important;
     }
 
+    .nav .mt {
+      font-size: 24px;
+    }
+
     .nav.active .menu {
         display: inline;
     }
