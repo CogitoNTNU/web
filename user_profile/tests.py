@@ -24,6 +24,9 @@ class SkillTest(TestCase):
     def test_view(self):
         response = self.client.get(reverse('skill', args=(self.skill.pk,)))
         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('skill_list'))
+        self.assertEqual(response.status_code, 200)
+
 
 
 class ProfileTest(TestCase):
