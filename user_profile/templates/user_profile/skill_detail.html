@@ -8,7 +8,8 @@
     <p>{{ skill.description }}</p>
 
     <div class="ui cards four column stackable grid center aligned ">
-        {% for profile in skill.members.all %}
+
+        {% for profile in skill.users.all %}
             <div class="ui card">
                 <div class="image">
                     <a href="{% url "profile" username=profile.user.username%}">
