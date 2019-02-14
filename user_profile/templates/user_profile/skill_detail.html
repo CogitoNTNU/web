@@ -7,7 +7,10 @@
     <h1 class="text_align" style="text-align: center">Skill: {{ skill.name }}</h1>
     <p class="text_align" style="text-align: center">{{ skill.description }}</p>
 
+
+    <h3 style="text-align: center">Medlemmer i cogito som har denne ferdigheten:</h3>
     <div class="ui cards four column stackable grid center aligned ">
+
         {% if not skill.users.all%}
            <div style="margin-top: 3%">
               Ingen i cogito har denne ferdigheten enda. Lær deg det og bli den første!
@@ -44,9 +47,5 @@
             </div>
         {% endfor %}
     </div>
-
-
-
-
 </div>
 {% endblock %}
