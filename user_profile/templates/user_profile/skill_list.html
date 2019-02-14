@@ -10,9 +10,13 @@
         <h1>
             Skills
         </h1>
+        <br>
         {% for skill in skill_list %}
             <div>
-               <h3> {{ skill }} </h3>
+               <h3>
+                   <!-- TODO: Place css in css file in static -->
+                   <a href="{% url 'skill' pk=skill.pk %}" style="color: black; text-decoration: underline;"> {{ skill }} </a>
+               </h3>
                 <div class="ui column grid">
 
                 <!-- #TODO: Add text "Ingen brukere med denne ferdigheten" if skill.users.all is empty -->
