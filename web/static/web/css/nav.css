@@ -51,7 +51,8 @@
 }
 
 .nav .burger i {
-    font-size: 30px;
+    font-size: 40px;
+    margin: 1.5em 0.5em 1em 0.5em;
 }
 
 @media screen and (max-width: 600px) {
