@@ -20,6 +20,13 @@
                 <div class="ui column grid">
 
                 <!-- #TODO: Add text "Ingen brukere med denne ferdigheten" if skill.users.all is empty -->
+                {% if not skill.users.all%}
+
+                    <div>
+                        Ingen i cogito har denne ferdigheten enda. Lær deg det og bli den første!
+                    </div>
+
+                {% endif %}
 
                 {% for user in skill.users.all %}
                     <div class="column" style="width: 110px;">
