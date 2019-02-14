@@ -71,6 +71,9 @@ p, a, h1, h2, h3, h4, h5, span {
   background-color: rgb(236, 236, 236) !important;
 }
 
+.text_align{
+    text-align: center;
+}
 .cogito_col_blue_opaque_70{
     color: rgba(34, 181, 225, 0.9) !important;
 }
