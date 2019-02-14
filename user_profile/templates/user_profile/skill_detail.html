@@ -8,6 +8,11 @@
     <p class="text_align" style="text-align: center">{{ skill.description }}</p>
 
     <div class="ui cards four column stackable grid center aligned ">
+        {% if not skill.users.all%}
+           <div style="margin-top: 3%">
+              Ingen i cogito har denne ferdigheten enda. Lær deg det og bli den første!
+           </div>
+        {% endif %}
         {% for profile in skill.users.all %}
             <div class="ui card">
                 <div class="image">
