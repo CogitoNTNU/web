@@ -38,7 +38,8 @@
                             {% else %}
                             <div style="text-align: center;">
                             {% endif %}
-                                <div style="overflow: hidden">
+                                <!-- TODO: Plasser CSS i stylesheet -->
+                                <div style="max-height: 70px; overflow: hidden;">
                                     {% if profile.user.first_name and profile.user.last_name %}
                                         {{ profile.user.first_name }} {{ profile.user.last_name }}
                                     {% else %}

@@ -48,7 +48,8 @@
                         <span class="date">{{ profile.committee }}</span>
                     </div>
                     {% if profile.skills %}
-                        <div class="description">
+                        <!-- TODO: Plasser CSS i stylesheet -->
+                        <div class="description" style="max-height: 70px; overflow: hidden;">
                             <p>{% for skill in profile.skills.all %}<a href="{% url 'skill' pk=skill.pk %}">{{ skill }}</a>, {% endfor %} </p>
                         </div>
                     {% endif %}
