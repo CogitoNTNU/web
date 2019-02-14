@@ -24,5 +24,6 @@
             {% endif %}
         </h1>
         {{ object.content|safe }}
+        {% include "news/date_created.html" %}
     </div>
 {% endblock %}

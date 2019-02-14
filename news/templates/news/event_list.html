@@ -20,8 +20,7 @@
                 </h1>
                 {% if object|get_class|lower == 'event' %}
                     <div class="extra">
-                        <span>{{ object.start_date|date:"d M Y" }} {{ object.start_time }}
-                        {% if object.end_time %} - {{ object.end_time }} {% endif %}</span>
+                        {% include "news/event_dates.html" %}
                         {% if object.location %}
                             <a {% if object.location_url %}href="{{ object.location_url }}"{% endif %}>
                                 <span>{{ object.location }}</span>
