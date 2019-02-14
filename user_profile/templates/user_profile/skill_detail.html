@@ -4,11 +4,10 @@
 {% block body %}
 <div class="ui text container">
 
-    <h1>Skill: {{ skill.name }}</h1>
-    <p>{{ skill.description }}</p>
+    <h1 class="text_align" style="text-align: center">Skill: {{ skill.name }}</h1>
+    <p class="text_align" style="text-align: center">{{ skill.description }}</p>
 
     <div class="ui cards four column stackable grid center aligned ">
-
         {% for profile in skill.users.all %}
             <div class="ui card">
                 <div class="image">
@@ -21,13 +20,19 @@
                     </a>
                 </div>
                 <div class="content">
-                    <a class="header" >{{ profile.user.first_name }} {{ profile.user.last_name }}</a>
+                <a class="header" >
+                    {% if profile.user.first_name and profile.user.last_name %}
+                        {{ profile.user.first_name }} {{ profile.user.last_name }}</a>
+                    {% else %}
+                        {{ profile.user.username }}
+                    {% endif %}
+                </a>
                     <div class="meta">
                         <span class="date">{{ profile.committee }}</span>
                     </div>
                     {% if profile.skills %}
                         <div class="description">
-                            <p>{% for skill in profile.skills.all %}{{ skill }}, {% endfor %} </p>
+                            <p>{% for skill in profile.skills.all %}<a href="{% url 'skill' pk=skill.pk %}">{{ skill }}</a>, {% endfor %} </p>
                         </div>
                     {% endif %}
                 </div>

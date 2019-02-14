@@ -70,3 +70,7 @@ p, a, h1, h2, h3, h4, h5, span {
 .cogito_ft_lgray {
   background-color: rgb(236, 236, 236) !important;
 }
+
+.text_align{
+    text-align: center;
+}
