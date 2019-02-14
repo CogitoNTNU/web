@@ -28,13 +28,22 @@
                     </a>
                 </div>
                 <div class="content">
-                <a class="header" >
+                <a class="header" href="{% url 'profile' username=profile.user.username %}">
                     {% if profile.user.first_name and profile.user.last_name %}
-                        {{ profile.user.first_name }} {{ profile.user.last_name }}</a>
+                        <div style="text-align: center;" data-tooltip="{{ profile.user.first_name }} {{ profile.user.last_name }}" data-position="bottom center">
+                            <div style="overflow: hidden">
+                                {{ profile.user.first_name }} {{ profile.user.last_name }}
+                            </div>
+                        </div>
                     {% else %}
-                        {{ profile.user.username }}
+                        <div>
+                            <div style="overflow: hidden">
+                            {{ profile.user.username }}
+                            </div>
+                        </div>
                     {% endif %}
                 </a>
+
                     <div class="meta">
                         <span class="date">{{ profile.committee }}</span>
                     </div>
