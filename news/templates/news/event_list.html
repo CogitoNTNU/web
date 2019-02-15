@@ -21,7 +21,7 @@
                 {% if object|get_class|lower == 'event' %}
                     <div class="extra">
                         <span>{{ object.start_date|date:"d M Y" }} {{ object.start_time }}
-                        {% if object.start_time %} - {{ object.start_time }} {% endif %}</span>
+                        {% if object.end_time %} - {{ object.end_time }} {% endif %}</span>
                         {% if object.location %}
                             <a {% if object.location_url %}href="{{ object.location_url }}"{% endif %}>
                                 <span>{{ object.location }}</span>
