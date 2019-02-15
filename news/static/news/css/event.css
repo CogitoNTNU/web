@@ -1,0 +1,9 @@
+.mobile {
+    display: block;
+}
+
+@media screen and (min-width: 480px) {
+    .mazemap {
+        display: block;
+    }
+}
