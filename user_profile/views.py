@@ -1,8 +1,7 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.exceptions import PermissionDenied
-from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.shortcuts import render, get_object_or_404, redirect
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
 
@@ -31,11 +30,8 @@ def profile(request, username):
     return render(request, 'user_profile/profile.html', {'profile': user.profile, 'form': ProfileForm()})
 
 
-class SkillListView(LoginRequiredMixin ,ListView):
+class SkillListView(ListView):
     model = Skill
-
-
-
 
 
 
