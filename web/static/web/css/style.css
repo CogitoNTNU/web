@@ -11,7 +11,11 @@ body {
 p, a, h1, h2, h3, h4, h5, span {
     font-family: 'Noto Sans', sans-serif !important;
 }
-
+/*
+h1, h2,h3,h4,h5 {
+    font-size: 5em;
+}
+*/
 .size14 {
     font-size: 14px;
 }
