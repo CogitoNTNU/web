@@ -11,49 +11,44 @@
             Skills
         </h1>
         <br>
+
         {% for skill in skill_list %}
+            {% if skill.users %}
             <div>
-               <h3>
-                   <!-- TODO: Place css in css file in static -->
-                   <a href="{% url 'skill' pk=skill.pk %}" style="color: black;"> {{ skill }} </a>
-               </h3>
-                <div class="ui column grid">
-
-                {% if not skill.users.all%}
-                    <div>
-                        Ingen i cogito har denne ferdigheten enda. Lær deg det og bli den første!
-                    </div>
-                {% endif %}
-
+               <h2>
+                   <a href="{% url 'skill' pk=skill.pk %}" style="color: black;">
+                       {{ skill }}
+                       <a class="ui red circular label">
+                           {{ skill.users.count }}
+                       </a>
+                   </a>
+               </h2>
+                <div class="ui column">
                 {% for profile in skill.users.all %}
-                    <div class="column" style="width: 110px;">
-                        <a href="{% url 'profile' profile %}">
+                        <a href="{% url 'profile' profile %}" class="ui image label large">
                             {% if profile.picture %}
-                                <img class="bordered rounded ui image" src="{{ profile.picture.url }}">
+                                <img src="{{ profile.picture.url }}">
                             {% else %}
-                                <img class="bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
+                                <img src="/static/web/img/avatar_placeholder.png">
                             {% endif %}
-                            {% if profile.user.first_name and profile.user.last_name %}
-                            <div style="text-align: center;" data-tooltip="{{ profile.user.first_name }} {{ profile.user.last_name }}" data-position="bottom center">
-                            {% else %}
-                            <div style="text-align: center;">
-                            {% endif %}
-                                <!-- TODO: Plasser CSS i stylesheet -->
-                                <div style="max-height: 70px; overflow: hidden;">
-                                    {% if profile.user.first_name and profile.user.last_name %}
-                                        {{ profile.user.first_name }} {{ profile.user.last_name }}
-                                    {% else %}
-                                        {{ profile }}
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </a>
 
-                    </div>
+                            {% if profile.user.first_name and profile.user.last_name %}
+                                {{ profile.user.first_name }} {{ profile.user.last_name }}
+                            {% else %}
+                                {{ profile }}
+                            {% endif %}
+
+                            {% if profile.user.groups.count %}
+                            <div class="detail">
+                                {{ profile.user.groups.all|join:', ' }}
+                            </div>
+                            {% endif %}
+                        </a>
                 {% endfor %}
                 </div>
             </div>
             <br>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}
