@@ -4,12 +4,15 @@
 {% block body %}
 <div class="ui text container">
 
-    <h1 class="text_align" style="text-align: center">Skill: {{ skill.name }}</h1>
+    <h1 class="text_align" style="text-align: center">
+        <a class="ui large red circular label">{{   skill.users.count }}</a>
+        Skill: {{ skill.name }}
+    </h1>
     <p class="text_align" style="text-align: center">{{ skill.description }}</p>
 
 
-    <h3 style="text-align: center">Medlemmer i cogito som har denne ferdigheten:</h3>
-    <div class="ui cards four column stackable grid center aligned ">
+    <h3 style="text-align: center">Members of Cogito that masters this skill:</h3>
+    <div class="ui labels ">
 
         {% if not skill.users.all%}
            <div style="margin-top: 3%">
@@ -17,45 +20,59 @@
            </div>
         {% endif %}
         {% for profile in skill.users.all %}
-            <div class="ui card">
-                <div class="image">
-                    <a href="{% url "profile" username=profile.user.username%}">
+                    <a class="ui image label" href="{% url "profile" username=profile.user.username%}">
                         {% if profile.picture %}
-                            <img class="medium bordered rounded ui image" src="/media/{{ profile.picture.name }}">
+                            <img  src="/media/{{ profile.picture.name }}">
                         {% else %}
-                            <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
+                            <img  src="/static/web/img/avatar_placeholder.png">
                         {% endif %}
-                    </a>
-                </div>
-                <div class="content">
-                <a class="header" href="{% url 'profile' username=profile.user.username %}">
-                    {% if profile.user.first_name and profile.user.last_name %}
-                        <div style="text-align: center;" data-tooltip="{{ profile.user.first_name }} {{ profile.user.last_name }}" data-position="bottom center">
-                            <div style="overflow: hidden">
-                                {{ profile.user.first_name }} {{ profile.user.last_name }}
-                            </div>
-                        </div>
-                    {% else %}
-                        <div>
-                            <div style="overflow: hidden">
-                            {{ profile.user.username }}
-                            </div>
-                        </div>
-                    {% endif %}
-                </a>
+                        {% if profile.user.first_name and profile.user.last_name %}
+                            {{ profile.user.first_name }} {{ profile.user.last_name }}
+                        {% else %}
+                                {{ profile.user.username }}
+                        {% endif %}
 
-                    <div class="meta">
-                        <span class="date">{{ profile.committee }}</span>
-                    </div>
+                          <div class="detail">
+                            {% if   profile.user.groups.all|join:', '  %}
+                                 {{ profile.user.groups.all|join:', '  }}
+                           {% else %}
+                              Orinary member
+                            {% endif %}
+                          </div>
+
+                    </a>
+                    <!--
                     {% if profile.skills %}
-                        <!-- TODO: Plasser CSS i stylesheet -->
+                         TODO: Plasser CSS i stylesheet
                         <div class="description" style="max-height: 70px; overflow: hidden;">
                             <p>{% for skill in profile.skills.all %}<a href="{% url 'skill' pk=skill.pk %}">{{ skill }}</a>, {% endfor %} </p>
                         </div>
                     {% endif %}
+                     -->
                 </div>
-            </div>
         {% endfor %}
     </div>
 </div>
 {% endblock %}
+
+<!--
+
+{% if profile.user.first_name and profile.user.last_name %}
+                            <div style="text-align: center;" data-tooltip="{{ profile.user.first_name }} {{ profile.user.last_name }}" data-position="bottom center">
+                                <div style="overflow: hidden">
+                                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                                </div>
+                            </div>
+                        {% else %}
+                            <div>
+                                <div style="overflow: hidden">
+                                {{ profile.user.username }}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                          <div class="detail">
+                            {{ profile.committee }}
+                          </div>
+
+-->
