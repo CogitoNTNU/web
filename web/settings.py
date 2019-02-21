@@ -2,7 +2,7 @@ import os
 
 # Default values
 SECRET_KEY = ' '
-DEBUG = False
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 MEDIA_URL = '/media/'
 LOGOUT_URL = '/'
