@@ -1,0 +1,5 @@
+<span>
+    {{ object.start_date|date:"d M" }} {{ object.start_time }}
+- {% if object.start_date != object.end_date %} {{ object.end_date|date:"d M" }} {% endif %}
+    {{ object.end_time }}
+</span>

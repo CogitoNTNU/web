@@ -44,11 +44,9 @@ class Event(Article):
         default=time.min,
     )
     end_date = models.DateField(
-        blank=True,
         null=True,
     )
     end_time = models.TimeField(
-        blank=True,
         null=True,
     )
     location = models.CharField(
