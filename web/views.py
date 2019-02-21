@@ -1,3 +1,5 @@
+from django.shortcuts import render
+from django.utils import timezone
 from django.views.generic import ListView
 
 from news.models import Event, Article
@@ -12,3 +14,7 @@ class Home(ListView):
         articles = Article.objects.filter(published=True).exclude(id__in=Event.objects.all())
         events = Event.objects.filter(published=True)
         return list(reversed(sorted(chain(articles, events), key=lambda o: o.datetime_created)))
+
+
+def handler404(request, *args, **argv):
+    return render(request, 'web/404.html', status=404)
