@@ -29,6 +29,10 @@
     font-size: 16px;
 }
 
+.nav .cogito {
+  font-size: 36px;
+}
+
 .nav .name {
     font-size: 36px;
 }
@@ -47,12 +51,14 @@
 }
 
 .nav .burger i {
-    font-size: 30px;
+    font-size: 40px;
+    margin: 1.5em 0.5em 1em 0.5em;
 }
 
 @media screen and (max-width: 600px) {
     .nav .container {
         margin: 0 !important;
+        grid-template-columns: 6em 6em 20em;
     }
 
     .nav .burger {
@@ -71,6 +77,10 @@
         width: 100%;
         padding-bottom: 10px;
         border-bottom: #eeeeee 1px solid !important;
+    }
+
+    .nav .mt {
+      font-size: 24px;
     }
 
     .nav.active .menu {
