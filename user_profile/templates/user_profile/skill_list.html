@@ -22,26 +22,26 @@
                        </a>
                    </a>
                </h2>
-                <div class="ui column">
+                <div class="ui large horizontal divided list">
                 {% for profile in skill.users.all %}
-                        <a href="{% url 'profile' profile %}" class="ui image label large">
+                        <a href="{% url 'profile' profile %}" class="item">
+                            <img
                             {% if profile.picture %}
-                                <img src="{{ profile.picture.url }}">
+                               src="{{ profile.picture.url }}"
                             {% else %}
-                                <img src="/static/web/img/avatar_placeholder.png">
+                                src="/static/web/img/avatar_placeholder.png"
                             {% endif %}
-
-                            {% if profile.user.first_name and profile.user.last_name %}
-                                {{ profile.user.first_name }} {{ profile.user.last_name }}
-                            {% else %}
-                                {{ profile }}
-                            {% endif %}
-
-                            {% if profile.user.groups.count %}
-                            <div class="detail">
-                                {{ profile.user.groups.all|join:', ' }}
+                            class="ui avatar image">
+                            <div class="content">
+                                <div class="header">
+                                    {% if profile.user.first_name and profile.user.last_name %}
+                                        {{ profile.user.first_name }} {{ profile.user.last_name }}
+                                    {% else %}
+                                        {{ profile }}
+                                    {% endif %}
+                                </div>
                             </div>
-                            {% endif %}
+
                         </a>
                 {% endfor %}
                 </div>

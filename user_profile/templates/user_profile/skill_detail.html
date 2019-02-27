@@ -12,7 +12,7 @@
 
 
     <h3 style="text-align: center">Members of Cogito that masters this skill:</h3>
-    <div class="ui labels ">
+    <div class="ui large horizontal divided list">
 
         {% if not skill.users.all%}
            <div style="margin-top: 3%">
@@ -20,36 +20,34 @@
            </div>
         {% endif %}
         {% for profile in skill.users.all %}
-                    <a class="ui image label" href="{% url "profile" username=profile.user.username%}">
-                        {% if profile.picture %}
-                            <img  src="/media/{{ profile.picture.name }}">
-                        {% else %}
-                            <img  src="/static/web/img/avatar_placeholder.png">
-                        {% endif %}
-                        {% if profile.user.first_name and profile.user.last_name %}
-                            {{ profile.user.first_name }} {{ profile.user.last_name }}
-                        {% else %}
-                                {{ profile.user.username }}
-                        {% endif %}
-
-                          <div class="detail">
-                            {% if   profile.user.groups.all|join:', '  %}
-                                 {{ profile.user.groups.all|join:', '  }}
-                           {% else %}
-                              Orinary member
+                    <a href="{% url 'profile' profile %}" class="item">
+                            <img
+                            {% if profile.picture %}
+                               src="{{ profile.picture.url }}"
+                            {% else %}
+                                src="/static/web/img/avatar_placeholder.png"
                             {% endif %}
-                          </div>
+                            class="ui avatar image">
+                            <div class="content">
+                                <div class="header">
+                                    {% if profile.user.first_name and profile.user.last_name %}
+                                        {{ profile.user.first_name }} {{ profile.user.last_name }}
+                                    {% else %}
+                                        {{ profile }}
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <!--
+                                    {% if profile.skills %}
+                                        <div class="description">
+                                            <p>{% for skill in profile.skills.all %}<a href="{% url 'skill' pk=skill.pk %}">{{ skill }}</a>, {% endfor %} </p>
+                                        </div>
+                                    {% endif %}
+                                    -->
+                                </div>
+                            </div>
 
-                    </a>
-                    <!--
-                    {% if profile.skills %}
-                         TODO: Plasser CSS i stylesheet
-                        <div class="description" style="max-height: 70px; overflow: hidden;">
-                            <p>{% for skill in profile.skills.all %}<a href="{% url 'skill' pk=skill.pk %}">{{ skill }}</a>, {% endfor %} </p>
-                        </div>
-                    {% endif %}
-                     -->
-                </div>
+                        </a>
         {% endfor %}
     </div>
 </div>
