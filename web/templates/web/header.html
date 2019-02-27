@@ -9,35 +9,26 @@
             <i class="sidebar icon cogito_col_dkgray"></i>
         </div>
         <a class="logo" href="{% url "home" %}"><img class="logo" src="{% static "web/img/logo.svg" %}"></a>
-        <a class="name cogito_col_dkgray" href="{% url "home" %}">Cogito NTNU</a>
+        <div>
+          <a class="cogito cogito_col_dkgray" href="{% url "home" %}">Cogito</a>
+          <a class="name cogito_col_dkgray" href="{% url "home" %}"> NTNU</a>
+        </div>
+
         <div class="ui secondary menu">
             {% if perms.news.change_article or perms.news.change_events %}
-            <a class="item" href="{% url 'drafts' %}">
-                Drafts
-            </a>
+            <a class="item" href="{% url 'drafts' %}"><p class="mt">Drafts</p></a>
             {% endif %}
-            <a class="item" href="{% url 'events' %}">
-                Events
-            </a>
-            <a class="item" href="{% url 'resource_list' %}">
-                Resources
-            </a>
-            <a class="item" href="{% url 'collection_list' %}">
-                Projects
-            </a>
+
+            <a class="item" href="{% url 'resource_list' %}"><p class="mt">Resources</p></a>
+            <a class="item" href="{% url 'collection_list' %}"><p class="mt">Projects</p></a>
+
             <div class="ui dropdown item">
-                <div class="text">About</div>
+                <div class="text"><p class="mt">About</p></div>
                 <i class="dropdown icon"></i>
-                <div class="menu">
-                    <a class="item" href="{% url 'about' %}">
-                        About
-                    </a>
-                    <a class="item" href="{% url 'about/statutes' %}">
-                        Statutes
-                    </a>
-                    <a class="item" href="{% url 'about/business' %}">
-                        Enterprise
-                    </a>
+                <div class="ui menu transition hidden">
+                    <a class="item" href="{% url 'about' %}"><p class="mt">About</p></a>
+                    <a class="item" href="{% url 'about/statutes' %}"><p class="mt">Statutes</p></a>
+                    <a class="item" href="{% url 'about/business' %}"><p class="mt">Enterprise</p></a>
                 </div>
             </div>
             {% if user.is_authenticated %}
@@ -47,20 +38,13 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href="{% url 'profile' username=user.username %}">
-                            Profile
-                        </a>
-                        <a class="item" href="{% url 'logout' %}">
-                            Logout
-                        </a>
+                        <a class="item" href="{% url 'profile' username=user.username %}"><p class="mt">Profile</p></a>
+                        <a class="item" href="{% url 'logout' %}"><p class="mt">Logout</p></a>
                     </div>
                 </div>
             {% else %}
-                <a class="item" href="{% url 'login' %}">
-                    Login
-                </a>
+                <a class="item" href="{% url 'login' %}"><p class="mt">Login</p></a>
             {% endif %}
-
             {% block scripts %}
                     <script>$('.dropdown').dropdown();</script>
             {% endblock scripts %}

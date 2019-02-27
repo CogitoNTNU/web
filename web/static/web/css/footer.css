@@ -4,11 +4,6 @@
     padding-top: 50px;
 }
 
-.footer .image {
-    padding: 10px;
-    margin: 10px;
-}
-
 .footer, .footer a {
     color: #000000;
 }
@@ -46,9 +41,12 @@
 }
 
 .footer .copyright {
-    grid-column-start: 2;
-    margin-bottom: 20px;
-    margin-left: 20px
+  text-align: center;
+  padding-top: 2em;
+}
+
+.footer .sponsor-img {
+  margin: 20px auto 0px auto;
 }
 
 @media screen and (max-width: 600px) {

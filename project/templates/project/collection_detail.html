@@ -18,19 +18,20 @@
     <p>{{ collection.description|safe }}</p>
 
     {% for project in collection.projects.all %}
-        <div class="ui container">
+        <div class="ui container" id="{{ forloop.counter }}">
             <div class="ui very padded vertical segment" id="{{ project.title }}">
                 {% if project.thumbnail %}
                     <img class="ui small left floated image" src="/media/{{ project.thumbnail.name }}">
                 {% else %}
                     <img class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
                 {% endif %}
-                <h2 id="{{ forloop.counter }}">{{ project.title }}
-                <span style="font-size: 14px; font-weight: normal;">
-                    <em> - project lead:
-                    <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
-                </em>
-                </span>
+                <h2>
+                    {{ project.title }}
+                    <span style="font-size: 14px; font-weight: normal;">
+                        <em> - project lead:
+                        <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
+                        </em>
+                    </span>
                 </h2>
                 <div class="ui styled fluid accordion">
                     <div class="title">
@@ -58,7 +59,8 @@
                     <button type="submit" class="ui blue button">Apply</button>
                 </form>
             {% else %}
-                <p><em>Your application has been received</em></p>
+                <p><em>Your application has been received. If you want to revisit the application form you can find
+                a link to it on your profile page</em></p>
             {% endif %}
         {% elif collection.application_open and not collection.form_link %}
             <em><p>These projects are not open to applicants at the moment. Please come back at a later date</p></em>
