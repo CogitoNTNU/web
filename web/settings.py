@@ -1,5 +1,4 @@
 import os
-
 # Default values
 SECRET_KEY = ' '
 DEBUG = True
@@ -29,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     'web',
     'concurrency',
@@ -43,7 +43,9 @@ INSTALLED_APPS = [
     'dataporten',
     'groups',
     'social_django',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
+    'forms_builder.forms',
+
 ]
 
 MIDDLEWARE = [

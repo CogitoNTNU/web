@@ -9,8 +9,11 @@ from groups.views import CommitteeList
 from web import settings
 from web.views import Home
 
+import forms_builder.forms.urls
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('forms/', include(forms_builder.forms.urls)),
     path('complete/<str:backend>/', login_wrapper),
     path('', include('social_django.urls', namespace='social')),
     path('', Home.as_view(), name='home'),
