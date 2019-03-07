@@ -18,9 +18,10 @@
             {% if perms.news.change_article or perms.news.change_events %}
             <a class="item" href="{% url 'drafts' %}"><p class="mt">Drafts</p></a>
             {% endif %}
-            <a class="item" href="{% url 'events' %}"><p class="mt">Events</p></a>
+
             <a class="item" href="{% url 'resource_list' %}"><p class="mt">Resources</p></a>
             <a class="item" href="{% url 'collection_list' %}"><p class="mt">Projects</p></a>
+
             <div class="ui dropdown item">
                 <div class="text"><p class="mt">About</p></div>
                 <i class="dropdown icon"></i>

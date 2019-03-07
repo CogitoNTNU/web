@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
@@ -50,8 +52,12 @@ class EventList(ListView):
 
 
 class DraftList(ListView):
-    queryset = Article.objects.filter(published=False)
     template_name = 'news/drafts.html'
+
+    def get_queryset(self):
+        articles = Article.objects.filter(published=False).exclude(id__in=Event.objects.all())
+        events = Event.objects.filter(published=False)
+        return list(reversed(sorted(chain(articles, events), key=lambda o: o.datetime_created)))
 
 
 class EventCreate(PermissionRequiredMixin, CreateView):

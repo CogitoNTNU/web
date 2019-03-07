@@ -24,15 +24,10 @@
             {% endif %}
         </h1>
         <p class="meta">
-            <span>{{ event.start_date|date:"d M" }}, {{ event.start_time }}</span>
-            {% if event.end_date %}
-                {% if event.end_time %}
-                    <span> - {{ event.end_date|date:"d M" }}, {{ event.end_time }}</span>
-                {% endif %}
-            {% endif %}
-            {% if event.location %}
+            {% include "news/event_dates.html" %}
+            {% if event.location %} --
                 <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>
-                    <span>{{ event.location }}</span>
+                    <i class="ui map icon"></i>{{ event.location }}
                 </a>
             {% endif %}
             {% if event.facebook_url %}
@@ -50,5 +45,6 @@
         {% if event.signup_url %}
             <a href="{{ event.signup_url }}" class="ui blue button" target="_blank">Sign Up</a>
         {% endif %}
+        {% include "news/date_created.html" %}
     </div>
 {% endblock %}
