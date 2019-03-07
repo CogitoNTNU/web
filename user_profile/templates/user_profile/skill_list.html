@@ -5,6 +5,8 @@
 {% block og_title %}Skills{% endblock %}
 
 {% block body %}
+
+
     <div class="ui text container">
         <h1>
             Skills
@@ -13,7 +15,7 @@
         <div class="ui container">
         {% for skill in skill_list %}
             {% if skill.users %}
-            <div class="ui card accordion">
+            <div class="ui card accordion" style="width: 80%">
                 <div style="margin-left: 20px" class="content title">
                     <i class="dropdown icon"></i>
                     <h2 class="header" style="display: inline">
@@ -25,22 +27,22 @@
                             </a>
                     </h2>
                 </div>
-                <div class="content">
+                <div class="ui large horizontal divided list content">
                 {% for profile in skill.users.all %}
                         <a href="{% url 'profile' profile %}"
-                           class="ui feed" style="margin-left: 20px"
+                           class="item" id="line_override"
                            {% if   profile.user.groups.all|join:', '  %}
                                  data-tooltip="Verv: {{ profile.user.groups.all|join:', '  }}"
                            {% endif %}
                         >
-                        <div class="ui img label">
+                        <div class="content">
                             <img
                                 {% if profile.picture %}
                                    src="{{ profile.picture.url }}"
                                 {% else %}
                                     src="/static/web/img/avatar_placeholder.png"
                                 {% endif %}
-                                class="">
+                                class="ui avatar image">
 
                                 {% if profile.user.first_name and profile.user.last_name %}
                                     {{ profile.user.first_name }} {{ profile.user.last_name }}
@@ -48,15 +50,12 @@
                                     {{ profile }}
                                 {% endif %}
                         </div>
-                        <br>
-                        <br>
-
 
                         </a>
                 {% endfor %}
                 </div>
             </div>
-            <br>
+
             {% endif %}
         {% endfor %}
     </div>
@@ -66,5 +65,20 @@
         $('.ui.dropdown').dropdown();
         $('.ui.accordion').accordion({exclusive: false});
     </script>
+    <style>
+
+    #line_override:first-child{
+        padding-left: 8px!important;
+        border-top: none!important;
+        border-top-width: initial!important;
+        border-top-style: none!important;
+        border-top-color: initial!important;
+        border-left: 1px solid rgba(34,36,38,.15)!important;
+        border-left-width: 1px!important;
+        border-left-style: solid!important;
+        border-left-color: rgba(34, 36, 38, 0.15)!important;
+    }
+
+    </style>
 
 {% endblock %}
