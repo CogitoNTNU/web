@@ -13,22 +13,22 @@
         <div class="ui container">
         {% for skill in skill_list %}
             {% if skill.users %}
-            <div class="ui card">
-                <div class="content">
-                    <h2 class="header">
-                            <a href="{% url 'skill' pk=skill.pk %}" style="color: black;">
+            <div class="ui card accordion">
+                <div style="margin-left: 20px" class="content title">
+                    <i class="dropdown icon"></i>
+                    <h2 class="header" style="display: inline">
+                        <a href="{% url 'skill' pk=skill.pk %}" style="color: black;">
                                 {{ skill }}
-                            <div class="ui teal circular label">
+                                <div class="ui teal circular label">
                                 {{ skill.users.count }}
                             </div>
-                        </a>
+                            </a>
                     </h2>
-                    <i class="dropdown icon"></i>
                 </div>
-                <div class="content accordion">
+                <div class="content">
                 {% for profile in skill.users.all %}
                         <a href="{% url 'profile' profile %}"
-                           class="ui feed"
+                           class="ui feed" style="margin-left: 20px"
                            {% if   profile.user.groups.all|join:', '  %}
                                  data-tooltip="Verv: {{ profile.user.groups.all|join:', '  }}"
                            {% endif %}
