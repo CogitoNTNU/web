@@ -10,37 +10,47 @@
             Skills
         </h1>
         <br>
-
+        <div class="ui container">
         {% for skill in skill_list %}
             {% if skill.users %}
-            <div>
-               <h2>
-                   <a href="{% url 'skill' pk=skill.pk %}" style="color: black;">
-                       {{ skill }}
-                       <a class="ui red circular label">
-                           {{ skill.users.count }}
-                       </a>
-                   </a>
-               </h2>
-                <div class="ui large horizontal divided list">
-                {% for profile in skill.users.all %}
-                        <a href="{% url 'profile' profile %}" class="item">
-                            <img
-                            {% if profile.picture %}
-                               src="{{ profile.picture.url }}"
-                            {% else %}
-                                src="/static/web/img/avatar_placeholder.png"
-                            {% endif %}
-                            class="ui avatar image">
-                            <div class="content">
-                                <div class="header">
-                                    {% if profile.user.first_name and profile.user.last_name %}
-                                        {{ profile.user.first_name }} {{ profile.user.last_name }}
-                                    {% else %}
-                                        {{ profile }}
-                                    {% endif %}
-                                </div>
+            <div class="ui card">
+                <div class="content">
+                    <h2 class="header">
+                            <a href="{% url 'skill' pk=skill.pk %}" style="color: black;">
+                                {{ skill }}
+                            <div class="ui teal circular label">
+                                {{ skill.users.count }}
                             </div>
+                        </a>
+                    </h2>
+                    <i class="dropdown icon"></i>
+                </div>
+                <div class="content accordion">
+                {% for profile in skill.users.all %}
+                        <a href="{% url 'profile' profile %}"
+                           class="ui feed"
+                           {% if   profile.user.groups.all|join:', '  %}
+                                 data-tooltip="Verv: {{ profile.user.groups.all|join:', '  }}"
+                           {% endif %}
+                        >
+                        <div class="ui img label">
+                            <img
+                                {% if profile.picture %}
+                                   src="{{ profile.picture.url }}"
+                                {% else %}
+                                    src="/static/web/img/avatar_placeholder.png"
+                                {% endif %}
+                                class="">
+
+                                {% if profile.user.first_name and profile.user.last_name %}
+                                    {{ profile.user.first_name }} {{ profile.user.last_name }}
+                                {% else %}
+                                    {{ profile }}
+                                {% endif %}
+                        </div>
+                        <br>
+                        <br>
+
 
                         </a>
                 {% endfor %}
@@ -50,4 +60,11 @@
             {% endif %}
         {% endfor %}
     </div>
+    </div>
+
+    <script>
+        $('.ui.dropdown').dropdown();
+        $('.ui.accordion').accordion({exclusive: false});
+    </script>
+
 {% endblock %}
