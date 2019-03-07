@@ -18,8 +18,8 @@
             <div class="ui card accordion" style="width: 80%">
                 <div style="margin-left: 20px" class="content title">
                     <i class="dropdown icon"></i>
-                    <h2 class="header" style="display: inline">
-                        <a href="{% url 'skill' pk=skill.pk %}" style="color: black;">
+                    <h2 class="header" style="display: inline;">
+                        <a href="{% url 'skill' pk=skill.pk %}" style="color: black;" class="accordion_preventor">
                                 {{ skill }}
                                 <div class="ui teal circular label">
                                 {{ skill.users.count }}
@@ -62,8 +62,12 @@
     </div>
 
     <script>
+        $('.accordion_preventor').click(function( event ) {
+            event.stopImmediatePropagation();
+        });
         $('.ui.dropdown').dropdown();
         $('.ui.accordion').accordion({exclusive: false});
+
     </script>
     <style>
 
