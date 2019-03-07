@@ -19,7 +19,7 @@
            </div>
         {% endif %}
         {% for profile in skill.users.all %}
-                    <a href="{% url 'profile' profile %}" class="item">
+                    <a href="{% url 'profile' profile %}" class="item horisontal_divided_list">
                             <img
                             {% if profile.picture %}
                                src="{{ profile.picture.url }}"
