@@ -5,13 +5,12 @@
 <div class="ui text container">
 
     <h1 class="text_align" style="text-align: center">
-        <a class="ui large red circular label">{{   skill.users.count }}</a>
-        Skill: {{ skill.name }}
+        {{ skill.name }}
+        <div class="ui large teal circular label">{{   skill.users.count }}</div>
     </h1>
     <p class="text_align" style="text-align: center">{{ skill.description }}</p>
 
 
-    <h3 style="text-align: center">Members of Cogito that masters this skill:</h3>
     <div class="ui large horizontal divided list">
 
         {% if not skill.users.all%}
