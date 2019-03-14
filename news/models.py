@@ -25,11 +25,9 @@ class Article(ConcurrentModel):
         upload_to='web/img/article/banners',
     )
     published = models.BooleanField(default=False)
-    # Sticky
     sticky = models.BooleanField(
         default=False,
     )
-    # End Sticky
     datetime_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
