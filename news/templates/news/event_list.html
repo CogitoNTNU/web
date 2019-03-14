@@ -17,6 +17,9 @@
                     {% else %}
                         <a class="cogito_col_dkgray" href="{% url "article" pk=object.pk %}">{{ object.title }}</a>
                     {% endif %}
+                    {% if object.pinned %}
+                        <i class="thumbtack icon small cogito_col_blue_opaque_70 rotate_20_left"></i> <!-- Make opeg (70% ?) and rotate -->
+                    {% endif %}
                 </h1>
                 {% if object|get_class|lower == 'event' %}
                     <div class="extra">
