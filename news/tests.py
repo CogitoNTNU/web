@@ -215,7 +215,8 @@ class EventTest(TestCase):
             }
         )
         self.assertEquals(
-            ["location url not recognized as valid Maze map link, check 'not mazemap' or fix link"],
+            ["location url not recognized as valid MazeMap link, check 'Location off campus' or fix link. " +\
+                                        "Use the full MazeMap URL (eg. https://use.mazemap.com/#v=1[...])"],
             form.errors['__all__']
         )
 
