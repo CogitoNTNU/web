@@ -4,22 +4,11 @@
 {% block title %}Skills{% endblock %}
 {% block og_title %}Skills{% endblock %}
 
+{% block head %}
+{% endblock %}
+
 {% block body %}
-
-    <style>
-        #line_override:first-child{
-            padding-left: 8px!important;
-            border-top: none!important;
-            border-top-width: initial!important;
-            border-top-style: none!important;
-            border-top-color: initial!important;
-            border-left: 1px solid rgba(34,36,38,.15)!important;
-            border-left-width: 1px!important;
-            border-left-style: solid!important;
-            border-left-color: rgba(34, 36, 38, 0.15)!important;
-        }
-    </style>
-
+    <link href="{% static 'user_profile/css/skill.css' %}" rel="stylesheet" type="text/css">
     <div class="ui text container">
         <h1>
             Skills
@@ -40,32 +29,7 @@
                             </a>
                     </h2>
                 </div>
-                <div class="ui large horizontal divided list content">
-                {% for profile in skill.users.all %}
-                        <a href="{% url 'profile' profile %}"
-                           class="item" id="line_override"
-                           {% if   profile.user.groups.all|join:', '  %}
-                                 data-tooltip="Verv: {{ profile.user.groups.all|join:', '  }}"
-                           {% endif %}
-                        >
-                        <div class="content">
-                            <img
-                                {% if profile.picture %}
-                                   src="{{ profile.picture.url }}"
-                                {% else %}
-                                    src="/static/web/img/avatar_placeholder.png"
-                                {% endif %}
-                                class="ui avatar image">
-
-                                {% if profile.user.first_name and profile.user.last_name %}
-                                    {{ profile.user.first_name }} {{ profile.user.last_name }}
-                                {% else %}
-                                    {{ profile }}
-                                {% endif %}
-                        </div>
-                        </a>
-                {% endfor %}
-                </div>
+            {% include 'user_profile/profile_divided_list.html' %}
             </div>
 
             {% endif %}
