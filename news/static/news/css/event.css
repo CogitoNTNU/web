@@ -1,3 +1,7 @@
+.mazemap {
+    padding-top: 10px;
+}
+
 @media screen and (max-width: 480px) {
     .mazemap {
         display: none;

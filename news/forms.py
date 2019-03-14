@@ -42,7 +42,8 @@ class EventForm(forms.ModelForm):
 
         if not location_off_campus and location_url \
                 and generate_mazemap_embed(location_url) is None:
-            raise forms.ValidationError("location url not recognized as valid Maze map link, check 'not mazemap' or fix link")
+            raise forms.ValidationError("location url not recognized as valid MazeMap link, check 'Location off campus' or fix link. " +\
+                                        "Use the full MazeMap URL (eg. https://use.mazemap.com/#v=1[...])")
 
     def save(self, commit=True):
         event = super().save(commit=False)
