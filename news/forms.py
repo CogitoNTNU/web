@@ -16,9 +16,9 @@ class EventForm(forms.ModelForm):
 
         widgets = {
             'start_date': forms.DateInput(attrs={'type': 'date', 'value': str(datetime.date.today())}),
-            'start_time': forms.DateInput(attrs={'type': 'time'}),
+            'start_time': forms.TimeInput(attrs={'type': 'time'}),
             'end_date': forms.DateInput(attrs={'type': 'date', 'value': str(datetime.date.today())}),
-            'end_time': forms.DateInput(attrs={'type': 'time'}),
+            'end_time': forms.TimeInput(attrs={'type': 'time'}),
         }
 
     def clean(self):
