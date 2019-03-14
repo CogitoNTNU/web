@@ -9,34 +9,14 @@
             <div class="ui large teal circular label">{{ skill.users.count }}</div>
         </h1>
         <p class="text_align" style="text-align: center">{{ skill.description }}</p>
-        <div class="ui large horizontal divided list">
-            {% if not skill.users.all %}
+        {% if not skill.users.all %}
+            <div class="ui large horizontal divided list">
                 <div style="margin-top: 3%">
                     No one in Cogito has this skill yet. Become the first!
                 </div>
-            {% endif %}
-            {% for profile in skill.users.all %}
-                <a href="{% url 'profile' profile %}" class="item horisontal_divided_list">
-                    <img
-                            {% if profile.picture %}
-                                src="{{ profile.picture.url }}"
-                            {% else %}
-                                src="/static/web/img/avatar_placeholder.png"
-                            {% endif %}
-                                class="ui avatar image">
-                    <div class="content">
-                        <div class="header">
-                            {% if profile.user.first_name and profile.user.last_name %}
-                                {{ profile.user.first_name }} {{ profile.user.last_name }}
-                            {% else %}
-                                {{ profile }}
-                            {% endif %}
-                        </div>
-                        <div>
-                        </div>
-                    </div>
-                </a>
-            {% endfor %}
-        </div>
+            </div>
+        {% else %}
+            {% include 'user_profile/profile_divided_list.html' %}
+        {% endif %}
     </div>
 {% endblock %}
