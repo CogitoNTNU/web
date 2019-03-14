@@ -20,7 +20,7 @@ class ArticleList(ListView):
 
 class ArticleCreate(PermissionRequiredMixin, CreateView):
     model = Article
-    fields = ('title', 'ingress', 'content', 'published', 'banner')
+    fields = ('title', 'ingress', 'content', 'published', 'pinned', 'banner')
     template_name = 'news/article_create.html'
     success_url = '/'
     permission_required = 'news.add_article'

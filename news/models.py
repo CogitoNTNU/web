@@ -25,6 +25,9 @@ class Article(ConcurrentModel):
         upload_to='web/img/article/banners',
     )
     published = models.BooleanField(default=False)
+    pinned = models.BooleanField(
+        default=False,
+    )
     datetime_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
