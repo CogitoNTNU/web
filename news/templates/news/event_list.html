@@ -39,7 +39,7 @@
                     </div>
                 {% endif %}
                 <div class="description">
-                    <p>{{ object.content|safe|default:""|truncatechars:400 }}</p>
+                    <p>{{ object.content|safe|default:""|truncatechars_html:400 }}</p>
                 </div>
                 <div class="link">
                     <p>
