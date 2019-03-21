@@ -18,45 +18,46 @@
         {% if object.banner %}
             <img class="ui image" width="100%" src="/media/{{ object.banner.name }}">
         {% endif %}
-        <div>
-            <div class="ui grid">
-                <div class="twelve wide left floated column">
-                    <h1>
-                        {{ object.title }}
-                        {% if perms.news.change_event %}
-                            <a class="size14" href="{% url "event-update" pk=object.pk %}">Edit</a>
-                        {% endif %}
-                    </h1>
-                </div>
-                <div class="four wide right floated column">
-                    {% if event.signup_url %}
-                        <a href="{{ event.signup_url }}" class="ui blue button" target="_blank">Sign Up</a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    <p></p>
+        <h1>
+            {{ object.title }}
+            {% if perms.news.change_event %}
+                <a class="size14" href="{% url "event-update" pk=object.pk %}">Edit</a>
+            {% endif %}
+        </h1>
         <p class="meta">
-            {% include "news/event_dates.html" %}
-            {% if event.location %} --
-                <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>
-                    <i class="ui map icon"></i>{{ event.location }}
-                </a>
-            {% endif %}
-            {% if event.facebook_url %}
-                <a href="{{ event.facebook_url }}">
-                    <i class="ui facebook icon"></i>
-                </a>
-            {% endif %}
-            {% if event.signup_url %}
-                <a href="{{ event.signup_url }}">
-                    <i class="ui calendar icon"></i>
-                </a>
-            {% endif %}
+        <div class="ui middle aligned grid">
+            <div class="twelve wide column">
+                {% include "news/event_dates.html" %}
+                {% if event.location %}
+                    <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>
+                        <i class="ui map icon"></i>{{ event.location }}
+                    </a>
+                {% endif %}
+                {% if event.facebook_url %}
+                    <a href="{{ event.facebook_url }}">
+                        <i class="ui facebook icon"></i>
+                    </a>
+                {% endif %}
+                {% if event.signup_url %}
+                    <a href="{{ event.signup_url }}">
+                        <i class="ui calendar icon"></i>
+                    </a>
+                {% endif %}
+            </div>
+            <div class="four wide column middle aligned">
+                {% if event.signup_url %}
+                    <a href="{{ event.signup_url }}" class="ui right floated middle aligned blue button"
+                       target="_blank">Sign
+                        Up</a>
+                {% endif %}
+            </div>
 
+        </div>
         </p>
         {{ object.content|safe }}
-
+        {% if event.signup_url %}
+            <a href="{{ event.signup_url }}" target="_blank" class="ui blue button">Sign Up</a>
+        {% endif %}
         {% include "news/date_created.html" %}
     </div>
 {% endblock %}
