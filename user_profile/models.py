@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import get_object_or_404
 from groups.models import Committee
+from user_profile.helpers import set_user_avatar
 
 
 class Profile(models.Model):
@@ -30,6 +31,12 @@ class Profile(models.Model):
 
     def get_object(self):
         return get_object_or_404(Profile, user__username=self.kwargs['username'])
+
+    def save(self, **kwargs):
+        super().save(**kwargs)
+        if not self.picture:
+            set_user_avatar(self.user)
+            super().save()
 
 
 class Skill(models.Model):

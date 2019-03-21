@@ -3,8 +3,8 @@ from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
-from django.views.generic import DetailView
 
+from user_profile.helpers import set_user_avatar
 from .models import Profile
 from .forms import ProfileForm
 
@@ -13,6 +13,8 @@ def profile(request, username):
     user = get_object_or_404(User, username=username)
     try:
         user.profile  # Accessing a non-existent profile (they do no exist by default) triggers an error
+        if not user.profile.picture:
+            set_user_avatar(user)
     except Profile.DoesNotExist:
         Profile.objects.create(user=user)
 
