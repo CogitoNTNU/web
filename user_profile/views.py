@@ -1,9 +1,14 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.views import redirect_to_login
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
+from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.urls import reverse_lazy
+from django.contrib import messages
+
 
 from .models import Profile, Skill
 from .forms import ProfileForm
@@ -15,6 +20,10 @@ def profile(request, username):
         user.profile  # Accessing a non-existent profile (they do no exist by default) triggers an error
     except Profile.DoesNotExist:
         Profile.objects.create(user=user)
+    # Only access to profile page if user has view_profile permission or accessing own page
+    if not request.user.has_perm('user_profile.view_profile') and not request.user == user:
+        messages.warning(request, "Du har ikke tilgang til denne siden")
+        return redirect('home')
 
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
@@ -30,10 +39,32 @@ def profile(request, username):
     return render(request, 'user_profile/profile.html', {'profile': user.profile, 'form': ProfileForm()})
 
 
-class SkillListView(ListView):
+class SkillListView(PermissionRequiredMixin, ListView):
     model = Skill
+    permission_required = 'user_profile.view_profile'
+    permission_denied_message = 'Permission Denied'
+
+    def handle_no_permission(self):
+        #Redirects to home/landig page if the use ris loged inn, but does not have the proper permissions
+        if self.raise_exception or self.request.user.is_authenticated:
+            #raise PermissionDenied(self.get_permission_denied_message())
+            messages.warning(self.request, "Du har ikke tilgang til denne siden")
+            return redirect('home')
+        return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
 
 
+class SkillDetailView(PermissionRequiredMixin, DetailView):
+    model = Skill
+    permission_required = 'user_profile.view_profile'
+    permission_denied_message = 'Permission Denied'
+
+    def handle_no_permission(self):
+        #Redirects to home/landig page if the use ris loged inn, but does not have the proper permissions
+        if self.raise_exception or self.request.user.is_authenticated:
+            # raise PermissionDenied(self.get_permission_denied_message())
+            messages.warning(self.request, "Du har ikke tilgang til denne siden")
+            return redirect('home')
+        return redirect_to_login(self.request.get_full_path(), self.get_login_url(), self.get_redirect_field_name())
 
 
 """
