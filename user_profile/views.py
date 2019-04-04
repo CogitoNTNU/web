@@ -21,13 +21,14 @@ def profile(request, username):
         if form.is_valid() and request.user == user:
             skills, picture = form.cleaned_data['skills'], form.cleaned_data['picture']
             user.profile.skills.set(skills)
-            user.profile.picture = picture
+            if picture is not None:
+                user.profile.picture = picture
             user.profile.save()
 
             return HttpResponseRedirect(reverse('profile', kwargs={'username': username}))
         raise PermissionDenied("")
-
-    return render(request, 'user_profile/profile.html', {'profile': user.profile, 'form': ProfileForm()})
+    profile_form = ProfileForm(skills=user.profile.skills.values('id'))
+    return render(request, 'user_profile/profile.html', {'profile': user.profile, 'form': profile_form})
 
 """
 
