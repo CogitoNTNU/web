@@ -90,7 +90,7 @@ class ConcurrencyTest(TestCase):
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
         response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.templates[0].name, 'concurrency/access_denied.html')
-        self.client.post(reverse('article-update', args=(self.article.pk,)), data)
+        self.client.post(reverse('article-update', args=(self.article.pk,)), data=data)
         self.article = Article.objects.get(pk=self.article.pk)
         self.assertEqual(self.article.title, self.new_title)
         response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
@@ -108,7 +108,7 @@ class ConcurrencyTest(TestCase):
         data.pop('banner')
         data['title'] = self.new_title
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
-        self.client.post(reverse('article-update', args=(self.article.pk,)) + '?cancel=true', data)
+        self.client.post(reverse('article-update', args=(self.article.pk,)) + '?cancel=true', data=data)
         self.article = Article.objects.get(pk=self.article.pk)
         self.assertEqual(self.article.title, self.old_title)
         response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
@@ -119,7 +119,7 @@ class ConcurrencyTest(TestCase):
         data = response.context[0].dicts[3]['form'].initial
         data.pop('banner')
         data['concurrency_key'] = ''
-        response = self.clientB.post(reverse('article-update', args=(self.article.pk,)), data)
+        response = self.clientB.post(reverse('article-update', args=(self.article.pk,)), data=data)
         self.assertEqual(response.templates[0].name, 'news/article_update.html')
 
     def test_invalid_form(self):
