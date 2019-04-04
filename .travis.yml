@@ -6,6 +6,10 @@ language: python
 python:
   - "3.6"
 
+before_install:
+  - sudo apt-get --only-upgrade install -y sqlite3
+  - sudu apt-get update
+
 # command to install dependencies
 install:
   - pip install -r requirements.txt
