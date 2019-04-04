@@ -1,0 +1,17 @@
+{% load staticfiles %}
+
+<!-- Messages -->
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == "success" %}
+            <div class="ui green message">
+        {% elif message.tags == "warning" %}
+            <div class="ui yellow message">
+        {% elif message.tags == "danger" %}
+            <div class="ui red message">
+        {% endif %}
+                {{ message }}
+            </div>
+    {% endfor %}
+{% endif %}
+<!-- End messages -->

@@ -9,6 +9,11 @@ from .models import Profile, Skill
 
 class SkillTest(TestCase):
 
+    def add_permission(self, codename, user=None):
+        user = self.user if not user else user
+        permission = Permission.objects.get(codename=codename)
+        user.user_permissions.add(permission)
+
     def setUp(self):
         self.username = 'TEST_USER'
         self.password = 'TEST_PASS'
@@ -22,11 +27,25 @@ class SkillTest(TestCase):
         self.assertEqual(str(self.skill), self.skill.name)
 
     def test_view(self):
+        self.client.login(username=self.username, password=self.password)
+        self.add_permission('view_profile')
         response = self.client.get(reverse('skill', args=(self.skill.pk,)))
         self.assertEqual(response.status_code, 200)
+        response = self.client.get(reverse('skill_list'))
+        self.assertEqual(response.status_code, 200)
+        self.client.logout()
+        response = self.client.get(reverse('skill', args=(self.skill.pk,)))
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('skill_list'))
+        self.assertEqual(response.status_code, 302)
 
 
 class ProfileTest(TestCase):
+
+    def add_permission(self, codename, user=None):
+        user = self.user if not user else user
+        permission = Permission.objects.get(codename=codename)
+        user.user_permissions.add(permission)
 
     def setUp(self):
         self.username = 'TEST_USER'
@@ -42,14 +61,23 @@ class ProfileTest(TestCase):
         self.assertEqual(str(self.profile), self.user.username)
 
     def test_view(self):
+        self.add_permission('view_profile')
         response = self.client.get(reverse('profile', args=(self.user.username,)))
         self.assertEqual(response.status_code, 200)
         response = self.client.get(reverse('profile', args=(self.user2.username,)))
         self.assertEqual(response.status_code, 200)
+        self.client.logout()
+        response = self.client.get(reverse('profile', args=(self.user.username,)))
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get(reverse('profile', args=(self.user2.username,)))
+        self.assertEqual(response.status_code, 302)
+
+
 
     def test_profile_post(self):
         skill = Skill.objects.create(name='SKILL')
         data = {'skill': skill}
+        self.add_permission('view_profile')
         response = self.client.post(reverse('profile', args=(self.username,)), {})
         self.assertEqual(response.url, f'/profiles/{self.username}/')
         response = self.client.post(reverse('profile', args=(self.username,)), data)

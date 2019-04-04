@@ -18,10 +18,20 @@
             {% if perms.news.change_article or perms.news.change_events %}
             <a class="item" href="{% url 'drafts' %}"><p class="mt">Drafts</p></a>
             {% endif %}
-
-            <a class="item" href="{% url 'resource_list' %}"><p class="mt">Resources</p></a>
-            <a class="item" href="{% url 'collection_list' %}"><p class="mt">Projects</p></a>
-
+            <a class="item" href="{% url 'events' %}">
+                Events
+            </a>
+            <a class="item" href="{% url 'resource_list' %}">
+                Resources
+            </a>
+            {% if request.user.is_authenticated and perms.user_profile.view_skill and perms.user_profile.view_profile %}
+                <a class="item" href="{% url 'profile' 'skills'%}">
+                  Skills
+                </a>
+            {% endif %}
+            <a class="item" href="{% url 'collection_list' %}">
+                Projects
+            </a>
             <div class="ui dropdown item">
                 <div class="text"><p class="mt">About</p></div>
                 <i class="dropdown icon"></i>

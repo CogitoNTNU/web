@@ -1,0 +1,49 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block title %}Skills{% endblock %}
+{% block og_title %}Skills{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <link href="{% static 'user_profile/css/skill.css' %}" rel="stylesheet" type="text/css">
+    <div class="ui text container">
+        <h1>
+            Skills
+        </h1>
+        <br>
+        <div class="ui container">
+        {% for skill in skill_list %}
+            {% if skill.users %}
+            <div class="ui card accordion" style="width: 80%">
+                <div style="margin-left: 20px" class="content title">
+                    <i class="dropdown icon"></i>
+                    <h2 class="header" style="display: inline;">
+                        <a href="{% url 'skill' pk=skill.pk %}" style="color: black;" class="accordion_preventor">
+                                {{ skill }}
+                                <div class="ui teal circular label">
+                                {{ skill.users.count }}
+                            </div>
+                            </a>
+                    </h2>
+                </div>
+            {% include 'user_profile/profile_divided_list.html' %}
+            </div>
+
+            {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+
+    <script>
+        $('.accordion_preventor').click(function( event ) {
+            event.stopImmediatePropagation();
+        });
+        $('.ui.dropdown').dropdown();
+        $('.ui.accordion').accordion({exclusive: false});
+
+    </script>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% load helpers %}
+
+<div class="ui large horizontal divided list content">
+    {% for profile in skill.users.all %}
+            <a href="{% url 'profile' profile %}"
+               class="item" id="line_override"
+               {% if   profile.user.groups.all|join:', '  %}
+                     data-tooltip="Verv: {{ profile.user.groups.all|join:', '  }}"
+               {% endif %}
+            >
+            <div class="content">
+                <img
+                    {% if profile.picture %}
+                       src="{{ profile.picture.url }}"
+                    {% else %}
+                        src="/static/web/img/avatar_placeholder.png"
+                    {% endif %}
+                    class="ui avatar image"
+                >
+                {{ profile.user|name }}
+            </div>
+            </a>
+    {% endfor %}
+</div>

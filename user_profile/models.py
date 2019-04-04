@@ -44,11 +44,6 @@ class Skill(models.Model):
         max_length=1000,
         blank=True,
     )
-    members = models.ManyToManyField(
-        'user_profile.Profile',
-        related_name='skill',
-        blank=True,
-    )
 
     def __str__(self):
         return self.name
