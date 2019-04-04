@@ -25,6 +25,9 @@ class Article(ConcurrentModel):
         upload_to='web/img/article/banners',
     )
     published = models.BooleanField(default=False)
+    pinned = models.BooleanField(
+        default=False,
+    )
     datetime_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
@@ -55,9 +58,17 @@ class Event(Article):
         null=True,
     )
     location_url = models.URLField(
-        max_length=200,
+        max_length=250,
         blank=True,
         null=True,
+    )
+    location_url_embed = models.URLField(
+        max_length=250,
+        blank=True,
+        null=True,
+    )
+    location_off_campus = models.BooleanField(
+        default=False
     )
     signup_url = models.URLField(
         max_length=200,
