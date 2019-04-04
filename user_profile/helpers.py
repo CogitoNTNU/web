@@ -5,7 +5,7 @@ import requests
 
 def set_user_avatar(user):
     try:
-        response = requests.get('http://188.166.8.84:8000/')
+        response = requests.get('gooddoggo.dog')
         image = BytesIO(response.content)
         user.profile.picture.save('doggo.png', image, True)
     except:
