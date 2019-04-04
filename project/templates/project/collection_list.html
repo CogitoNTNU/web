@@ -7,7 +7,7 @@
 
     <h1>Our Projects:
     {% if perms.project.add_project %}
-        <a class="mini ui blue button"  href="{% url "project_form" %}">New project</a>
+        <a class="mini ui blue button"  href="{% url "project_form" %}">Nytt prosjekt</a>
     {% endif %}
     {% if perms.project.add_collection %}
         <a class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
@@ -19,7 +19,7 @@
         <div class="ui container">
             <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}">Collection: {{ collection.name }}</a>
                 {% if collection.application_open and user not in collection.applicants %}
-                    <a href="{% url 'collection' pk=collection.pk %}#apply" class="ui tiny green button">Apply now</a>
+                    <a href="{% url 'collection' pk=collection.pk %}#apply" class="ui tiny green button">Søk nå</a>
                 {% endif %}
             </h2>
 

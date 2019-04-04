@@ -1,5 +1,5 @@
 {% if form.concurrency_key.errors %}
-    <button class="ui red override button">Override</button>
+    <button class="ui red override button">Overstyr</button>
     <script>
         $('.override.button').click(function () {
             $('form').attr('action', '?override_save=true').submit();

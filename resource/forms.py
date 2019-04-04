@@ -10,6 +10,7 @@ class ResourceForm(forms.ModelForm):
         super(ResourceForm, self).__init__(*args, **kwargs)
         self.fields['tags'].form = forms.SelectMultiple()
         self.fields['tags'].widget.attrs['class'] = 'ui multiple search selection dropdown'
+        self.fileds['tags'].label = 'Merkelapp'
 
     class Meta:
         model = Resource

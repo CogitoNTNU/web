@@ -5,7 +5,7 @@
         {% if perms.contentbox.change_contentbox %}
             <a class="ui blue button" href="{% url 'contentbox-edit' contentbox.id %}"
                style="margin-bottom: 50px;">
-                Edit
+                Endre
             </a>
         {% endif %}
         {{ contentbox.content|default:""|safe }}

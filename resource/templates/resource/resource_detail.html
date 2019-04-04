@@ -25,15 +25,15 @@
         {% endif %}
 
         {% if perms.resource.change_resource %}
-            <a class="mini ui blue button"  href="{% url "edit_resource" pk=resource.pk %}">Edit</a>
+            <a class="mini ui blue button"  href="{% url "edit_resource" pk=resource.pk %}">Endre</a>
         {% endif %}
         {% if perms.resource.delete_resource %}
-            <a class="mini ui blue button"  href="{% url "delete_resource" pk=resource.pk %}">Delete</a>
+            <a class="mini ui blue button"  href="{% url "delete_resource" pk=resource.pk %}">Slett</a>
         {% endif %}
 
         <p>{{ resource.description|safe|linebreaks}}</p>
         {% if resource.link %}
-        <a href="{{resource.link}}" class="big ui blue button">Go to</a>
+        <a href="{{resource.link}}" class="big ui blue button">Gå til</a>
         {% endif %}
         <p><br></p>
     </div>
