@@ -27,6 +27,7 @@ def profile(request, username):
 
             return HttpResponseRedirect(reverse('profile', kwargs={'username': username}))
         raise PermissionDenied("")
+
     profile_form = ProfileForm(skills=user.profile.skills.values())
     return render(request, 'user_profile/profile.html', {'profile': user.profile, 'form': profile_form})
 

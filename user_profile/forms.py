@@ -5,13 +5,13 @@ from .models import Profile
 class ProfileForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
-        skill_set = kwargs.get('skills', [])  # Gets value skills from kwargs if exists, if not default is an empty list
-        skills = [skill['id'] for skill in skill_set]
         super(ProfileForm, self).__init__(*args)
         self.fields['skills'].form = forms.SelectMultiple()
         self.fields['skills'].widget.attrs['class'] = 'ui multiple search selection dropdown'
-        self.fields['skills'].initial = skills  # Sets initial value to skills SelectMany field
-        self.fields['picture'].widget.attrs['enctype'] = 'multipart/form-data'
+        # set 'skills' initial value to the skills already registered to the user
+        skill_set = kwargs.get('skills', [])
+        skills = [skill['id'] for skill in skill_set]
+        self.fields['skills'].initial = skills
 
     class Meta:
         model = Profile
