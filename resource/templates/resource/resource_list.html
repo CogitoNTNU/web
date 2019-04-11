@@ -5,7 +5,7 @@
 
 <div class="ui text container">
 
-<h1>Resources
+<h1>Ressurser
 {% if perms.resource.add_resource %}
     <a class="mini ui blue button"  href="{% url "resource_form"%}">Ny</a>
 {% endif %}
@@ -23,7 +23,7 @@
     {% if resource.description %}
         <p>{{ resource.description|safe|linebreaks|truncatechars_html:280 }}</p>
     {% else %}
-        <p><em>No description available</em></p>
+        <p><em>Ingen beskrivelse tilgjengelig</em></p>
     {% endif %}
 {% endfor %}
 

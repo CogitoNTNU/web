@@ -7,10 +7,10 @@
             {% if object.concurrency_user and not object.concurrency_user.is_anonymous %}
                 {{ object.concurrency_user }}
             {% else %}
-                Someone
+                Noen
             {% endif %}
-            started modifying "{{ object }}" {{ object.concurrency_time|timesince }} ago.
-            Wait until the current user saves or override them and ignore all their modifications.
+            startet å endre "{{ object }}" for {{ object.concurrency_time|timesince }} siden.
+            Vent til brukeren lagrer eller overskriv og ignorer alle endringene.
         </p>
         <p>
             <a class="ui red button" href="?override_edit=true">Overstyr</a>

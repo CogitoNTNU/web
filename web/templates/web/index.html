@@ -10,10 +10,10 @@
         <div class="main grid">
             <div>
                 {% if perms.news.add_article %}
-                    <a href="{% url 'article-create' %}" class="tiny ui blue button">New Article</a>
+                    <a href="{% url 'article-create' %}" class="tiny ui blue button">Ny Artikkel</a>
                 {% endif %}
                 {% if perms.news.add_event %}
-                    <a href="{% url "event-create" %}" class="tiny ui blue button" >New Event</a>
+                    <a href="{% url "event-create" %}" class="tiny ui blue button" >Ny begivenhet</a>
                 {% endif %}
                 {% include "news/event_list.html" %}
                 {% include 'project_wide/pagination.html' with url=''%}

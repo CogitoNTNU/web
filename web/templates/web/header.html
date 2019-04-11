@@ -16,19 +16,19 @@
 
         <div class="ui secondary menu">
             {% if perms.news.change_article or perms.news.change_events %}
-            <a class="item" href="{% url 'drafts' %}"><p class="mt">Drafts</p></a>
+            <a class="item" href="{% url 'drafts' %}"><p class="mt">Utkast</p></a>
             {% endif %}
 
-            <a class="item" href="{% url 'resource_list' %}"><p class="mt">Resources</p></a>
-            <a class="item" href="{% url 'collection_list' %}"><p class="mt">Projects</p></a>
+            <a class="item" href="{% url 'resource_list' %}"><p class="mt">Resursjer</p></a>
+            <a class="item" href="{% url 'collection_list' %}"><p class="mt">Prosjekter</p></a>
 
             <div class="ui dropdown item">
-                <div class="text"><p class="mt">About</p></div>
+                <div class="text"><p class="mt">Om oss</p></div>
                 <i class="dropdown icon"></i>
                 <div class="ui menu transition hidden">
-                    <a class="item" href="{% url 'about' %}"><p class="mt">About</p></a>
-                    <a class="item" href="{% url 'about/statutes' %}"><p class="mt">Statutes</p></a>
-                    <a class="item" href="{% url 'about/business' %}"><p class="mt">Enterprise</p></a>
+                    <a class="item" href="{% url 'about' %}"><p class="mt">Om oss</p></a>
+                    <a class="item" href="{% url 'about/statutes' %}"><p class="mt">Vedtekter</p></a>
+                    <a class="item" href="{% url 'about/business' %}"><p class="mt">For bedrifter</p></a>
                 </div>
             </div>
             {% if user.is_authenticated %}
@@ -38,12 +38,12 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href="{% url 'profile' username=user.username %}"><p class="mt">Profile</p></a>
-                        <a class="item" href="{% url 'logout' %}"><p class="mt">Logout</p></a>
+                        <a class="item" href="{% url 'profile' username=user.username %}"><p class="mt">Profil</p></a>
+                        <a class="item" href="{% url 'logout' %}"><p class="mt">Logg ut</p></a>
                     </div>
                 </div>
             {% else %}
-                <a class="item" href="{% url 'login' %}"><p class="mt">Login</p></a>
+                <a class="item" href="{% url 'login' %}"><p class="mt">Logg inn</p></a>
             {% endif %}
             {% block scripts %}
                     <script>$('.dropdown').dropdown();</script>

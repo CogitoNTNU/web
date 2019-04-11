@@ -20,7 +20,7 @@
         <h1>
             {{ object.title }}
             {% if perms.news.change_article %}
-                <a class="size14"  href="{% url "article-update" pk=object.pk %}">Edit</a>
+                <a class="size14"  href="{% url "article-update" pk=object.pk %}">Endre</a>
             {% endif %}
         </h1>
         {{ object.content|safe }}
