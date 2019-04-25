@@ -12,6 +12,9 @@
                 </div>
                 {% endif %}
                 <h1 class="header">
+                    {% if object.pinned %}
+                        <i class="thumbtack icon small cogito_col_blue_opaque_70 rotate_20_left"></i>
+                    {% endif %}
                     {% if object|get_class|lower == 'event' %}
                         <a class="cogito_col_dkgray" href="{% url "event" pk=object.pk %}">{{ object.title }}</a>
                     {% else %}

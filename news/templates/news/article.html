@@ -3,8 +3,8 @@
 
 {% block title %}{{ object.title }}{% endblock %}
 {% block og_title %}{{ object.title }}{% endblock %}
-{% block og_description %}{{ object.content|truncatechars:"100" }}{% endblock %}
-{% block description %}{{ object.content|truncatechars:"100" }}{% endblock %}
+{% block og_description %}{{ object.content|truncatechars_html:"100" }}{% endblock %}
+{% block description %}{{ object.content|truncatechars_html:"100" }}{% endblock %}
 
 {% block head %}
     <link rel="stylesheet" href="{% static 'ckeditor/ckeditor/plugins/codesnippet/lib/highlight/styles/atelier-forest.light.css' %}"/>

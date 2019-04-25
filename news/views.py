@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
 from concurrency.views import ConcurrentUpdate
 from news.forms import EventForm
+from news.helpers import generate_mazemap_embed
 from news.models import Article, Event
 
 
@@ -20,7 +21,7 @@ class ArticleList(ListView):
 
 class ArticleCreate(PermissionRequiredMixin, CreateView):
     model = Article
-    fields = ('title', 'ingress', 'content', 'published', 'banner')
+    fields = ('title', 'ingress', 'content', 'published', 'pinned', 'banner')
     template_name = 'news/article_create.html'
     success_url = '/'
     permission_required = 'news.add_article'

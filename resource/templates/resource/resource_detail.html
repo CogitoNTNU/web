@@ -44,7 +44,7 @@
             <div class="content">
                 <div class="header">{{ rel_resource.title }}</div>
                 <div class="meta">{{ rel_resource.medium }} by {{ rel_resource.content_creator }}</div>
-                <div class="description">{{ rel_resource.description|truncatechars:140|safe }}</div>
+                <div class="description">{{ rel_resource.description|truncatechars_html:140|safe }}</div>
             </div>
         </a>
         {% endfor %}
