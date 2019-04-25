@@ -2,8 +2,8 @@
 {% load helpers %}
 
 
-{% block title %}New {{ view.model|get_class|lower }}{% endblock %}
-{% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
+{% block title %}Ny {{ view.model|get_class|lower }}{% endblock %}
+{% block og_title %}Ny {{ view.model|get_class|lower }}{% endblock %}
 
 {% block body %}
 <div class="ui text container">
@@ -12,7 +12,7 @@
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
-        <button type="submit" class="big ui primary button">Publish</button>
+        <button type="submit" class="big ui primary button">Publiser</button>
     </form>
 </div>
 

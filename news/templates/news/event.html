@@ -21,7 +21,7 @@
         <h1>
             {{ object.title }}
             {% if perms.news.change_event %}
-                <a class="size14" href="{% url "event-update" pk=object.pk %}">Edit</a>
+                <a class="size14" href="{% url "event-update" pk=object.pk %}">Endre</a>
             {% endif %}
         </h1>
         <p class="meta">
@@ -44,7 +44,7 @@
         </p>
         {{ object.content|safe }}
         {% if event.signup_url %}
-            <a href="{{ event.signup_url }}" class="ui blue button" target="_blank">Sign Up</a>
+            <a href="{{ event.signup_url }}" class="ui blue button" target="_blank">Meld deg på</a>
         {% endif %}
         <div class="mazemap mobile">
             {% if event.location_url_embed %}

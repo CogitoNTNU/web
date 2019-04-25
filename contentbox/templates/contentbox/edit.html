@@ -2,7 +2,7 @@
 {% load staticfiles %}
 {% load i18n %}
 
-{% block title %}{% trans "Edit" %} {{ contentbox.title }}{% endblock title %}
+{% block title %}{% trans "Endre" %} {{ contentbox.title }}{% endblock title %}
 
 {% block head %}
     <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
@@ -13,7 +13,7 @@
     <div class="ui text container">
         <h1 class="ui header">
             {% block form_header %}
-                {% trans "Edit" %}
+                {% trans "Endre" %}
                 {{ contentbox.title }}
             {% endblock form_header %}
         </h1>

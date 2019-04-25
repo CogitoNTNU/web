@@ -1,19 +1,19 @@
 {% extends 'web/base.html' %}
 {% load helpers %}
 
-{% block title %}New {{ view.model|get_class|lower }}{% endblock %}
-{% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
+{% block title %}Ny {{ view.model|get_class|lower }}{% endblock %}
+{% block og_title %}Ny {{ view.model|get_class|lower }}{% endblock %}
 
 {% block body %}
     <div class="ui text container">
-        <h1>New {{ view.model|get_class|lower }}</h1>
+        <h1>Ny {{ view.model|get_class|lower }}</h1>
         <form class="ui form" action="" method="post" enctype="multipart/form-data">
-            <p>Note: The ingress field is currently not displayed anywhere. This may change in the future</p>
+            <p>Notat: For øyeblikket vises ikke dette inngress feltet. Dette kan endres i fremtiden.</p>
             {% csrf_token %}
             {{ form.media }}
             {{ form.as_p }}
             <input class="ui blue button" type="submit" value="Submit"/>
-            <button class="ui cancel button" onclick="window.history.back();">Cancel</button>
+            <button class="ui cancel button" onclick="window.history.back();">Avbryt</button>
         </form>
     </div>
 {% endblock %}

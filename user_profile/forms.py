@@ -8,7 +8,9 @@ class ProfileForm(forms.ModelForm):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.fields['skills'].form = forms.SelectMultiple()
         self.fields['skills'].widget.attrs['class'] = 'ui multiple search selection dropdown'
+        self.fields['skills'].label = 'Ferdigheter'
         self.fields['picture'].widget.attrs['enctype'] = 'multipart/form-data'
+        self.fields['picture'].label = 'Bilde'
 
     class Meta:
         model = Profile
@@ -18,5 +20,5 @@ class ProfileForm(forms.ModelForm):
             picture = self.cleaned_data.get('picture', False)
             if picture:
                 if picture.__size > 4 * 1024 * 1024:
-                    raise forms.ValidationError("Image file too large ( > 4mb )")
+                    raise forms.ValidationError("Bilde filen er for stor ( > 4mb )")
                 return picture

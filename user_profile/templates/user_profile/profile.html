@@ -25,7 +25,7 @@
                 {{ profile.user.groups.all|join:', ' }}
             </h4>
             {% if request.user == profile.user %}
-                <button type="button" onclick="show_modal()" class="ui tiny blue button">Edit profile</button>
+                <button type="button" onclick="show_modal()" class="ui tiny blue button">Endre profil</button>
             {% endif %}
         </div>
 
@@ -34,25 +34,25 @@
 
                 <div class="active title">
                     <i class="dropdown icon"></i>
-                    <h3 style="display: inline;">Projects</h3>
+                    <h3 style="display: inline;">Prosjekter</h3>
                 </div>
                 <div class="active content">
                     {% for project in profile.user.project_memberships.all %}
                         <a href="{% url "project" pk=project.pk %}">{{ project.title}}</a>
                     {% empty %}
-                        <p><em>No projects listed</em></p>
+                        <p><em>Ikke meldt opp i prosjekter</em></p>
                     {% endfor %}
                 </div>
 
                 <div class="active title">
                     <i class="dropdown icon"></i>
-                    <h3 style="display: inline;">Skills</h3>
+                    <h3 style="display: inline;">Ferdigheter</h3>
                 </div>
                 <div class="active content">
                     {% for skill in profile.skills.all %}
                         <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
                     {% empty %}
-                        <p><em>No skills listed</em></p>
+                        <p><em>Ingen registrerte ferdigheter</em></p>
                     {% endfor %}
                 </div>
 
@@ -60,24 +60,24 @@
             {% if request.user == profile.user %}
                 <div class="title">
                     <i class="dropdown icon"></i>
-                    <h3 style="display: inline;">Starred resources</h3>
+                    <h3 style="display: inline;">Favoritter</h3>
                 </div>
                 <div class="content">
                     {% for resource in profile.user.starred_resources.all %}
                         <li style="position: relative; left: 20px"><a href="{% url "resource_detail" pk=resource.pk %}">{{ resource.title }}</a></li>
                     {% empty %}
-                        <p><em>No favorite resources</em></p>
+                        <p><em>Ingen favoritt ressurser</em></p>
                     {% endfor %}
                 </div>
 
                 {% if profile.user.collection_applications.all %}
-                    <h4>My project applications:</h4>
+                    <h4>Mine prosjekt applikasjoner:</h4>
                     <ul>
                         {% for collection in profile.user.collection_applications.all %}
                             <li>
                                 <a href="{% url "collection" pk=collection.pk %}">{{ collection.name }}</a>
                                 {% if collection.form_link %}
-                                    - <a href="{{ collection.form_link }}">application</a>
+                                    - <a href="{{ collection.form_link }}">Applikasjon</a>
                                 {% endif %}
                             </li>
                         {% endfor %}
@@ -92,11 +92,11 @@
     <div class="ui modal">
         <div class="ui text container">
             <form class="ui form" method="POST" enctype="multipart/form-data">
-                <h1>Edit profile</h1>
+                <h1>Endre profil</h1>
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit" class="ui primary button">Save</button>
-                <button type="reset" onclick="hide_modal()" class="ui button">Cancel</button>
+                <button type="submit" class="ui primary button">Lagre</button>
+                <button type="reset" onclick="hide_modal()" class="ui button">Avbryt</button>
             <p></p>
             </form>
         </div>

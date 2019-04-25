@@ -1,23 +1,23 @@
 {% extends 'web/base.html' %}
 {% load helpers %}
 
-{% block title %}New {{ view.model|get_class|lower }}{% endblock %}
-{% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
+{% block title %}Ny {{ view.model|get_class|lower }}{% endblock %}
+{% block og_title %}Ny {{ view.model|get_class|lower }}{% endblock %}
 
 {% block body %}
 <div class="ui text container">
     <form class="ui form" method="POST">
-        <h1>New {{ view.model|get_class|lower }}</h1>
+        <h1>Ny {{ view.model|get_class|lower }}</h1>
         {% csrf_token %}
         {{ form.media }}
         {{ form.as_p }}
         <p></p>
 
-        <button type="submit" class="big ui primary button">Save</button>
+        <button type="submit" class="big ui primary button">Lagre</button>
 
         {% if perms.resource.create_tag %}
-        <div id="add_tag" class="ui icon button" data-tooltip="Not finding the tag(s) you're looing for?
-        Click here to add your own!" data-position="bottom center" id="helper"
+        <div id="add_tag" class="ui icon button" data-tooltip="Finner du ikke merkelappene du leter etter?
+        Trykk her for å legge til din egen!" data-position="bottom center" id="helper"
         style="position: relative; bottom: 60px; left: 150px">
             <a href="{% url "tag_form" %}"><i class="exclamation icon"></i></a>
         </div>
