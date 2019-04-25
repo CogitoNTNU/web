@@ -8,7 +8,7 @@
     <div class="ui text container">
         <h1>Ny {{ view.model|get_class|lower }}</h1>
         <form class="ui form" action="" method="post" enctype="multipart/form-data">
-            <p>Notat: Dette ingress feltet vises for øyeblikket ingen sted. Dette kan endres i fremtiden.</p>
+            <p>Notat: For øyeblikket vises ikke dette inngress feltet. Dette kan endres i fremtiden.</p>
             {% csrf_token %}
             {{ form.media }}
             {{ form.as_p }}

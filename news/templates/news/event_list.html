@@ -47,9 +47,9 @@
                 <div class="link">
                     <p>
                     {% if object|get_class|lower == 'event' %}
-                        <a href="{% url "event" pk=object.pk %}">Read more »</a>
+                        <a href="{% url "event" pk=object.pk %}">Les mer »</a>
                     {% else %}
-                        <a href="{% url "article" pk=object.pk %}">Read more »</a>
+                        <a href="{% url "article" pk=object.pk %}">Les mer »</a>
                     {% endif %}
                     </p>
                 </div>

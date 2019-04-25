@@ -28,7 +28,7 @@
                 <h2>
                     {{ project.title }}
                     <span style="font-size: 14px; font-weight: normal;">
-                        <em> - project lead:
+                        <em> - prosjektleder:
                         <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
                         </em>
                     </span>
@@ -50,22 +50,21 @@
 
     <div class="ui segment" id="apply">
         {% if collection.application_open and collection.form_link%}
-            <p>Applications open up to (and including): <strong>{{ collection.application_end_date|date:"d M Y" }}</strong></p>
+            <p>Søknaden er åpen til og med: <strong>{{ collection.application_end_date|date:"d M Y" }}</strong></p>
             {% if not user.is_authenticated %}
-                <p><em>You must be logged in to apply to our projects</em></p>
+                <p><em>Du må være logget inn for å søke på våre prosjekter</em></p>
             {% elif user not in collection.applicants.all%}
                 <form method="post" action="{% url "apply_to_collection" pk=collection.pk %}">
                     {% csrf_token %}
-                    <button type="submit" class="ui blue button">Apply</button>
+                    <button type="submit" class="ui blue button">Søk</button>
                 </form>
             {% else %}
-                <p><em>Your application has been received. If you want to revisit the application form you can find
-                a link to it on your profile page</em></p>
+                <p><em>Søknaden din er mottatt. Du finner en link til søknaden på profilsiden din</em></p>
             {% endif %}
         {% elif collection.application_open and not collection.form_link %}
-            <em><p>These projects are not open to applicants at the moment. Please come back at a later date</p></em>
+            <em><p>Disse prosjektene kan for øyeblikket ikke søkes på. Venligst kom tilbake senere</p></em>
         {% else %}
-            <p>Applications closed</p>
+            <p>Søknadsprosessen er avsluttet</p>
         {% endif %}
     </div>
 

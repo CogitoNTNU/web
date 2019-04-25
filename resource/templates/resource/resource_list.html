@@ -19,7 +19,7 @@
         <i class="small star icon
             {% if request.user in resource.starred_by.all %}yellow{% else %}grey{% endif %}"></i>
     </p>
-    <p><strong>{{ resource.medium }} by {{ resource.content_creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
+    <p><strong>{{ resource.medium }} av {{ resource.content_creator }}</strong> - <em>{{ resource.grade }} vanskelighetsgrad</em></p>
     {% if resource.description %}
         <p>{{ resource.description|safe|linebreaks|truncatechars_html:280 }}</p>
     {% else %}

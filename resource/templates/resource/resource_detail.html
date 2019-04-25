@@ -11,17 +11,17 @@
     <div class="ui text container">
         <h1>{{ resource.title  }}
             {% if resource in request.user.starred_resources.all %}
-            <i id="star_icon" data-content="Remove from favorites" onClick="star_clicked();"
+            <i id="star_icon" data-content="Fjern fra favoritter" onClick="star_clicked();"
                class="small star icon link yellow"></i>
             {% else %}
-                <i id="star_icon" data-content="Add to favorites" onClick="star_clicked();"
+                <i id="star_icon" data-content="Legg til i favoritter" onClick="star_clicked();"
                class="small star outline icon link"></i>
             {% endif %}
         </h1>
-        <p><strong>{{ resource.medium }} by {{ resource.content_creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
+        <p><strong>{{ resource.medium }} av {{ resource.content_creator }}</strong> - <em>{{ resource.grade }} vanskelighetsgrad</em></p>
 
         {% if resource.tags %}
-            <p><em>Tagged as: {{ tags|join:", " }}</em></p>
+            <p><em>Merket som: {{ tags|join:", " }}</em></p>
         {% endif %}
 
         {% if perms.resource.change_resource %}

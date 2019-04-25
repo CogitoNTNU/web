@@ -7,10 +7,10 @@
 {% block body %}
     <div class="ui text container">
         <h1>
-            Articles
+            Artikler
         </h1>
         {% if perms.news.add_article %}
-            <a class="ui blue button" href="{% url "article-create" %}">Add</a>
+            <a class="ui blue button" href="{% url "article-create" %}">Legg til</a>
         {% endif %}
         {% for article in object_list %}
             <h2>
@@ -18,15 +18,15 @@
             </h2>
             <p>
                 {% if perms.news.change_article %}
-                <a class="mini ui blue button"  href="{% url "article-update" pk=article.pk %}">Edit</a>
+                <a class="mini ui blue button"  href="{% url "article-update" pk=article.pk %}">Endre</a>
                 {% endif %}
                 {% if perms.news.delete_article %}
-                    <a class="mini ui blue button"  href="{% url "article-delete" pk=article.pk %}">Delete</a>
+                    <a class="mini ui blue button"  href="{% url "article-delete" pk=article.pk %}">Slett</a>
                 {% endif %}
             </p>
             <p>{{ article.ingress|default:"" }}</p>
         {% empty %}
-            <p>No articles</p>
+            <p>Ingen artikler</p>
         {% endfor %}
     </div>
 {% endblock %}

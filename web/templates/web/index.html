@@ -10,7 +10,7 @@
         <div class="main grid">
             <div>
                 {% if perms.news.add_article %}
-                    <a href="{% url 'article-create' %}" class="tiny ui blue button">Ny Artikkel</a>
+                    <a href="{% url 'article-create' %}" class="tiny ui blue button">Ny artikkel</a>
                 {% endif %}
                 {% if perms.news.add_event %}
                     <a href="{% url "event-create" %}" class="tiny ui blue button" >Ny begivenhet</a>
