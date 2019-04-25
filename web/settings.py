@@ -1,5 +1,11 @@
 import os
 
+
+###################
+# Set to False to disable getting default profile pics from gooddoggo
+USE_DOGGOS = True
+####################
+
 # Default values
 SECRET_KEY = ' '
 DEBUG = True
