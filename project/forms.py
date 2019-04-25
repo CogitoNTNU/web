@@ -8,9 +8,9 @@ class ProjectForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['collection'].widget.attrs['class'] = 'ui multiple search selection dropdown'
-        self.fileds['collection'].label = 'Collection'  # Should be translated to norwegian
+        self.fileds['collection'].label = 'Collection'
 
     class Meta:
         model = Project
         fields = ('title', 'description', 'thumbnail', 'collection',)
-        labels = ('Tittel', 'Beskrivelse', 'Thumbnail', 'Collection')  # Collection should be translated to norwegian
+        labels = ('Tittel', 'Beskrivelse', 'Thumbnail', 'Collection')

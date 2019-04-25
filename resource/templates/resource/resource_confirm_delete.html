@@ -5,7 +5,7 @@
 {% block body %}
     <form action="" method="POST">
         {% csrf_token %}
-        <p>Er du sikker på at du vil slette dette? <strong>{{ object }}</strong>?</p>
+        <p>Er du sikker på at du vil slette <strong>{{ object }}</strong>?</p>
         <input type="submit" class="btn btn-danger" value="Confirm">
     </form>
 {% endblock %}
