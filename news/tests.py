@@ -99,7 +99,7 @@ class ConcurrencyTest(TestCase):
             self.assertEqual(response.templates[0].name, 'news/article_update.html')
         except TypeError as e:
             # This is a known error that only occurs on the travis test builds
-            self.assertContains(str(e), 'Cannot encode None as POST data.')
+            assert 'Cannot encode None as POST data.' in str(e)
 
     def test_concurrent_edit_override(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
@@ -121,7 +121,7 @@ class ConcurrencyTest(TestCase):
             self.assertEqual(response.templates[0].name, 'news/article_update.html')
         except TypeError as e:
             # This is a known error that only occurs on the travis test builds
-            self.assertContains(str(e), 'Cannot encode None as POST data.')
+            assert 'Cannot encode None as POST data.' in str(e)
 
     def test_concurrent_save(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
@@ -133,7 +133,7 @@ class ConcurrencyTest(TestCase):
             self.assertEqual(response.templates[0].name, 'news/article_update.html')
         except TypeError as e:
             # This is a known error that only occurs on the travis test builds
-            self.assertContains(str(e), 'Cannot encode None as POST data.')
+            assert 'Cannot encode None as POST data.' in str(e)
 
     def test_invalid_form(self):
         response = self.client.post(reverse('article-update', args=(self.article.pk,)))
