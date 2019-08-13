@@ -17,7 +17,7 @@
         <span class="members">{{ project.members.count }} members</span>
       </div>
       <div class="description">
-        {{ project.description|safe|linebreaks|truncatechars:"140" }}
+        {{ project.description|safe|linebreaks|truncatechars_html:"140" }}
       </div>
     </div>
   </div>

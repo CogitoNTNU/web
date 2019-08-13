@@ -14,6 +14,7 @@
 
 .footer .name {
     font-size: 26px;
+    margin-left: 7px;
 }
 
 .footer .container {
@@ -23,7 +24,7 @@
 
 .footer .logo {
     display: grid;
-    grid-template-columns: 70px 160px;
+    grid-template-columns: 70px 180px;
     grid-template-rows: 60px;
     align-items: center;
 }

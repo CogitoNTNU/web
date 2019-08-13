@@ -1,5 +1,11 @@
 import os
 
+
+###################
+# Set to False to disable getting default profile pics from gooddoggo
+USE_DOGGOS = True
+####################
+
 # Default values
 SECRET_KEY = ' '
 DEBUG = True
@@ -125,6 +131,9 @@ SOCIAL_AUTH_DATAPORTEN_FEIDE_KEY = SOCIAL_AUTH_DATAPORTEN_KEY
 SOCIAL_AUTH_DATAPORTEN_FEIDE_SECRET = SOCIAL_AUTH_DATAPORTEN_SECRET
 
 SOCIAL_AUTH_NEW_USER_REDIRECT_URL = SOCIAL_AUTH_LOGIN_REDIRECT_URL
+
+# Fix server crash on first dataporten login
+SOCIAL_AUTH_REDIRECT_IS_HTTPS = True
 
 
 CKEDITOR_UPLOAD_PATH = "uploads/"

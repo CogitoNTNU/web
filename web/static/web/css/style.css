@@ -70,3 +70,13 @@ p, a, h1, h2, h3, h4, h5, span {
 .cogito_ft_lgray {
   background-color: rgb(236, 236, 236) !important;
 }
+
+.cogito_col_blue_opaque_70{
+    color: rgba(34, 181, 225, 0.9) !important;
+}
+
+.rotate_20_left{
+    -ms-transform: rotate(20deg)!important; /* IE 9 */
+  -webkit-transform: rotate(20deg)!important; /* Safari 3-8 */
+  transform: rotate(20deg)!important;
+}

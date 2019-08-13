@@ -21,7 +21,7 @@
     </p>
     <p><strong>{{ resource.medium }} by {{ resource.content_creator }}</strong> - <em>{{ resource.grade }} difficulty</em></p>
     {% if resource.description %}
-        <p>{{ resource.description|safe|linebreaks|truncatechars:280 }}</p>
+        <p>{{ resource.description|safe|linebreaks|truncatechars_html:280 }}</p>
     {% else %}
         <p><em>No description available</em></p>
     {% endif %}
