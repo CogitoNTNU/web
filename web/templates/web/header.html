@@ -50,6 +50,16 @@
         </div>
     </div>
 </div>
+<div class="jumbo-container" id="opptak">
+    <div class="ui huge message page grid jumbo">
+        <h2 class="ui huge header row white">Cogito har opptak!</h2>
+        <h3>Bli en del av et lidenskapelig AI-miljø ved NTNU!
+        </h3>
+        <form class="row" action="https://docs.google.com/forms/d/1Qi_FHv9iBkEgFz4oOVU2VODWKjIzmLrSE9itbiBFQvg" target="_blank">
+            <button class="fluid ui button inverted large" >Klikk her for å søke</button>
+        </form>
+    </div>
+</div>
 
 <script>
     $(function () {
@@ -57,4 +67,10 @@
             $('.nav').toggleClass('active');
         });
     });
+
+    // Gjem opptaksboksen utenfor opptaksperioden. Bytt ut med en langsiktig løsning snarest
+    let opptak = document.getElementById('opptak');
+    if (Date.now() > new Date("September 1, 2019 00:00:00") || Date.now() < new Date("August 19, 2019 18:00:00")) {
+        opptak.style.display = 'none';
+    }
 </script>
