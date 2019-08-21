@@ -4,20 +4,6 @@
     grid-gap: 50px;
 }
 
-.jumbo { 
-    background-color: #30B3EC !important;
-    color: white !important;
-    width: 100% !important;
-}
-
-.jumbo-container {
-    padding-bottom: 2em;
-}
-
-.jumbo-button {
-    text-align: center !important;
-}
-
 .white {
     color: white;
 }

@@ -80,3 +80,17 @@ p, a, h1, h2, h3, h4, h5, span {
   -webkit-transform: rotate(20deg)!important; /* Safari 3-8 */
   transform: rotate(20deg)!important;
 }
+
+.jumbo { 
+    background-color: #30B3EC !important;
+    color: white !important;
+    width: 100% !important;
+}
+
+.jumbo-container {
+    padding-bottom: 2em;
+}
+
+.jumbo-button {
+    text-align: center !important;
+}
