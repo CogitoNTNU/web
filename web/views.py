@@ -1,6 +1,6 @@
 from datetime import datetime
-
 from pytz import timezone
+
 from django.shortcuts import render
 from django.views.generic import ListView
 
