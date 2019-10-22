@@ -19,8 +19,11 @@
             {% endif %}
             <!-- 
             <a class="item" href="{% url 'resource_list' %}"><p class="mt">Resources</p></a>
-            <a class="item" href="{% url 'collection_list' %}"><p class="mt">Projects</p></a>
             -->
+            <a class="item" href="{% url 'collection_list' %}">
+                Projects
+                <i id="new-projects" class="exclamation blue icon"></i>
+            </a>
             <div class="ui dropdown item">
                 <div class="text"><p class="mt">About</p></div>
                 <i class="dropdown icon"></i>
@@ -70,7 +73,12 @@
 
     // Gjem opptaksboksen utenfor opptaksperioden. Bytt ut med en langsiktig løsning snarest
     let opptak = document.getElementById('opptak');
-    if (Date.now() > new Date("September 1, 2019 00:00:00") || Date.now() < new Date("August 19, 2019 18:00:00")) {
+    if (Date.now() > new Date("September 2, 2019 12:00:00") || Date.now() < new Date("August 19, 2019 18:00:00")) {
         opptak.style.display = 'none';
     }
+
+    if (Date.now() > new Date("September 9, 2019 08:00:00")) {
+        document.getElementById('new-projects').style.display = 'none';
+    }
+
 </script>
