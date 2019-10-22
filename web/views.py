@@ -31,7 +31,7 @@ class Home(ListView):
         events = Event.objects.filter(published=True)
         return sorted(
                     sorted(chain(articles, events), key=sort_events_articles, reverse=True),
-                    key=sort_events_articles_pinned)
+                    key=sort_events_articles_pinned, reverse=True)
 
 
 def handler404(request, *args, **argv):
