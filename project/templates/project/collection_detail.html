@@ -21,15 +21,15 @@
         <div class="ui container" id="{{ forloop.counter }}">
             <div class="ui very padded vertical segment" id="{{ project.title }}">
                 {% if project.thumbnail %}
-                    <img class="ui small left floated image" src="/media/{{ project.thumbnail.name }}">
+                    <img alt="project descriptive image" class="ui small left floated image" src="/media/{{ project.thumbnail.name }}">
                 {% else %}
-                    <img class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
+                    <img alt="project descriptive image" class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
                 {% endif %}
                 <h2>
                     {{ project.title }}
                     <span style="font-size: 14px; font-weight: normal;">
                         <em> - project lead:
-                        <a href="{% url 'profile' username=project.manager.username %}">{{ project.manager|name }}</a>
+                        <a href="{% url 'profile' username=project.manager.username %}" aria-label="Se prosjektansvarlig sin profil">{{ project.manager|name }}</a>
                         </em>
                     </span>
                 </h2>

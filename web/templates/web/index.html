@@ -7,19 +7,22 @@
 
 {% block body %}
     <div class="ui container">
+        <h1 class="hidden-title">Cogito NTNU</h1>
         <div class="main grid">
             <div>
                 {% if perms.news.add_article %}
-                    <a href="{% url 'article-create' %}" class="tiny ui blue button">New Article</a>
+                    <a href="{% url 'article-create' %}" class="tiny ui blue button" aria-label="Legg til ny artikkel">New Article</a>
                 {% endif %}
                 {% if perms.news.add_event %}
-                    <a href="{% url "event-create" %}" class="tiny ui blue button" >New Event</a>
+                    <a href="{% url "event-create" %}" class="tiny ui blue button" aria-label="Legg til nytt event">New Event</a>
                 {% endif %}
                 {% include "news/event_list.html" %}
                 {% include 'project_wide/pagination.html' with url=''%}
             </div>
             <div style="overflow: hidden;">
-                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCogitoNTNU%2F&amp;tabs=timeline&amp;width=400&amp;height=500&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=true&amp;show_facepile=true&amp;appId=366198117101618"
+                <iframe 
+                        title="Cogito NTNU's Facebook"
+                        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCogitoNTNU%2F&amp;tabs=timeline&amp;width=400&amp;height=500&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=true&amp;show_facepile=true&amp;appId=366198117101618"
                         width="400" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
                         allowtransparency="true" allow="encrypted-media"></iframe>
             </div>

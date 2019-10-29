@@ -8,19 +8,19 @@
         <div class="burger">
             <i class="sidebar icon cogito_col_dkgray"></i>
         </div>
-        <a class="logo" href="{% url "home" %}"><img class="logo" src="{% static "web/img/logo.svg" %}"></a>
+        <a class="logo" href="{% url "home" %}" aria-label="Gå til forsiden"><img alt="Cogito NTNUs logo" class="logo" src="{% static "web/img/logo.svg" %}"></a>
         <div>
-          <a class="name cogito_col_dkgray" href="{% url "home" %}">Cogito NTNU</a>
+          <a class="name cogito_col_dkgray" href="{% url "home" %}" aria-label="Gå til forsiden">Cogito NTNU</a>
         </div>
 
         <div class="ui secondary menu">
             {% if perms.news.change_article or perms.news.change_events %}
-            <a class="item" href="{% url 'drafts' %}"><p class="mt">Drafts</p></a>
+            <a class="item" href="{% url 'drafts' %}" aria-label="Åpne drafts"><p class="mt">Drafts</p></a>
             {% endif %}
             <!-- 
             <a class="item" href="{% url 'resource_list' %}"><p class="mt">Resources</p></a>
             -->
-            <a class="item" href="{% url 'collection_list' %}">
+            <a class="item" href="{% url 'collection_list' %}" aria-label="Åpne prosjekter">
                 Projects
                 <i id="new-projects" class="exclamation blue icon"></i>
             </a>
@@ -28,9 +28,9 @@
                 <div class="text"><p class="mt">About</p></div>
                 <i class="dropdown icon"></i>
                 <div class="ui menu transition hidden">
-                    <a class="item" href="{% url 'about' %}"><p class="mt">About</p></a>
-                    <a class="item" href="{% url 'about/statutes' %}"><p class="mt">Statutes</p></a>
-                    <a class="item" href="{% url 'about/business' %}"><p class="mt">Enterprise</p></a>
+                    <a class="item" href="{% url 'about' %}" aria-label="Les mer om oss"><p class="mt">About</p></a>
+                    <a class="item" href="{% url 'about/statutes' %}" aria-label="Se våre vedtekter"><p class="mt">Statutes</p></a>
+                    <a class="item" href="{% url 'about/business' %}" aria-label="For bedrifter"><p class="mt">Enterprise</p></a>
                 </div>
             </div>
             {% if user.is_authenticated %}
@@ -40,12 +40,12 @@
                     </div>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href="{% url 'profile' username=user.username %}"><p class="mt">Profile</p></a>
-                        <a class="item" href="{% url 'logout' %}"><p class="mt">Logout</p></a>
+                        <a class="item" href="{% url 'profile' username=user.username %}" aria-label="Åpne din profil"><p class="mt">Profile</p></a>
+                        <a class="item" href="{% url 'logout' %}" aria-label="Logg ut"><p class="mt">Logout</p></a>
                     </div>
                 </div>
             {% else %}
-                <a class="item" href="{% url 'login' %}"><p class="mt">Login</p></a>
+                <a class="item" href="{% url 'login' %}" aria-label="Logg inn"><p class="mt">Login</p></a>
             {% endif %}
             {% block scripts %}
                     <script>$('.dropdown').dropdown();</script>
@@ -58,7 +58,7 @@
         <h2 class="ui huge header row white">Cogito har opptak!</h2>
         <h3>Bli en del av et lidenskapelig AI-miljø ved NTNU!
         </h3>
-        <form class="row" action="https://forms.gle/c1tTvAAfCxC6pBbk9" target="_blank">
+        <form class="row" action="https://forms.gle/c1tTvAAfCxC6pBbk9" target="_blank" rel="noopener">
             <button class="fluid ui button inverted large" >Klikk her for å søke</button>
         </form>
     </div>

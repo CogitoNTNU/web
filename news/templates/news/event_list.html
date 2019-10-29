@@ -6,36 +6,36 @@
             <div class="content">
                 {% if object.banner %}
                 <div class="image">
-                    <a href="{% if object|get_class|lower == 'event' %}{% url "event" pk=object.pk %}{% else %}{% url "article" pk=object.pk %}{% endif %}">
-                        <img class="ui image" width="90%" src="/media/{{ object.banner.name }}">
+                    <a href="{% if object|get_class|lower == 'event' %}{% url "event" pk=object.pk %}{% else %}{% url "article" pk=object.pk %}{% endif %}" aria-label="Åpne event">
+                        <img alt="" class="ui image" width="90%" src="/media/{{ object.banner.name }}">
                     </a>
                 </div>
                 {% endif %}
-                <h1 class="header">
+                <h2 class="ui huge header">
                     {% if object.pinned %}
                         <i class="thumbtack icon small cogito_col_blue_opaque_70 rotate_20_left"></i>
                     {% endif %}
                     {% if object|get_class|lower == 'event' %}
-                        <a class="cogito_col_dkgray" href="{% url "event" pk=object.pk %}">{{ object.title }}</a>
+                        <a class="cogito_col_dkgray" href="{% url "event" pk=object.pk %}" aria-label="Åpne event">{{ object.title }}</a>
                     {% else %}
-                        <a class="cogito_col_dkgray" href="{% url "article" pk=object.pk %}">{{ object.title }}</a>
+                        <a class="cogito_col_dkgray" href="{% url "article" pk=object.pk %}" aria-label="Åpne event">{{ object.title }}</a>
                     {% endif %}
-                </h1>
+                </h2>
                 {% if object|get_class|lower == 'event' %}
                     <div class="extra">
                         {% include "news/event_dates.html" %}
                         {% if object.location %}
-                            <a {% if object.location_url %}href="{{ object.location_url }}"{% endif %}>
+                            <a {% if object.location_url %}href="{{ object.location_url }}"{% endif %} aria-label="Åpne link til eventets lokasjon">
                                 <span>{{ object.location }}</span>
                             </a>
                         {% endif %}
                         {% if object.facebook_url %}
-                            <a href="{{ object.facebook_url }}">
+                            <a href="{{ object.facebook_url }}" aria-label="Åpne eventets facebook arrangement">
                                 <i class="ui facebook icon"></i>
                             </a>
                         {% endif %}
                         {% if object.signup_url %}
-                            <a href="{{ object.signup_url }}">
+                            <a href="{{ object.signup_url }}" aria-label="Bli med">
                                 <i class="ui calendar icon"></i>
                             </a>
                         {% endif %}
@@ -47,9 +47,9 @@
                 <div class="link">
                     <p>
                     {% if object|get_class|lower == 'event' %}
-                        <a href="{% url "event" pk=object.pk %}">Read more »</a>
+                        <a href="{% url "event" pk=object.pk %}" aria-label="Les mer">Read more »</a>
                     {% else %}
-                        <a href="{% url "article" pk=object.pk %}">Read more »</a>
+                        <a href="{% url "article" pk=object.pk %}" aria-label="Les mer">Read more »</a>
                     {% endif %}
                     </p>
                 </div>

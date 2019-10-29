@@ -11,16 +11,16 @@
         {% for profile in skill.members.all %}
             <div class="ui card">
                 <div class="image">
-                    <a href="{% url "profile" username=profile.user.username%}">
+                    <a href="{% url "profile" username=profile.user.username%}" aria-label="Åpne profilen til {{profile.user.first_name}}" >
                         {% if profile.picture %}
-                            <img class="medium bordered rounded ui image" src="/media/{{ profile.picture.name }}">
+                            <img alt="" class="medium bordered rounded ui image" src="/media/{{ profile.picture.name }}">
                         {% else %}
-                            <img class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
+                            <img alt="" class="disabled bordered rounded medium ui image" src="/static/web/img/avatar_placeholder.png">
                         {% endif %}
                     </a>
                 </div>
                 <div class="content">
-                    <a class="header" >{{ profile.user.first_name }} {{ profile.user.last_name }}</a>
+                    <a class="header" aria-label="" >{{ profile.user.first_name }} {{ profile.user.last_name }}</a>
                     <div class="meta">
                         <span class="date">{{ profile.committee }}</span>
                     </div>
