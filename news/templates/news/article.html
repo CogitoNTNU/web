@@ -17,7 +17,7 @@
         {% if object.banner %}
             <img alt="" class="ui image" width="100%" src="/media/{{ object.banner.name }}">
         {% endif %}
-        <h2>
+        <h2 class="ui huge header">
             {{ object.title }}
             {% if perms.news.change_article %}
                 <a aria-label="Endre" class="size14"  href="{% url "article-update" pk=object.pk %}">Edit</a>
