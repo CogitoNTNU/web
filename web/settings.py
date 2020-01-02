@@ -3,7 +3,7 @@ import os
 
 ###################
 # Set to False to disable getting default profile pics from gooddoggo
-USE_DOGGOS = True
+USE_DOGGOS = False  # 
 ####################
 
 # Default values
