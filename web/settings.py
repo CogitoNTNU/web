@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'user_profile',
     'project',
     'single_page',
+    'uptake',
 
     'ckeditor',
     'contentbox',
