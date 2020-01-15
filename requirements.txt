@@ -1,8 +1,8 @@
-django
-django-ckeditor
-Pillow
-requests
-python-social-auth
-python-dataporten-auth
-social-auth-app-django
-pytz
+django==2.2.4
+django-ckeditor==5.7.1
+Pillow==6.1.0
+requests==2.22.0
+python-social-auth==0.3.6
+python-dataporten-auth==2.0.0
+social-auth-app-django==3.1.0
+pytz==2019.2
