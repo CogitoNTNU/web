@@ -1,0 +1,16 @@
+{% load helpers %}
+
+{% for object in object_list %}
+{% if object.active_uptake %}
+<!--  Toggle when opptak -->
+<div class="jumbo-container" id="opptak">
+  <div class="ui huge message page grid jumbo">
+      <h2 class="ui huge header row white">{{ object.title }}</h2>
+      <h3>{{ object.text }}</h3>
+      <form class="row" action="{{ object.button_link }}" target="_blank" rel="noopener">
+          <button class="fluid ui button inverted large" >Klikk her for å søke</button>
+      </form>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
