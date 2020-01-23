@@ -7,13 +7,13 @@
 
     <h2>{{ project.title }}</h2>
     {% if request.user == project.manager %}
-        <a href="{% url "project_admin" pk=project.pk %}"><button class="ui blue button">Manage applications</button></a>
-        <a href="{% url "edit_project" pk=project.pk %}"><button class="ui blue button">Edit</button></a>
-        <a href="{% url "delete_project" pk=project.pk %}"><button class="ui red button">Delete</button></a>
+        <a href="{% url "project_admin" pk=project.pk %}" aria-label="Gjennomgå søknader"><button class="ui blue button">Manage applications</button></a>
+        <a href="{% url "edit_project" pk=project.pk %}" aria-label="Endre"><button class="ui blue button">Edit</button></a>
+        <a href="{% url "delete_project" pk=project.pk %}" aria-label="Slett"><button class="ui red button">Delete</button></a>
     {% else %}
         {% if perms.user_profile.change_project and perms.user_profile.delete_project %}
-            <a href="{% url "edit_project" pk=project.pk %}"><button class="ui blue button">Edit</button></a>
-            <a href="{% url "delete_project" pk=project.pk %}"><button class="ui red button">Delete</button></a>
+            <a href="{% url "edit_project" pk=project.pk %}"><button class="ui blue button" aria-label="Endre">Edit</button></a>
+            <a href="{% url "delete_project" pk=project.pk %}"><button class="ui red button" aria-label="Slett">Delete</button></a>
         {% endif %}
     {% endif %}
     <p>-Project lead: <em>{{ project.manager|name }}</em></p>

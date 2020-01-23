@@ -1,16 +1,16 @@
 <div class="item">
     <div class="ui tiny image">
         {% if project.thumbnail %}
-            <img class="small bordered rounded ui image" src="/media/{{ project.thumbnail.name }}">
+            <img alt="" class="small bordered rounded ui image" src="/media/{{ project.thumbnail.name }}">
         {% else %}
-            <img src="/static/web/img/avatar_placeholder.png" class="small bordered rounded ui image">
+            <img alt="" src="/static/web/img/avatar_placeholder.png" class="small bordered rounded ui image">
         {% endif %}
     </div>
     <div class="content">
-      <div class="header"><a href="{% url 'collection' pk=collection.pk %}#{{ forloop.counter }}" class="cogito_col_dkgray">
+      <div class="header"><a href="{% url 'collection' pk=collection.pk %}#{{ forloop.counter }}" class="cogito_col_dkgray" aria-label="Åpne prosjektet {{project.title}}">
           {{ project.title }}</a>
         {% if request.user == project.manager or perms.project.change_project %}
-            <a href="{% url 'project' pk=project.pk %}" class="ui very tiny blue button">Manage</a>
+            <a href="{% url 'project' pk=project.pk %}" class="ui very tiny blue button" aria-label="Forandre på prosjektet {{project.title}}">Manage</a>
         {% endif %}
       </div>
       <div class="meta">

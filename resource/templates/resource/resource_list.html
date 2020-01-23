@@ -7,13 +7,13 @@
 
 <h1>Resources
 {% if perms.resource.add_resource %}
-    <a class="mini ui blue button"  href="{% url "resource_form"%}">New</a>
+    <a class="mini ui blue button"  href="{% url "resource_form"%}" aria-label="Lag en ny ressurs" >New</a>
 {% endif %}
 </h1>
 
 {% for resource in resource_list %}
     <h2 style="display: inline;">
-        <a class="cogito_col_dkgray" href="{% url 'resource_detail' pk=resource.pk %}">{{ resource.title }}</a>
+        <a class="cogito_col_dkgray" href="{% url 'resource_detail' pk=resource.pk %}" aria-label="Åpne {{resource.title}}" >{{ resource.title }}</a>
     </h2>
     <p style="display: inline">{{ resource.starred_by.all.count }}
         <i class="small star icon

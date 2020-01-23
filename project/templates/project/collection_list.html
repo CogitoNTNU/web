@@ -5,21 +5,21 @@
 
 <div class="ui text container">
 
-    <h1>Our Projects:
+    <h1>Our Projects
     {% if perms.project.add_project %}
-        <a class="mini ui blue button"  href="{% url "project_form" %}">New project</a>
+        <a aria-label="Legg til nytt prosjekt" class="mini ui blue button"  href="{% url "project_form" %}">New project</a>
     {% endif %}
     {% if perms.project.add_collection %}
-        <a class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
+        <a aria-label="Legg til ny collection" class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
     {% endif %}
     </h1>
 
     {% for collection in collection_list %}
     <div class="ui segment">
         <div class="ui container">
-            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}">Collection: {{ collection.name }}</a>
+            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}" aria-label="Åpne {{ collection.name }}">Collection: {{ collection.name }}</a>
                 {% if collection.application_open and user not in collection.applicants %}
-                    <a href="{% url 'collection' pk=collection.pk %}#apply" class="ui tiny green button">Apply now</a>
+                    <a href="{% url 'collection' pk=collection.pk %}#apply" class="ui tiny green button" aria-label="Søk for å bli med på {{ collection.name }}">Apply now</a>
                 {% endif %}
             </h2>
 

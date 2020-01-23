@@ -17,9 +17,9 @@
         <div class="column">
 
             {% if profile.picture %}
-                <img class="small bordered rounded ui image" src="{{ profile.picture.url }}">
+                <img alt="" class="small bordered rounded ui image" src="{{ profile.picture.url }}">
             {% else %}
-                <img class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
+                <img alt="" class="small bordered rounded ui image" src="/static/web/img/avatar_placeholder.png">
             {% endif %}
             <h4>
                 {{ profile.user.groups.all|join:', ' }}
@@ -38,7 +38,7 @@
                 </div>
                 <div class="active content">
                     {% for project in profile.user.project_memberships.all %}
-                        <a href="{% url "project" pk=project.pk %}">{{ project.title}}</a>
+                        <a href="{% url "project" pk=project.pk %}" aria-label="Åpne prosjekt {{project.title}}">{{ project.title}}</a>
                     {% empty %}
                         <p><em>No projects listed</em></p>
                     {% endfor %}
@@ -50,7 +50,7 @@
                 </div>
                 <div class="active content">
                     {% for skill in profile.skills.all %}
-                        <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}">{{ skill.name }}</a>
+                        <a class="ui tiny green button" href="{% url "skill" pk=skill.pk %}" aria-label="Åpne skill {{skill.name}}" >{{ skill.name }}</a>
                     {% empty %}
                         <p><em>No skills listed</em></p>
                     {% endfor %}
@@ -64,7 +64,7 @@
                 </div>
                 <div class="content">
                     {% for resource in profile.user.starred_resources.all %}
-                        <li style="position: relative; left: 20px"><a href="{% url "resource_detail" pk=resource.pk %}">{{ resource.title }}</a></li>
+                        <li style="position: relative; left: 20px"><a href="{% url "resource_detail" pk=resource.pk %}" aria-label="Åpne ressursen {{resource.title}}" >{{ resource.title }}</a></li>
                     {% empty %}
                         <p><em>No favorite resources</em></p>
                     {% endfor %}
@@ -75,9 +75,9 @@
                     <ul>
                         {% for collection in profile.user.collection_applications.all %}
                             <li>
-                                <a href="{% url "collection" pk=collection.pk %}">{{ collection.name }}</a>
+                                <a href="{% url "collection" pk=collection.pk %}" aria-label="Åpne kolleksjonen {{collection.name}}">{{ collection.name }}</a>
                                 {% if collection.form_link %}
-                                    - <a href="{{ collection.form_link }}">application</a>
+                                    - <a href="{{ collection.form_link }}" aria-label="Søk på kolleksjonen {{collection.name}}">application</a>
                                 {% endif %}
                             </li>
                         {% endfor %}

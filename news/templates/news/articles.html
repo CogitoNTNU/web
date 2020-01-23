@@ -10,18 +10,18 @@
             Articles
         </h1>
         {% if perms.news.add_article %}
-            <a class="ui blue button" href="{% url "article-create" %}">Add</a>
+            <a aria-label="Legg til artikkel" class="ui blue button" href="{% url "article-create" %}">Add</a>
         {% endif %}
         {% for article in object_list %}
             <h2>
-                <a class="cogito_col_dkgray" href="{% url "article" pk=article.pk %}">{{ article.title }}</a>
+                <a aria-label="Åpne artikkelen {{article.title}}" class="cogito_col_dkgray" href="{% url "article" pk=article.pk %}">{{ article.title }}</a>
             </h2>
             <p>
                 {% if perms.news.change_article %}
-                <a class="mini ui blue button"  href="{% url "article-update" pk=article.pk %}">Edit</a>
+                <a aria-label="Endre artikkel" class="mini ui blue button"  href="{% url "article-update" pk=article.pk %}">Edit</a>
                 {% endif %}
                 {% if perms.news.delete_article %}
-                    <a class="mini ui blue button"  href="{% url "article-delete" pk=article.pk %}">Delete</a>
+                    <a class="mini ui blue button"  href="{% url "article-delete" pk=article.pk %}" aria-label="Slett artikkelen">Delete</a>
                 {% endif %}
             </p>
             <p>{{ article.ingress|default:"" }}</p>
