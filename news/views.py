@@ -4,9 +4,10 @@ from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
 from concurrency.views import ConcurrentUpdate
-from news.forms import EventForm
+from news.forms import EventForm, ArticleCreateForm
 from news.helpers import generate_mazemap_embed
-from news.models import Article, Event
+from news.models import Article, Event, ArticleFile
+from django import forms
 
 
 class ArticleView(DetailView):
@@ -21,10 +22,26 @@ class ArticleList(ListView):
 
 class ArticleCreate(PermissionRequiredMixin, CreateView):
     model = Article
-    fields = ('title', 'ingress', 'content', 'published', 'pinned', 'banner')
+    form_class = ArticleCreateForm
     template_name = 'news/article_create.html'
     success_url = '/'
-    permission_required = 'news.add_article'
+
+    def get_form(self, form_class=None):
+        form = super().get_form()
+        form.fields['files'] = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
+        return form
+
+    def post(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        files = request.FILES.getlist('files')
+        if form.is_valid(): 
+            self.object = form.save()
+            for file in files:
+                ArticleFile.objects.create(file=file, page=self.object)
+            return super().form_valid(form)
+        else:
+            return self.form_invalid(form)
 
 
 class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
