@@ -5,6 +5,8 @@ from django.utils import timezone
 
 from concurrency.models import ConcurrentModel
 
+# from signup.models import Pool
+
 
 class Article(ConcurrentModel):
     title = models.CharField(
@@ -86,3 +88,5 @@ class Event(Article):
             '-start_date',
             '-start_time'
         )
+    
+    
