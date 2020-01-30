@@ -65,7 +65,7 @@ class Registration(models.Model):
         if allowed:
             return self.add_to_pool(pool)
         else:
-            return self.add_to_waitinglist()
+            return self.add_to_waiting_list()
             
 
     def add_to_pool(self, pool, **kwargs):
@@ -76,7 +76,7 @@ class Registration(models.Model):
             **kwargs,
         )
     
-    def add_to_waitinglist(self, **kwargs):
+    def add_to_waiting_list(self, **kwargs):
         self.set_values(
             pool=None,
             registration_date=timezone.now(),
@@ -156,3 +156,7 @@ class Pool(models.Model):
         self.counter -= 1
         self.save(update_fields=["counter"])
         return self
+
+    def check_user_accessability(self, user):
+        # TODO: Check if the user has access to this pool
+        return True
