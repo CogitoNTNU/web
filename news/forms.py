@@ -12,7 +12,7 @@ def conflicting_urls(slug):
     url = f'/{slug}/'
     try:
         res = resolve(url)  # error -> url doesn't exist
-        if not res.view_name == 'single_page':  # possible single_page overlap
+        if not res.view_name == 'article':  # possible single_page overlap
             return True
     except Resolver404:
         return False
@@ -33,7 +33,7 @@ class ArticleCreateForm(forms.ModelForm):
 
 
 
-class EventForm(forms.ModelForm):
+class EventForm(ArticleCreateForm):
 
     class Meta:
         model = Event

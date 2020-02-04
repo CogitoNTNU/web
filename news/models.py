@@ -94,7 +94,7 @@ class Event(Article):
         )
 
 class ArticleFile(models.Model):
-    file = models.FileField(upload_to="article/files/%Y/%m/%d", null = True)
+    file = models.FileField(upload_to="article/files/", null = True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='files')
 
     def delete(self, using=None, keep_parents=False):

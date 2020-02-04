@@ -13,7 +13,9 @@ class ArticleAdmin(admin.ModelAdmin):
         ('Title', {'fields':['title']}),
         ('Ingress', {'fields': ['ingress']}),
         ('Content', {'fields': ['content']}),
-        ('Banner', {'fields': ['banner']})
+        ('Banner', {'fields': ['banner']}),
+        ('Published', {'fields': ['published']}),
+        ('Pinned', {'fields': ['pinned']})
     ]
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Event)
