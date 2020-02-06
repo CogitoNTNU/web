@@ -74,6 +74,9 @@ class SinglePageUpdateView(PermissionRequiredMixin, UpdateView):
         else:
             return self.form_invalid(form)
 
+    
+
+
 
 class SinglePageDeleteView(PermissionRequiredMixin, DeleteView):
     permission_required = 'single_page.delete_singlepage'

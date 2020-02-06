@@ -25,5 +25,8 @@
         </h2>
         {{ object.content|safe }}
         {% include "news/date_created.html" %}
+        {% for file in object.files.all %}
+        <p><a href="{{ file.file.url }}">{{ file.filename }}</a></p>
+        {% endfor %}
     </div>
 {% endblock %}
