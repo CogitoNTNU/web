@@ -71,7 +71,6 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
             files = request.FILES.getlist('files')
             article = Article.objects.get(pk = self.kwargs['pk'])
             form.is_valid()
-            print(form.cleaned_data)
             if form.is_valid():
                 for deletefile in ArticleFile.objects.filter(article = article):
                     if form.cleaned_data.pop(deletefile.filename, False):

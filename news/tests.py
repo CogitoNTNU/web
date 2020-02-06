@@ -46,8 +46,6 @@ class ArticleTest(TestCase):
         self.assertEqual(response.status_code, 302)
         article = Article.objects.get(title = 'ADD_TITLE')
         articlefile = ArticleFile.objects.get(article = article)
-        print(Article.objects.all())
-        print(ArticleFile.objects.all())
         self.assertEqual(articlefile.article, article)
 
     def test_str(self):
@@ -63,6 +61,13 @@ class ArticleTest(TestCase):
         self.add_permission('change_article')
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.status_code, 200)
+
+    def test_update_delete_files(self):
+        filepdf = SimpleUploadedFile("file.pdf", b"file_content", content_type="pdf")
+        self.articlefile = ArticleFile.objects.create(article = self.article, file = filepdf)
+
+
+
 
     def test_article_update(self):
         self.add_permission('change_article')
