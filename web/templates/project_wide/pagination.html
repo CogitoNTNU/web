@@ -3,7 +3,7 @@
         {% if paginator.num_pages > 1 %}
             {% for i in paginator.page_range %}
                 <a class="{% if i == page_obj.number %}active{% endif %} item"
-                    href="/{{ url }}?page={{ i }}">{{ i }}</a>
+                    href="/{{ url }}?page={{ i }}" aria-label="Gå til side {{i}}">{{ i }}</a>
             {% endfor %}
         {% endif %}
     </div>

@@ -17,12 +17,12 @@
 {% block body %}
     <div class="ui text container">
         {% if object.banner %}
-            <img class="ui image" width="100%" src="/media/{{ object.banner.name }}">
+            <img alt="" class="ui image" width="100%" src="/media/{{ object.banner.name }}">
         {% endif %}
         <h1>
             {{ object.title }}
             {% if perms.news.change_event %}
-                <a class="size14" href="{% url "event-update" pk=object.pk %}">Edit</a>
+                <a class="size14" href="{% url "event-update" pk=object.pk %}" aria-label="Endre event">Edit</a>
             {% endif %}
         </h1>
         <p class="meta">
@@ -30,17 +30,17 @@
             <div class="twelve wide column">
                 {% include "news/event_dates.html" %}
                 {% if event.location %}
-                    <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %}>
+                    <a {% if event.location_url %}href="{{ event.location_url }}"{% endif %} aria-label="Finn arrangementets lokasjon">
                         <i class="ui map icon"></i>{{ event.location }}
                     </a>
                 {% endif %}
                 {% if event.facebook_url %}
-                    <a href="{{ event.facebook_url }}">
+                    <a href="{{ event.facebook_url }}" aria-label="Åpne arrangementet på facebook">
                         <i class="ui facebook icon"></i>
                     </a>
                 {% endif %}
                 {% if event.signup_url %}
-                    <a href="{{ event.signup_url }}">
+                    <a href="{{ event.signup_url }}" aria-label="Bli med">
                         <i class="ui calendar icon"></i>
                     </a>
                 {% endif %}
@@ -48,7 +48,7 @@
             <div class="four wide column middle aligned">
                 {% if event.signup_url %}
                     <a href="{{ event.signup_url }}" class="ui right floated middle aligned blue button"
-                       target="_blank">Sign
+                       target="_blank" aria-label="Bli med" rel="noopener">Sign
                         Up</a>
                 {% endif %}
             </div>
@@ -57,11 +57,11 @@
         </p>
         {{ object.content|safe }}
         {% if event.signup_url %}
-            <a href="{{ event.signup_url }}" target="_blank" class="ui blue button">Sign Up</a>
+            <a href="{{ event.signup_url }}" target="_blank" rel="noopener" class="ui blue button">Sign Up</a>
         {% endif %}
         <div class="mazemap mobile">
             {% if event.location_url_embed %}
-                <iframe width="100%" height="315" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{{ event.location_url_embed }}" style="border: 1px solid grey"></iframe><br/>
+                <iframe width="100%" title="Mazemap" height="315" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="{{ event.location_url_embed }}" style="border: 1px solid grey"></iframe><br/>
             {% endif %}
         </div>
         {% for file in object.files.all %}

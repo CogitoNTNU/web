@@ -3,7 +3,7 @@ import os
 
 ###################
 # Set to False to disable getting default profile pics from gooddoggo
-USE_DOGGOS = True
+USE_DOGGOS = False  # 
 ####################
 
 # Default values
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'user_profile',
     'project',
     'single_page',
+    'uptake',
 
     'ckeditor',
     'contentbox',
@@ -162,7 +163,7 @@ CKEDITOR_CONFIGS = {
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'nb-no'
+LANGUAGE_CODE = 'nb'
 
 TIME_ZONE = 'CET'
 

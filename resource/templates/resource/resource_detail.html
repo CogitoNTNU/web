@@ -25,22 +25,22 @@
         {% endif %}
 
         {% if perms.resource.change_resource %}
-            <a class="mini ui blue button"  href="{% url "edit_resource" pk=resource.pk %}">Edit</a>
+            <a class="mini ui blue button"  href="{% url "edit_resource" pk=resource.pk %} aria-label="Endre ressurs">Edit</a>
         {% endif %}
         {% if perms.resource.delete_resource %}
-            <a class="mini ui blue button"  href="{% url "delete_resource" pk=resource.pk %}">Delete</a>
+            <a class="mini ui blue button"  href="{% url "delete_resource" pk=resource.pk %}" aria-label="Slett ressurs">Delete</a>
         {% endif %}
 
         <p>{{ resource.description|safe|linebreaks}}</p>
         {% if resource.link %}
-        <a href="{{resource.link}}" class="big ui blue button">Go to</a>
+        <a href="{{resource.link}}" class="big ui blue button" aria-label="Gå til {{resource.title}}">Go to</a>
         {% endif %}
         <p><br></p>
     </div>
 
     <div class="ui cards five column stackable grid center aligned ">
         {% for rel_resource in related %}
-        <a class="card column" href="{% url "resource_detail" pk=rel_resource.pk %}">
+        <a class="card column" href="{% url "resource_detail" pk=rel_resource.pk %}" aria-label="Åpne relatert ressurs {{rel_resource.title}}">
             <div class="content">
                 <div class="header">{{ rel_resource.title }}</div>
                 <div class="meta">{{ rel_resource.medium }} by {{ rel_resource.content_creator }}</div>
