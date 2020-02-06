@@ -4,6 +4,7 @@ from ckeditor_uploader.fields import RichTextUploadingField
 from django.utils import timezone
 
 from concurrency.models import ConcurrentModel
+import os
 
 
 class Article(ConcurrentModel):
@@ -32,6 +33,11 @@ class Article(ConcurrentModel):
 
     def __str__(self):
         return self.title
+    
+    def delete(self, using=None, keep_parents=False):
+        for file in self.files.all():
+            file.delete()
+        super().delete(using, keep_parents)
 
     class Meta:
         ordering = (
@@ -86,3 +92,20 @@ class Event(Article):
             '-start_date',
             '-start_time'
         )
+
+class ArticleFile(models.Model):
+    file = models.FileField(upload_to="article/files/", null = True)
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='files')
+
+    def delete(self, using=None, keep_parents=False):
+        if self.file:
+            if os.path.isfile(self.file.path):
+                os.remove(self.file.path)
+        super().delete(using, keep_parents)
+
+    @property
+    def filename(self):
+        return os.path.basename(self.file.name)
+
+    def __str__(self):
+        return f'{self.filename} - {self.article}'

@@ -3,10 +3,12 @@ import datetime
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase, Client
 from django.urls import reverse
+from django.core.files.uploadedfile import SimpleUploadedFile
 
 from news.forms import EventForm
 from news.helpers import generate_mazemap_embed
-from news.models import Article, Event
+from news.models import Article, Event, ArticleFile
+
 
 
 class ArticleTest(TestCase):
@@ -16,26 +18,41 @@ class ArticleTest(TestCase):
         user.user_permissions.add(permission)
 
     def setUp(self):
-        self.article = Article.objects.create(
-            title='TITLE',
-        )
         self.username = 'TEST_USER'
         self.password = 'TEST_PASS'
         self.user = User.objects.create_user(username=self.username, password=self.password)
         self.client.login(username=self.username, password=self.password)
+        self.old_title = 'TITLE'
+        self.new_title = 'NEW_TITLE'
+        self.article = Article.objects.create(
+            title='TITLE',
+        )
+        self.usernameB = self.username + '_B'
+        self.userB = User.objects.create_user(username=self.usernameB, password=self.password)
+        self.clientB = Client()
+        self.clientB.login(username=self.usernameB, password=self.password)
+    
+    def test_add(self):
+        response = self.client.get(reverse('article-create'))
+        self.assertNotEqual(response.status_code, 200)
+        self.add_permission('add_article')
+        response = self.client.get(reverse('article-create'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_add_file(self):
+        self.add_permission('add_article')
+        filepdf = SimpleUploadedFile("file.pdf", b"file_content", content_type="pdf")
+        response = self.client.post(reverse('article-create'), {'title':'ADD_TITLE', 'context': 'CONTEXT', 'files': filepdf} )
+        self.assertEqual(response.status_code, 302)
+        article = Article.objects.get(title = 'ADD_TITLE')
+        articlefile = ArticleFile.objects.get(article = article)
+        self.assertEqual(articlefile.article, article)
 
     def test_str(self):
         self.assertEqual(str(self.article), self.article.title)
 
     def test_view(self):
         response = self.client.get(reverse('article', args=(self.article.pk,)))
-        self.assertEqual(response.status_code, 200)
-
-    def test_add(self):
-        response = self.client.get(reverse('article-create'))
-        self.assertNotEqual(response.status_code, 200)
-        self.add_permission('add_article')
-        response = self.client.get(reverse('article-create'))
         self.assertEqual(response.status_code, 200)
 
     def test_update(self):
@@ -45,12 +62,20 @@ class ArticleTest(TestCase):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
         self.assertEqual(response.status_code, 200)
 
-    def test_event_update(self):
-        data = {'title': 'TITLE',
-                'published': True}
+    def test_update_delete_files(self):
+        filepdf = SimpleUploadedFile("file.pdf", b"file_content", content_type="pdf")
+        self.articlefile = ArticleFile.objects.create(article = self.article, file = filepdf)
+
+
+
+
+    def test_article_update(self):
         self.add_permission('change_article')
-        response = self.client.post(reverse('article-update', kwargs={'pk': self.article.pk}), data)
-        self.assertEqual(response.status_code, 200)
+        response = self.client.post(reverse('article-update', kwargs={'pk': self.article.pk}), {'title':'NEW_TITLE'} )
+        self.assertEqual(response.status_code, 302)
+        self.article = Article.objects.get(pk = self.article.pk)
+        self.assertEqual(self.article.title, 'NEW_TITLE') 
+
 
     def test_delete(self):
         response = self.client.get(reverse('article-delete', args=(self.article.pk,)))
@@ -60,6 +85,7 @@ class ArticleTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
+
 class ConcurrencyTest(TestCase):
     def add_permission(self, codename, user=None):
         user = self.user if not user else user
@@ -67,39 +93,21 @@ class ConcurrencyTest(TestCase):
         user.user_permissions.add(permission)
 
     def setUp(self):
-        self.old_title = 'TITLE'
-        self.new_title = 'NEW_TITLE'
-        self.article = Article.objects.create(
-            title=self.old_title,
-        )
         self.username = 'TEST_USER'
-        self.usernameB = self.username + '_B'
         self.password = 'TEST_PASS'
         self.user = User.objects.create_user(username=self.username, password=self.password)
         self.client.login(username=self.username, password=self.password)
+        self.old_title = 'TITLE'
+        self.new_title = 'NEW_TITLE'
+        self.article = Article.objects.create(
+            title='TITLE',
+        )
+        self.usernameB = self.username + '_B'
         self.userB = User.objects.create_user(username=self.usernameB, password=self.password)
         self.clientB = Client()
         self.clientB.login(username=self.usernameB, password=self.password)
         self.add_permission('change_article')
-        self.add_permission('change_article', self.userB)
-
-    def test_concurrent_edit(self):
-        response = self.client.get(reverse('article-update', args=(self.article.pk,)))
-        data = response.context[0].dicts[3]['form'].initial
-        data.pop('banner')
-        data['title'] = self.new_title
-        self.assertEqual(response.templates[0].name, 'news/article_update.html')
-        response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
-        self.assertEqual(response.templates[0].name, 'concurrency/access_denied.html')
-        try:
-            self.client.post(reverse('article-update', args=(self.article.pk,)), data=data)
-            self.article = Article.objects.get(pk=self.article.pk)
-            self.assertEqual(self.article.title, self.new_title)
-            response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
-            self.assertEqual(response.templates[0].name, 'news/article_update.html')
-        except TypeError as e:
-            # This is a known error that only occurs on the travis test builds
-            assert 'Cannot encode None as POST data.' in str(e)
+        self.add_permission('change_article', self.userB) 
 
     def test_concurrent_edit_override(self):
         response = self.client.get(reverse('article-update', args=(self.article.pk,)))
@@ -117,7 +125,7 @@ class ConcurrencyTest(TestCase):
             self.client.post(reverse('article-update', args=(self.article.pk,)) + '?cancel=true', data=data)
             self.article = Article.objects.get(pk=self.article.pk)
             self.assertEqual(self.article.title, self.old_title)
-            response = self.clientB.get(reverse('article-update', args=(self.article.pk,)))
+            self.client.post(reverse('article-update', args=(self.article.pk,)), data=data)
             self.assertEqual(response.templates[0].name, 'news/article_update.html')
         except TypeError as e:
             # This is a known error that only occurs on the travis test builds
@@ -254,7 +262,7 @@ class EventTest(TestCase):
                 'published': True}
         self.add_permission('change_event')
         response = self.client.post(reverse('event-update', kwargs={'pk': self.event.pk}), data)
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 302)
 
     def test_event_save_method_location_embed(self):
         # Generate and save valid mazemap embed url when location_url is valid
