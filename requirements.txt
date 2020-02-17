@@ -1,4 +1,4 @@
-django==2.2.9
+django==2.2.10
 django-ckeditor==5.7.1
 Pillow==6.2.0
 requests==2.22.0
