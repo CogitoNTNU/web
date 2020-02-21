@@ -6,7 +6,7 @@ from django.utils import timezone
 from concurrency.models import ConcurrentModel
 import os
 
-
+"""
 class Article(ConcurrentModel):
     title = models.CharField(
         max_length=100
@@ -19,11 +19,13 @@ class Article(ConcurrentModel):
         blank=True,
         null=True,
     )
+
     banner = models.ImageField(
         blank=True,
         null=True,
         default=None,
         upload_to='web/img/article/banners',
+    
     )
     published = models.BooleanField(default=False)
     pinned = models.BooleanField(
@@ -109,3 +111,4 @@ class ArticleFile(models.Model):
 
     def __str__(self):
         return f'{self.filename} - {self.article}'
+"""
