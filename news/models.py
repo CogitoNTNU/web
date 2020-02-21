@@ -6,7 +6,7 @@ from django.utils import timezone
 from concurrency.models import ConcurrentModel
 import os
 
-"""
+
 class Article(ConcurrentModel):
     title = models.CharField(
         max_length=100
@@ -111,4 +111,3 @@ class ArticleFile(models.Model):
 
     def __str__(self):
         return f'{self.filename} - {self.article}'
-"""
