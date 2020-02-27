@@ -27,6 +27,7 @@ class Article(ConcurrentModel):
         upload_to='web/img/article/banners',
     
     )
+
     published = models.BooleanField(default=False)
     pinned = models.BooleanField(
         default=False,
@@ -95,9 +96,9 @@ class Event(Article):
             '-start_time'
         )
 
-class ArticleFile(models.Model):
+class FiletoArticle(models.Model):
     file = models.FileField(upload_to="article/files/", null = True)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='files')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='files', null = True)
 
     def delete(self, using=None, keep_parents=False):
         if self.file:

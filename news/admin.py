@@ -1,9 +1,9 @@
 from django.contrib import admin
 
-from news.models import Article, Event, ArticleFile
+from news.models import Article, Event, FiletoArticle
 
 class FileInline(admin.TabularInline):
-    model=ArticleFile
+    model=FiletoArticle
     extra=1
 
 class ArticleAdmin(admin.ModelAdmin):
