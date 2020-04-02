@@ -1,13 +1,13 @@
 from django.contrib import admin
 
 from news.models import Article, Event, ArticleFile
-
+'''
 class FileInline(admin.TabularInline):
     model=ArticleFile
     extra=1
-
+'''
 class ArticleAdmin(admin.ModelAdmin):
-    inlines = [FileInline]
+    '''inlines = [FileInline] '''
     #Defines the files attached to the article
     fieldsets = [
         ('Title', {'fields':['title']}),
