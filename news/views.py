@@ -6,7 +6,7 @@ from django.views.generic import DetailView, CreateView, ListView, DeleteView
 from concurrency.views import ConcurrentUpdate
 from news.forms import EventForm, ArticleCreateForm
 from news.helpers import generate_mazemap_embed
-from news.models import Article, Event, FiletoArticle
+from news.models import Article, Event, ArticleFile
 from django import forms
 from django.shortcuts import redirect
 
