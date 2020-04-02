@@ -19,12 +19,15 @@ class Article(ConcurrentModel):
         blank=True,
         null=True,
     )
+
     banner = models.ImageField(
         blank=True,
         null=True,
         default=None,
         upload_to='web/img/article/banners',
+    
     )
+
     published = models.BooleanField(default=False)
     pinned = models.BooleanField(
         default=False,
@@ -92,10 +95,10 @@ class Event(Article):
             '-start_date',
             '-start_time'
         )
-
-class ArticleFile(models.Model):
+'''
+class FiletoArticle(models.Model):
     file = models.FileField(upload_to="article/files/", null = True)
-    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='files')
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='files', null = True)
 
     def delete(self, using=None, keep_parents=False):
         if self.file:
@@ -109,3 +112,4 @@ class ArticleFile(models.Model):
 
     def __str__(self):
         return f'{self.filename} - {self.article}'
+'''

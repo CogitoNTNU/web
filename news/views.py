@@ -6,7 +6,7 @@ from django.views.generic import DetailView, CreateView, ListView, DeleteView
 from concurrency.views import ConcurrentUpdate
 from news.forms import EventForm, ArticleCreateForm
 from news.helpers import generate_mazemap_embed
-from news.models import Article, Event, ArticleFile
+from news.models import Article, Event, FiletoArticle
 from django import forms
 from django.shortcuts import redirect
 
@@ -40,7 +40,7 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
         self.object = form.save()
         if form.is_valid(): 
             for file in files:
-                ArticleFile.objects.create(file=file, article=self.object)
+                FiletoArticle.objects.create(file=file, article=self.object)
             return super().form_valid(form)
         else:
             return self.form_invalid(form)
@@ -59,7 +59,7 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
         self.object = self.get_object() 
         article = Article.objects.get(pk = self.kwargs['pk'])
         form.fields['files'] = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
-        for file in ArticleFile.objects.filter(article = article):
+        for file in FiletoArticle.objects.filter(article = article):
             form.fields[file.filename] = forms.BooleanField(widget=forms.CheckboxInput, required=False, label='Delete previously uploaded file [' + file.filename + ']?'
             )
         return form
@@ -72,11 +72,11 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
             article = Article.objects.get(pk = self.kwargs['pk'])
             form.is_valid()
             if form.is_valid():
-                for deletefile in ArticleFile.objects.filter(article = article):
+                for deletefile in FiletoArticle.objects.filter(article = article):
                     if form.cleaned_data.pop(deletefile.filename, False):
                         deletefile.delete()
                 for file in files:
-                    ArticleFile.objects.create(file=file, article=self.get_object())
+                    FiletoArticle.objects.create(file=file, article=self.get_object())
                 return self.form_valid(form)
             else:
                 return self.form_invalid(form)
