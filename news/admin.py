@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from news.models import Article, Event, ArticleFile
+from news.models import Article, Event
 '''
 class FileInline(admin.TabularInline):
     model=ArticleFile
