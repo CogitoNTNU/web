@@ -95,7 +95,7 @@ class Event(Article):
             '-start_date',
             '-start_time'
         )
-'''
+
 class ArticleFile(models.Model):
     file = models.FileField(upload_to="article/files/", null = True)
     article = models.ForeignKey(Article, on_delete=models.CASCADE, related_name='files', null = True)
@@ -112,4 +112,3 @@ class ArticleFile(models.Model):
 
     def __str__(self):
         return f'{self.filename} - {self.article}'
-'''

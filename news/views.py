@@ -40,7 +40,7 @@ class ArticleCreate(PermissionRequiredMixin, CreateView):
         self.object = form.save()
         if form.is_valid(): 
             for file in files:
-                FiletoArticle.objects.create(file=file, article=self.object)
+                ArticleFile.objects.create(file=file, article=self.object)
             return super().form_valid(form)
         else:
             return self.form_invalid(form)
