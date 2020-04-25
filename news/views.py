@@ -59,7 +59,7 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
         self.object = self.get_object() 
         article = Article.objects.get(pk = self.kwargs['pk'])
         form.fields['files'] = forms.FileField(widget=forms.FileInput(attrs={'multiple': True}), required=False)
-        for file in FiletoArticle.objects.filter(article = article):
+        for file in ArticleFile.objects.filter(article = article):
             form.fields[file.filename] = forms.BooleanField(widget=forms.CheckboxInput, required=False, label='Delete previously uploaded file [' + file.filename + ']?'
             )
         return form
@@ -72,11 +72,11 @@ class ArticleUpdate(PermissionRequiredMixin, ConcurrentUpdate):
             article = Article.objects.get(pk = self.kwargs['pk'])
             form.is_valid()
             if form.is_valid():
-                for deletefile in FiletoArticle.objects.filter(article = article):
+                for deletefile in ArticleFile.objects.filter(article = article):
                     if form.cleaned_data.pop(deletefile.filename, False):
                         deletefile.delete()
                 for file in files:
-                    FiletoArticle.objects.create(file=file, article=self.get_object())
+                    ArticleFile.objects.create(file=file, article=self.get_object())
                 return self.form_valid(form)
             else:
                 return self.form_invalid(form)
