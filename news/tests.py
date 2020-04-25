@@ -3,7 +3,7 @@ import datetime
 from django.contrib.auth.models import Permission, User
 from django.test import TestCase, Client
 from django.urls import reverse
-from django.core.files.uploadedfile import SimpleUploadedFile
+from django.core.files.uploadedfile import SimpleUploadedFile   
 
 from news.forms import EventForm
 from news.helpers import generate_mazemap_embed
