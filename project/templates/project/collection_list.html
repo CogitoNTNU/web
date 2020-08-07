@@ -18,6 +18,7 @@
     <div class="ui segment">
         <div class="ui container">
             <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}" aria-label="Åpne {{ collection.name }}">Collection: {{ collection.name }}</a>
+                <a href="{% url collection.form_link %}" aria-label="Gjennomgå søknader"><button class="ui green button"> Søk prosjekt</button></a>
                 {% if collection.application_open and user not in collection.applicants %}
                     <a href="{% url 'collection' pk=collection.pk %}#apply" class="ui tiny green button" aria-label="Søk for å bli med på {{ collection.name }}">Apply now</a>
                 {% endif %}
