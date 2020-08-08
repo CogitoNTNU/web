@@ -1,0 +1,25 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% load helpers %}
+
+{% block body %}
+<div class="ui text container">
+
+    <h2>{{ verv.title }}</h2>
+        {% if perms.user_profile.change_verv and perms.user_profile.delete_verv %}
+            <a href="{% url "edit_verv" pk=verv.pk %}"><button class="ui blue button" aria-label="Endre">Edit</button></a>
+            <a href="{% url "delete_verv" pk=verv.pk %}"><button class="ui red button" aria-label="Slett">Delete</button></a>
+        {% endif %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <p>{{ verv.description|safe }}</p>
+
+</div>
+{% endblock %}

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'project',
     'single_page',
     'uptake',
+    'verv',
 
     'ckeditor',
     'contentbox',

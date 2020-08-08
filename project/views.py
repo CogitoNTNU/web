@@ -77,6 +77,7 @@ def apply_to_collection(request, pk):
 
         if collection.form_link:
             return HttpResponseRedirect(collection.form_link)
+
         return HttpResponseRedirect(reverse('collection', kwargs={'pk': pk}))
     return HttpResponseRedirect('/')
 

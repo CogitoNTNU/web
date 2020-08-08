@@ -1,0 +1,22 @@
+{% extends 'web/base.html' %}
+{% load helpers %}
+
+{% block title %}New {{ view.model|get_class|lower }}{% endblock %}
+{% block og_title %}New {{ view.model|get_class|lower }}{% endblock %}
+
+{% block body %}
+<div class="ui text container">
+    <form class="ui form" method="POST">
+        <h1>{{ view.model|get_class }} form</h1>
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button type="submit" class="big ui primary button">Save</button>
+    </form>
+</div>
+
+<script>
+    // Seems impossible to get django to just render the field as type=date in the view-class
+    $('#id_application_end_date')[0].setAttribute('type', 'date');
+</script>
+{% endblock %}

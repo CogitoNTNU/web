@@ -1,0 +1,58 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+{% load helpers %}
+
+{% block body %}
+<div class="ui text container">
+    {% if vervgroup.application_open %}
+    <h1> Verv <a class="ui tiny green button" href="{{vervgroup.form_link}}" aria-label="Apply">Søk Nå! </a></h1>
+    {% endif %}
+    {% if not vervgroup.application_open %}
+    <h1> Verv</h1>
+    {% endif %}
+    {% if messages %}
+        <ul class="messages" style="font-weight: bold">
+            {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% for verv in vervgroup.verv.all %}
+        <div class="ui container" id="{{ forloop.counter }}">
+            <div class="ui very padded vertical segment" id="{{ verv.title }}">
+                {% if verv.thumbnail %}
+                    <img alt="verv descriptive image" class="ui small left floated image" src="/media/{{ verv.thumbnail.name }}">
+                {% else %}
+                    <img alt="verv descriptive image" class="ui small left floated image" src="/static/web/img/avatar_placeholder.png">
+                {% endif %}
+                <h2>
+                    {{ verv.title }}
+                </h2>
+                <div class="ui styled fluid accordion">
+                    <div class="title">
+                        <i class="dropdown icon"></i>
+                        Description
+                    </div>
+                    <div class="content" id="{{ forloop.counter }}-content">
+                        <p>{{ verv.description|safe|linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+</div>
+
+<script>
+    $('.ui.accordion')
+    .accordion();
+
+    var url = window.location.href;
+    var id = url.split('#')[1];
+    var content_div = $('#' + id + '-content')[0];
+    content_div.setAttribute('class', 'active ' + content_div.getAttribute('class'));
+
+
+</script>
+{% endblock %}
