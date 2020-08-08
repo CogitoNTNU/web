@@ -9,6 +9,7 @@ urlpatterns = [
     path('', ListView.as_view(queryset=Collection.objects.filter(projects__isnull=False).distinct(), paginate_by=3), name='collection_list'),
     path('collection/<int:pk>/', DetailView.as_view(model=Collection), name='collection'),
     path('collection/new/', CreateCollectionView.as_view(), name='collection_form'),
+    path('collection/<int:pk>/apply/', apply_to_collection, name='apply_to_collection'),
 
     path('<int:pk>/admin/', ProjectAdminDetailView.as_view(), name='project_admin'),
     path('<int:pk>/accept/<username>/', accept_applicant, name='accept_applicant'),

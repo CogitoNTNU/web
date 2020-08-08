@@ -3,6 +3,7 @@
 
 {% block body %}
 
+
 <div class="ui text container">
 
     <h1>Our Projects
@@ -16,13 +17,13 @@
 
     {% for collection in collection_list %}
     <div class="ui segment">
-        <div class="ui container">
-            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}" aria-label="Åpne {{ collection.name }}">Collection: {{ collection.name }}</a>
-                {% if collection.application_open and user not in collection.applicants %}
-                    <a href="{% url 'collection' pk=collection.pk %}#apply" class="ui tiny green button" aria-label="Søk for å bli med på {{ collection.name }}">Apply now</a>
-                {% endif %}
-            </h2>
-
+        <div class="ui text container">
+            {% if collection.application_open %}
+            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}" aria-label="Åpne {{ collection.name }}">Collection: {{ collection.name }} </a> <a class="ui tiny green button" href="{{collection.form_link}}" aria-label="Apply">Søk Nå! </a></h2> 
+            {% endif %}
+            {% if not collection.application_open %}
+            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}" aria-label="Åpne {{ collection.name }}">Collection: {{ collection.name }} </a>
+            {% endif %} 
             {% if collection.description %}
                 <p>{{ collection.description|safe|linebreaks|truncatechars_html:"280" }}</p>
             {% else %}
