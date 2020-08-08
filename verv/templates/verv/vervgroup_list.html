@@ -1,0 +1,39 @@
+{% extends 'web/base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+
+
+<div class="ui text container">
+    {% for vervgroup in vervgroup_list %}
+        {% if vervgroup.application_open %}
+        <h1>Verv <a class="ui tiny green button" href="{{vervgroup.form_link}}" aria-label="Apply">Søk Nå!
+                {% if perms.verv.add_verv %}
+                    <a aria-label="Legg til nytt verv" class="mini ui blue button"  href="{% url "verv_form" %}">Nytt Verv</a>
+                {% endif %} </a></h1>
+        {% endif %}
+        {% if not vervgroup.application_open %}
+            <h1>Verv
+                {% if perms.verv.add_verv %}
+                    <a aria-label="Legg til nytt verv" class="mini ui blue button"  href="{% url "verv_form" %}">Nytt Verv</a>
+                {% endif %}
+            </h1>
+        {% endif %}
+
+        {% for verv in vervgroup.verv.all %}
+        <div class="ui segment">
+            <div class="ui text container">
+                    <div class="ui vertical segment">
+                        <div class="ui items">
+                            {% include 'verv/verv_summary.html' %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% endfor %}
+    <!--{% include 'project_wide/pagination.html' with url='projects'%}-->
+
+</div>
+
+{% endblock %}

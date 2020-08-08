@@ -1,0 +1,19 @@
+<div class="item">
+    <div class="ui tiny image">
+        {% if verv.thumbnail %}
+            <img alt="" class="small bordered rounded ui image" src="/media/{{ verv.thumbnail.name }}">
+        {% else %}
+            <img alt="" src="/static/web/img/avatar_placeholder.png" class="small bordered rounded ui image">
+        {% endif %}
+    </div>
+    <div class="content">
+      <div class="header"><a href="{% url 'vervgroup' pk=vervgroup.pk %}#{{ forloop.counter }}" class="cogito_col_dkgray" aria-label="Åpne vervet {{verv.title}}">
+          {{ verv.title }}</a>
+      </div>
+      <div class="description">
+        {{ verv.description|safe|linebreaks|truncatechars_html:"140" }}
+      </div>
+    </div>
+  </div>
+
+  
