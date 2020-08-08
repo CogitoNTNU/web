@@ -65,6 +65,7 @@ p, a, h1, h2, h3, h4, h5, span {
 
 .cogito_col_dkgray {
     color: rgb(52, 74, 83) !important;
+    display: inline-block;
 }
 
 .cogito_ft_lgray {

@@ -67,24 +67,16 @@ class ProjectAdminDetailView(UserPassesTestMixin, DetailView):
 
 def apply_to_collection(request, pk):
     if request.method == 'POST':
-        user = get_object_or_404(User, username=request.user.username)
         collection = get_object_or_404(Collection, pk=pk)
 
-        if collection.applicants.filter(username=user.username).exists():
-            return HttpResponse("You have already applied to this project. "
-                                "Application forms can be found on your profile page")
         try:
             if not collection.application_open:
                 return HttpResponse("Applications have ended for this project")
         except TypeError:
             return HttpResponse("This project does not have an application date set")
 
-        collection.applicants.add(user)
-        collection.save()
         if collection.form_link:
             return HttpResponseRedirect(collection.form_link)
-
-        messages.success(request, 'You have successfully applied to ' + str(collection))
         return HttpResponseRedirect(reverse('collection', kwargs={'pk': pk}))
     return HttpResponseRedirect('/')
 
