@@ -29,11 +29,7 @@
                 <h2>
                     {{ verv.title }}
                 </h2>
-                <div class="ui styled fluid accordion">
-                    <div class="title">
-                        <i class="dropdown icon"></i>
-                        Description
-                    </div>
+                <div class="ui styled fluid card">
                     <div class="content" id="{{ forloop.counter }}-content">
                         <p>{{ verv.description|safe|linebreaks }}</p>
                     </div>
