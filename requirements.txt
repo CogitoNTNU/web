@@ -1,6 +1,6 @@
 django==2.2.9
 django-ckeditor==5.7.1
-Pillow==6.2.0
+Pillow==7.2.0
 requests==2.22.0
 python-social-auth==0.3.6
 python-dataporten-auth==2.0.0
