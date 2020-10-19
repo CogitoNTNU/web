@@ -1,0 +1,98 @@
+{% extends "web/base.html" %}
+{% load static %}
+{% block body %}
+<!DOCTYPE html>
+<html>
+<body>
+	<div class="container">
+
+		<div id="showcase-wrapper">
+			<div class="left-side-wrapper">
+				<div id="container2">
+					<p id="bold">Vi gjør <s>kunstig</s> <s>intelligens</s> tilgjengelig for alle.<p>
+				</div>
+				<div class="container3">
+					
+				</div>
+				<p>Cogito NTNU er en frivillig studentorganisasjonsom jobber for å
+				fremme læring og interesse for kunstig intelligens på alle nivåer.</p>
+
+
+			</div>
+			<div class="right-side-wrapper">
+				<img src="{% static "web/img/cogito.gif" %}" alt="this slowpoke moves" width=800px>
+			</div>
+		</div>
+
+		<div id="showcase2-wrapper">
+			<div class="container">
+				<p>Vi er en frivillig <span>studentorganisasjon</span> som jobber for å fremme læring og interesse for kunstig intelligens.</p>
+			</div>
+			
+			<div class="grid">
+				<img src="{% static "web/img/teaching.jpg" %}" width=300 height=300>
+				<img src="{% static "web/img/cogitocrew.jpg" %}" width=450 height=450>
+				<img src="images/code.jpg" width=300 height=300>
+
+			</div>
+		</div>
+
+		<div id="showcase3-wrapper">
+			<div class="container">
+				<div class="box">
+					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua."</p>
+
+					<div id="espen">
+						<div id="box-espen1">
+							<img src="{% static "web/img/espen.png" %}">
+						</div>
+						<div class="box-espen2">
+							<p><strong>Espen Boman Fosseide</strong></p>
+								<p style="color:rgb(204,204,204)">Styreleder</p>
+						</div>
+					</div>
+				</div>
+				<div class="box">
+					<img src="images/strisentnu.png" width=400>
+				</div>
+			</div>
+		</div>
+		<!--Prosjekter-->
+		<div id="showcase4-wrapper">
+			<div class="container">
+				<h1><span>Lorem ipsum</span> - dolor sit amet consectetur</h1>
+				<div class="pictures">
+					{% for project in projects %}
+						{% if project.thumbnail %}
+							<a href="/projects">
+								<img src="/media/{{ project.thumbnail.name }}" class="thumbnail" height=250 width=250>
+							</a>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<h1 class="endtext">
+			<span>Lorem ipsum</span> dolor sit amet consectetur
+		</h1>
+
+		<!-- fixed social media menu -->
+		<div id="fixedcontainer">	
+			<ul class ="fixedcontent">	
+				<li>	
+					<a href="blimedlem.html">BLI MEDLEM</a>
+				</li>
+				<li>	
+					<a href="https://www.facebook.com/CogitoNTNU" target="_blank">FACEBOOK</a>
+				</li>
+			</ul>
+		</div>
+		
+		
+	</div>
+</body>
+</html>
+
+{% endblock body %}
