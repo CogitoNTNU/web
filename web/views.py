@@ -29,7 +29,7 @@ class Home(ListView):
     def get_context_data(self, **kwargs):
         context = super(Home, self).get_context_data(**kwargs)
         context.update({'projects': Project.objects.all()[:4]})
-        return context
+        return context      
 
     def get_queryset(self):
         articles = Article.objects.filter(published=True).exclude(id__in=Event.objects.all())

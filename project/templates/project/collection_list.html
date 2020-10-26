@@ -4,45 +4,47 @@
 {% block body %}
 
 
-<div class="ui text container">
-
-    <h1>Our Projects
-    {% if perms.project.add_project %}
-        <a aria-label="Legg til nytt prosjekt" class="mini ui blue button"  href="{% url "project_form" %}">New project</a>
-    {% endif %}
-    {% if perms.project.add_collection %}
-        <a aria-label="Legg til ny collection" class="mini ui blue button"  href="{% url "collection_form" %}">New collection</a>
-    {% endif %}
-    </h1>
-
-    {% for collection in collection_list %}
-    <div class="ui segment">
-        <div class="ui text container">
-            {% if collection.application_open %}
-            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}" aria-label="Åpne {{ collection.name }}">Collection: {{ collection.name }} </a> <a class="ui tiny green button" href="{{collection.form_link}}" aria-label="Apply">Søk Nå! </a></h2> 
-            {% endif %}
-            {% if not collection.application_open %}
-            <h2><a class="cogito_col_dkgray" href="{% url 'collection' pk=collection.pk %}" aria-label="Åpne {{ collection.name }}">Collection: {{ collection.name }} </a></h2>
-            {% endif %} 
-            {% if collection.description %}
-                <p>{{ collection.description|safe|linebreaks|truncatechars_html:"280" }}</p>
-            {% else %}
-                <p><em>No description available</em></p>
-            {% endif %}
-
-            {% for project in collection.projects.all %}
-                <div class="ui vertical segment">
-                    <div class="ui items">
-                        {% include 'project/project_summary.html' %}
+<!DOCTYPE html>
+<html>
+<body>
+	<div class="content-wrapper">
+        <div class="portfolio-items-wrapper">
+            {% for collection in collection_list %}
+                {% for project in collection.projects.all %}
+                    <div class="portfolio-item-wrapper">
+                        <div class="portfolio-img-background" style="background-image:url(/media/{{project.thumbnail.name}})">	</div>
+                        <div class="img-text-wrapper">
+                            <div class="subtitle">
+                                <a style="font-style:bold; font-size:medium;" href="{% url 'project' pk=project.pk %}"> {{project.title}}.</a>
+                            </div>
+                            <div class="subtitle">
+                                <p>{{ project.description|safe|linebreaks }}</p>            
+                            </div>
+                            <div class="subtitle">
+                                <p style="font-style:italic; font-size:small;">Pågående prosjekt.</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            {% endfor %}
+                {%endfor%}
+            {%endfor%}
         </div>
     </div>
-    {% endfor %}
+</body>
 
-    {% include 'project_wide/pagination.html' with url='projects'%}
-
-</div>
+<!-- Adding JavaScript for transition to dark-->
+<script type="text/javascript">
+	const portfolioItems = document.querySelectorAll('.portfolio-item-wrapper')
+	portfolioItems.forEach(portfolioItem => {
+		portfolioItem.addEventListener('mouseover', () => {
+			/*console.log(portfolioItem);*/
+			portfolioItem.childNodes[1].classList.add('img-darken');
+		})
+		portfolioItem.addEventListener('mouseout', () => {
+			/*console.log(portfolioItem);*/
+			portfolioItem.childNodes[1].classList.remove('img-darken');
+		})
+	})
+</script>
+</html>
 
 {% endblock %}
