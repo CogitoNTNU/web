@@ -1,9 +1,10 @@
 from django.urls import path
 
-from news.views import ArticleUpdate, ArticleView, ArticleCreate, ArticleList, ArticleDelete, EventList, EventCreate, \
+from news.views import NewsView, ArticleUpdate, ArticleView, ArticleCreate, ArticleList, ArticleDelete, EventList, EventCreate, \
     EventDelete, EventUpdate, EventView, DraftList
 
 urlpatterns = [
+    path('', NewsView.as_view(), name='news'),
     path('article/<int:pk>/', ArticleView.as_view(), name='article'),
     path('articles/', ArticleList.as_view(), name='articles'),
     path('article/new/', ArticleCreate.as_view(), name='article-create'),
