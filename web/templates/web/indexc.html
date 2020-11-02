@@ -3,22 +3,25 @@
 {% block body %}
 <!DOCTYPE html>
 <html>
+
 <body>
 	<div class="container">
 
 		<div id="showcase-wrapper">
 			<div class="left-side-wrapper">
 				<div id="container2">
-					<p id="bold" style="font-family: Montserrat !important;">Vi gjør <span style="font-family: Montserrat !important;text-decoration-line: underline;text-decoration-color: #30B3EC">kunstig intelligens</span> tilgjengelig for alle.<p>
+					<p id="bold" style="font-family: Montserrat !important;">Vi gjør <span
+							style="font-family: Montserrat !important;text-decoration-line: underline;text-decoration-color: #30B3EC">kunstig
+							intelligens</span> tilgjengelig for alle.
+					<p>
 				</div>
 				<div class="container3">
-					
+
 				</div>
 				<p style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjonsom jobber for å
 				fremme læring og interesse for kunstig intelligens på alle nivåer.</p>
                 <a href="about" class="button">OM OSS </a>
 				<a href="\news" class="button"> NYHETER </a>
-
 
 			</div>
 			<div class="right-side-wrapper">
@@ -28,13 +31,14 @@
 
 		<div id="showcase2-wrapper">
 			<div class="container">
-				<p>Vi er en frivillig <span>studentorganisasjon</span> som jobber for å fremme læring og interesse for kunstig intelligens.</p>
+				<p>Vi er en frivillig <span>studentorganisasjon</span> som jobber for å fremme læring og interesse for
+					kunstig intelligens.</p>
 			</div>
-			
+
 			<div class="grid">
 				<img src="{% static "web/img/teaching.jpg" %}" width=300 height=300>
 				<img src="{% static "web/img/cogitocrew.jpg" %}" width=450 height=450>
-				<img src="{% static "web/img/teaching.jpg" %}" width=300 height=300>	
+				<img src="{% static "web/img/teaching.jpg" %}" width=300 height=300>
 
 			</div>
 		</div>
@@ -43,7 +47,7 @@
 			<div class="container">
 				<div class="box">
 					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua."</p>
+						tempor incididunt ut labore et dolore magna aliqua."</p>
 
 					<div id="espen">
 						<div id="box-espen1">
@@ -51,7 +55,7 @@
 						</div>
 						<div class="box-espen2">
 							<p><strong>Espen Boman Fosseide</strong></p>
-								<p style="color:rgb(204,204,204)">Styreleder</p>
+							<p style="color:rgb(204,204,204)">Styreleder</p>
 						</div>
 					</div>
 				</div>
@@ -64,14 +68,7 @@
 		<div id="showcase4-wrapper">
 			<div class="container">
 				<h1><span>Lorem ipsum</span> - dolor sit amet consectetur</h1>
-				<div class="pictures" id="slideshow">
-					{% for project in projects %}
-						{% if project.thumbnail %}
-							<a href="/projects">
-								<img src="/media/{{ project.thumbnail.name }}" class="thumbnail" height=250 width=250>
-							</a>
-						{% endif %}
-					{% endfor %}
+				<div id="slideshow">
 				</div>
 			</div>
 		</div>
@@ -81,21 +78,37 @@
 		</h1>
 
 		<!-- fixed social media menu -->
-		<div id="fixedcontainer">	
-			<ul class ="fixedcontent">	
-				<li>	
+		<div id="fixedcontainer">
+			<ul class="fixedcontent">
+				<li>
 					<a href="blimedlem.html">BLI MEDLEM</a>
 				</li>
-				<li>	
+				<li>
 					<a href="https://www.facebook.com/CogitoNTNU" target="_blank">FACEBOOK</a>
 				</li>
 			</ul>
 		</div>
-		
-		
+
+
 	</div>
-	<script src="js/slideshow.js"></script>
+
+	<script src="{% static 'web/js/slideshow.js' %}">
+	</script>
+
+	{% for project in projects %}
+	{% if project.thumbnail %}
+	<script>
+		// name, img, link, desc
+		console.log("testtttsttststs");
+		CreateProject("/media/{{ project.thumbnail.name }}", "/media/{{ project.thumbnail.name }}", "https://google.com", "Dette er en veldig bra test");
+	</script>
+	<!--<a href="/projects">
+			<img src="/media/{{ project.thumbnail.name }}" class="thumbnail" height=250 width=250>
+		</a>-->
+	{% endif %}
+	{% endfor %}
 </body>
+
 </html>
 
 {% endblock body %}
