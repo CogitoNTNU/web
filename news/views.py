@@ -1,5 +1,6 @@
 from itertools import chain
-
+from datetime import datetime
+from pytz import timezone
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, DeleteView
@@ -9,6 +10,28 @@ from news.helpers import generate_mazemap_embed
 from news.models import Article, Event, ArticleFile
 from django import forms
 from django.shortcuts import redirect
+
+def sort_events_articles(o):
+    """ :param o: article or event object
+        :return: tuple:
+            pinned: yes/no
+            datetime by which they should be sorted. start-datetime for events. created-datetime for articles"""
+    cet = timezone("Europe/Oslo")
+    if o.__class__.__name__ == "Event":
+        return o.pinned, datetime.combine(o.start_date, o.start_time, tzinfo=cet)
+    else:  # => Article
+        return o.pinned, o.datetime_created
+
+
+class NewsView(ListView):
+    template_name = 'web/index.html'
+    paginate_by = 6   
+
+    def get_queryset(self):
+        articles = Article.objects.filter(published=True).exclude(id__in=Event.objects.all())
+        events = Event.objects.filter(published=True)
+        feed = sorted(chain(articles, events), key=sort_events_articles, reverse=True)
+        return feed 
 
 
 class ArticleView(DetailView):

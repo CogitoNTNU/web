@@ -1,61 +1,39 @@
 {% load static %}
 {% load helpers %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'web/css/nav.css' %}">
-
-<div class="nav">
-    <div class="ui container">
-        <div class="burger">
-            <i class="sidebar icon cogito_col_dkgray"></i>
-        </div>
-        <a class="logo" href="{% url "home" %}" aria-label="Gå til forsiden"><img alt="Cogito NTNUs logo" class="logo" src="{% static "web/img/logo.svg" %}"></a>
-        <div>
-          <a class="name cogito_col_dkgray" href="{% url "home" %}" aria-label="Gå til forsiden">Cogito NTNU</a>
-        </div>
-
-        <div class="ui secondary menu">
-            {% if perms.news.change_article or perms.news.change_events %}
-            <a class="item" href="{% url 'drafts' %}" aria-label="Åpne drafts"><p class="mt">Drafts</p></a>
-            {% endif %}
-            <!-- 
-            <a class="item" href="{% url 'resource_list' %}"><p class="mt">Resources</p></a>
-            -->
-            <a class="item" href="{% url 'collection_list' %}" aria-label="Åpne prosjekter">Projects</a>
-            <a class="item" href="/verv/vervgroup/1/" aria-label="Åpne verv">Verv</a>
-
-            <div class="ui dropdown item">
-                <div class="text"><p class="mt">About</p></div>
-                <i class="dropdown icon"></i>
-                <div class="ui menu transition hidden">
-                    <a class="item" href="{% url 'about' %}" aria-label="Les mer om oss"><p class="mt">About</p></a>
-                    <a class="item" href="{% url 'about/statutes' %}" aria-label="Se våre vedtekter"><p class="mt">Statutes</p></a>
-                    <a class="item" href="{% url 'about/business' %}" aria-label="For bedrifter"><p class="mt">Enterprise</p></a>
-                </div>
+<head>
+        <meta charset="utf-8">
+        <title>Cogito NTNU</title>
+        <link rel="icon" href="{% static "web/img/logo.svg" %}"> <!-- logo i tab -->
+        <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'> <!-- font finnes på fonts.google.com -->
+        <link rel="stylesheet" type="text/css" href="{% static 'web/css/stylesc.css' %}">
+</head>
+<div class="nav-wrapper">
+    <div class="left-side">
+        <a href="{% url 'home' %}">
+            <img src="{% static "web/img/logo.svg" %}" width=90px>
+        </a>
+        <div class="brand">
+            <div class="nav-link-wrapper2"><!-- to make it an active state -->
+                <a href="{% url 'home' %}">COGITO NTNU</a>
             </div>
-            {% if user.is_authenticated %}
-                <div class="ui dropdown item">
-                    <div class="text">
-                        {{ user|first_name }}
-                    </div>
-                    <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item" href="{% url 'profile' username=user.username %}" aria-label="Åpne din profil"><p class="mt">Profile</p></a>
-                        <a class="item" href="{% url 'logout' %}" aria-label="Logg ut"><p class="mt">Logout</p></a>
-                    </div>
-                </div>
-            {% else %}
-                <a class="item" href="{% url 'login' %}" aria-label="Logg inn"><p class="mt">Login</p></a>
-            {% endif %}
-            {% block scripts %}
-                    <script>$('.dropdown').dropdown();</script>
-            {% endblock scripts %}
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="nav-link-wrapper"> 
+            <a href="/news">NYHETER</a>
+        </div>
+        <div class="nav-link-wrapper">
+            <a href="/projects">PROSJEKTER</a>
+        </div>
+        <div class="nav-link-wrapper">
+            <a href="verv/vervgroup/1/">VERV</a>
+        </div>
+        <div class="nav-link-wrapper">
+            <a href="about">OM OSS</a>
+        </div>
+        <div class="nav-link-wrapper">
+        <!-- TODO Dataporten-->
+            <a href="{% url 'login' %}">LOGG INN</a>
         </div>
     </div>
 </div>
-<script>
-    $(function () {
-        $('.burger').click(function () {
-            $('.nav').toggleClass('active');
-        });
-    });
-</script>
