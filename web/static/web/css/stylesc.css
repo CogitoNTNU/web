@@ -367,16 +367,23 @@ footer{
 	color:lightseagreen;
 }
 */
+
 .img-text-wrapper .subtitle{
 	transition:1s;
 	font-weight:600;
 	color:transparent;
+	max-width: 400px;
+	max-height: 900px;	
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 15px;
 }
 
 .img-text-wrapper .subtitle a{
 	transition:1s;
 	font-weight:600;
 	color:transparent;
+	
 }
 
 .img-text-wrapper:hover .subtitle{

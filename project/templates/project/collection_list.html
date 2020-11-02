@@ -14,14 +14,11 @@
                     <div class="portfolio-item-wrapper">
                         <div class="portfolio-img-background" style="background-image:url(/media/{{project.thumbnail.name}})">	</div>
                         <div class="img-text-wrapper">
-                            <div class="subtitle">
-                                <a style="font-style:bold; font-size:medium;" href="{% url 'project' pk=project.pk %}"> {{project.title}}.</a>
+                            <div class="subtitle" style = "font-style:bold; font-size: 1.2 em;">
+                                <a style="font-style:bold; font-size:3 em;" href="{% url 'project' pk=project.pk %}"> {{project.title}}.</a>
                             </div>
                             <div class="subtitle">
-                                <p>{{ project.description|safe|linebreaks }}</p>            
-                            </div>
-                            <div class="subtitle">
-                                <p style="font-style:italic; font-size:small;">Pågående prosjekt.</p>
+                                <p >{{ project.description|safe|linebreaks }}</p>            
                             </div>
                         </div>
                     </div>
