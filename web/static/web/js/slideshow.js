@@ -55,11 +55,20 @@ function AddProject(i)
 }
 function AddElementsToProject(pEL, i)
 {
-    var titleEL = document.createElement("div");
     var project = projects[i];
-    titleEL.innerText = project["desc"];
+
+    var titleEL = document.createElement("div");
+    titleEL.innerText = project["title"];
+
+    var imgEL = document.createElement("img");
+    imgEL.src = project["img"];
+
+    var descEL = document.createElement("div");
+    descEL.innerText = project["desc"];
 
     pEL.appendChild(titleEL);
+    pEL.appendChild(descEL);
+    pEL.appendChild(imgEL);
 }
 function GetSlideshow()
 {  // Updates slideshowEL to find the slideshow div in HTML
@@ -171,6 +180,16 @@ function InterpolateAnimation()
     {
                 setTimeout(function() { InterpolateAnimation(); }, animationInterval);
     }
+}
+function CreateProject(title, img, link, desc)
+{
+    var newObj = {};
+    newObj["title"] = title;
+    newObj["img"] = img;
+    newObj["link"] = link;
+    newObj["desc"] = desc;
+    projects.push(newObj);
+    ResetAll();
 }
 
 // ========== GLOBAL VARIABLES ==========
