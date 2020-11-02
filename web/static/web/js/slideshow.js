@@ -45,6 +45,10 @@ function AddProject(i)
     projectEL.style.width = projectWidth+"px";
     projectEL.style.height = projectHeight+"px";
 
+    projectEL.style.position = "absolute";
+    projectEL.style.display = "inline-block";
+    projectEL.style.cursor = "pointer";
+
     var pixelPos = GetTargetPixelPosition(projectEL);
     projectEL.style.left = pixelPos+"px";
     projectEL.pixelPos = pixelPos;
@@ -61,14 +65,16 @@ function AddElementsToProject(pEL, i)
     titleEL.innerText = project["title"];
 
     var imgEL = document.createElement("img");
+    imgEL.style.width = "100%";
+    imgEL.style.height = "60%";
     imgEL.src = project["img"];
 
     var descEL = document.createElement("div");
     descEL.innerText = project["desc"];
 
+    pEL.appendChild(imgEL);
     pEL.appendChild(titleEL);
     pEL.appendChild(descEL);
-    pEL.appendChild(imgEL);
 }
 function GetSlideshow()
 {  // Updates slideshowEL to find the slideshow div in HTML
@@ -79,6 +85,7 @@ function GetSlideshow()
 }
 function SwitchToProject(e)
 {
+    console.log("Switched to "+e.target.index);
     var newProjectEL = e.target;
     if (newProjectEL.className != "project")
     newProjectEL = newProjectEL.parentNode;
@@ -199,8 +206,8 @@ var slideshowEL;
 var projectELs;  // Stores elements
 var interpolationSpeed = 0.05;
 var animationInterval = 16;  // in ms, how long to wait between position set
-var projectWidth = 600;
-var projectHeight = 400;
+var projectWidth = 400;
+var projectHeight = 200;
 var visibleSideProjects = 1;  // How many extra projects should display on each side of the current project preview
 var projects =  // Some fancy django function to get projects from database?
 [

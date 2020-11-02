@@ -259,6 +259,7 @@ a.button {
 	color:rgb(173,0,255); /*annerledes farge enn andre plass*/
 }
 
+/*
 #showcase4-wrapper .container .pictures{
 	display:flex;
 	margin-left:25%;
@@ -273,7 +274,7 @@ a.button {
     left:-10px;
     width:300px;
     height:300px; 
-}
+}*/
 
 .endtext{
 	margin-top:300px;
