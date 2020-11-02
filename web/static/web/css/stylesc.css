@@ -59,7 +59,7 @@ a{
 }
 
 .nav-link-wrapper{
-	height:22px;
+	height:26px;
 	border-bottom:1px solid transparent;
 	transition:border-bottom 0.5s;
 }
@@ -259,6 +259,7 @@ a.button {
 	color:rgb(173,0,255); /*annerledes farge enn andre plass*/
 }
 
+/*
 #showcase4-wrapper .container .pictures{
 	display:flex;
 	margin-left:25%;
@@ -273,7 +274,7 @@ a.button {
     left:-10px;
     width:300px;
     height:300px; 
-}
+}*/
 
 .endtext{
 	margin-top:300px;
@@ -309,8 +310,9 @@ a.button {
   position: fixed;
   right: 0;
   top: 98%;
-  width: 7em;
+  width: 7.8em;
   margin-top: -2.5em;
+  list-style: none;
 }
 
 
