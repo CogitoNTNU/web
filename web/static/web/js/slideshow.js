@@ -41,16 +41,18 @@ function AddProject(i)
     var projectEL = document.createElement("div");
     projectEL.index = i;
     projectEL.className = "project";
-    projectEL.style.backgroundColor = "rgb("+(40*i)+","+(255-40*i)+","+128+")";
-    projectEL.style.width = projectWidth+"px";
-    projectEL.style.height = projectHeight+"px";
 
-    projectEL.style.position = "absolute";
-    projectEL.style.display = "inline-block";
-    projectEL.style.cursor = "pointer";
+    var s = projectEL.style;
+    s.backgroundColor = "rgb("+(40*i)+","+(255-40*i)+","+(128+Math.sin(i)*40)+")";
+    s.width = projectWidth+"px";
+    s.height = projectHeight+"px";
+    s.position = "absolute";
+    s.display = "inline-block";
+    s.cursor = "pointer";
+    s.textAlign = "center"; 
 
     var pixelPos = GetTargetPixelPosition(projectEL);
-    projectEL.style.left = pixelPos+"px";
+    s.left = pixelPos+"px";
     projectEL.pixelPos = pixelPos;
 
     AddElementsToProject(projectEL, i);
@@ -66,7 +68,7 @@ function AddElementsToProject(pEL, i)
 
     var imgEL = document.createElement("img");
     imgEL.style.width = "100%";
-    imgEL.style.height = "60%";
+    imgEL.style.height = projectImgHeight*100+"%";
     imgEL.src = project["img"];
 
     var descEL = document.createElement("div");
@@ -135,6 +137,11 @@ function GetTargetPixelPosition(projectEL)
         projectEL.removeEventListener("click", OpenProject)
         projectEL.addEventListener("click", SwitchToProject);
     }
+    
+    var opacity = 1-(Math.abs(absPos)/visibleSideProjects)*(1-minOpacity)
+    if (absPos != 0 && opacity > maxOpacity) opacity = maxOpacity;
+    console.log("opacity is "+opacity);
+    projectEL.style.opacity = opacity;
 
     projectEL.overflow = overflow;
     if (overflow) projectEL.style.display = "none";
@@ -149,44 +156,16 @@ function IsOverflowing(pos)
 function OpenProject(e)
 {
     var projectEL = e.target;
+    console.log(projectEL);
     var index = projectEL.index;
-    var link = projects[index]["link"];
+    if (index == null)
+    {
+        projectEL = projectEL.parentNode;
+        index = projectEL.index;
+    }
+    var p = projects[index];
+    var link = p["link"];
     window.location.href = link;
-}
-function InterpolateAnimation()
-{
-
-    var continueRecursion = false;
-    for (var i = 0; i < projectELs.length; i++)
-    {
-        var projectEL = projectELs[i];
-        var posInSlideshow = projectEL.posInSlideshow;
-        var finalPos = GetTargetPixelPosition(projectEL);
-
-        var previousPos = parseInt(projectEL.style.left);
-        var nextPos =(previousPos*(1-interpolationSpeed)+finalPos*interpolationSpeed);
-        var pixelPos;
-        if (Math.abs(finalPos-nextPos) < 2)
-        {
-            pixelPos = finalPos;
-        } else
-        {
-            pixelPos = nextPos;
-            continueRecursion = true;
-        }
-        projectEL.style.left = pixelPos+"px";
-        projectEL.pixelPos = pixelPos;
-
-        var opacity = 1-Math.abs(posInSlideshow/4);
-        projectEL.style.opacity = opacity;
-        if (opacity <= 0) projectEL.style.display = "none";
-        else projectEL.style.display = "inline-block";
-
-    }
-    if (continueRecursion)
-    {
-                setTimeout(function() { InterpolateAnimation(); }, animationInterval);
-    }
 }
 function CreateProject(title, img, link, desc)
 {
@@ -206,9 +185,12 @@ var slideshowEL;
 var projectELs;  // Stores elements
 var interpolationSpeed = 0.05;
 var animationInterval = 16;  // in ms, how long to wait between position set
-var projectWidth = 400;
-var projectHeight = 200;
-var visibleSideProjects = 1;  // How many extra projects should display on each side of the current project preview
+var projectWidth = 300;
+var projectHeight = 600;
+var projectImgHeight = 0.8;
+var minOpacity = 0.3;
+var maxOpacity = 0.5;  // Center project always has opacity of 1
+var visibleSideProjects = 2;  // How many extra projects should display on each side of the current project preview
 var projects =  // Some fancy django function to get projects from database?
 [
     {"title":"Fake News Generator", "img":"", "link":"https://google.com", "desc":"Vi mekka en sånn derre AI greie som produsere fake tweets av Donald Trump"},

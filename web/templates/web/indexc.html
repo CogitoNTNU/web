@@ -100,7 +100,7 @@
 	<script>
 		// name, img, link, desc
 		console.log("testtttsttststs");
-		CreateProject("/media/{{ project.thumbnail.name }}", "/media/{{ project.thumbnail.name }}", "https://google.com", "Dette er en veldig bra test");
+		CreateProject("{{ project.title }}", "/media/{{ project.thumbnail.name }}", "projects/project/{{ project.pk }}", "");
 	</script>
 	<!--<a href="/projects">
 			<img src="/media/{{ project.thumbnail.name }}" class="thumbnail" height=250 width=250>
