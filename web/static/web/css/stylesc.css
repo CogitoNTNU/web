@@ -59,7 +59,7 @@ a{
 }
 
 .nav-link-wrapper{
-	height:22px;
+	height:26px;
 	border-bottom:1px solid transparent;
 	transition:border-bottom 0.5s;
 }
@@ -310,8 +310,9 @@ a.button {
   position: fixed;
   right: 0;
   top: 98%;
-  width: 7em;
+  width: 7.8em;
   margin-top: -2.5em;
+  list-style: none;
 }
 
 
