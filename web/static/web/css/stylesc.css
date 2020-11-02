@@ -19,7 +19,7 @@ a{
 .nav-wrapper{
 	display:flex;
 	justify-content:space-between;
-	background-color:rgb(239,239,237);
+	background-color:rgb(239,241,238);
 	padding:20px;
 
 }
@@ -91,7 +91,7 @@ a{
 #showcase-wrapper{
 	display:flex;
 	justify-content:space-between;
-	background-color:rgb(239,239,237);
+	background-color:rgb(239,241,238);
 	padding:0px;
 }
 
@@ -114,6 +114,7 @@ a{
 	width:100%;
 	margin-top:150px;
 }
+
 
 
  s {
@@ -148,6 +149,13 @@ a.button {
     appearance: button;
     text-decoration: none;
     color: initial;
+	border-style: solid;
+	border-radius: 10px;
+	border-color: rgb(204,204,204);
+	background-color: rgb(204,204,204);
+	margin-left: 15%;
+	padding: 8px;
+	font-family: Montserrat !important;
 }
 
 
