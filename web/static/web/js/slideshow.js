@@ -53,6 +53,7 @@ function AddProject(i)
 
     var pixelPos = GetTargetPixelPosition(projectEL);
     s.left = pixelPos+"px";
+
     projectEL.pixelPos = pixelPos;
 
     AddElementsToProject(projectEL, i);
@@ -69,6 +70,7 @@ function AddElementsToProject(pEL, i)
     var imgEL = document.createElement("img");
     imgEL.style.width = "100%";
     imgEL.style.height = projectImgHeight*100+"%";
+
     imgEL.src = project["img"];
 
     var descEL = document.createElement("div");
@@ -136,12 +138,12 @@ function GetTargetPixelPosition(projectEL)
     {
         projectEL.removeEventListener("click", OpenProject)
         projectEL.addEventListener("click", SwitchToProject);
-    }
-    
+    }  
     var opacity = 1-(Math.abs(absPos)/visibleSideProjects)*(1-minOpacity)
     if (absPos != 0 && opacity > maxOpacity) opacity = maxOpacity;
     console.log("opacity is "+opacity);
     projectEL.style.opacity = opacity;
+
 
     projectEL.overflow = overflow;
     if (overflow) projectEL.style.display = "none";
@@ -166,6 +168,7 @@ function OpenProject(e)
     var p = projects[index];
     var link = p["link"];
     window.location.href = link;
+
 }
 function CreateProject(title, img, link, desc)
 {
@@ -185,12 +188,14 @@ var slideshowEL;
 var projectELs;  // Stores elements
 var interpolationSpeed = 0.05;
 var animationInterval = 16;  // in ms, how long to wait between position set
+
 var projectWidth = 300;
 var projectHeight = 600;
 var projectImgHeight = 0.8;
 var minOpacity = 0.3;
 var maxOpacity = 0.5;  // Center project always has opacity of 1
 var visibleSideProjects = 2;  // How many extra projects should display on each side of the current project preview
+
 var projects =  // Some fancy django function to get projects from database?
 [
     {"title":"Fake News Generator", "img":"", "link":"https://google.com", "desc":"Vi mekka en sånn derre AI greie som produsere fake tweets av Donald Trump"},
