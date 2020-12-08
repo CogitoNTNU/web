@@ -18,7 +18,7 @@
                     <div class="portfolio-item-wrapper">
                         <div class="portfolio-img-background" style="background-image:url(/media/{{project.thumbnail.name}})">	</div>
                         <div class="img-text-wrapper">
-                            <div class="subtitle" style = "font-style:bold; font-size: 1.2 em;">
+                            <div class="subtitle" style = "font-style:bold;">
                                 <a style="font-style:bold; font-size:3 em;" href="{% url 'project' pk=project.pk %}"> {{project.title}}.</a>
                             </div>
                             <div class="subtitle">
@@ -42,6 +42,14 @@
     }
     .portfolio-img-background{
         height:50vh;
+    }
+    .img-text-wrapper .subtitle  {
+        max-width: 50vw;
+        max-height: 100vh;
+        font-size: 40px;
+    }
+    .subtitle{
+        font-size:50px;
     }
 }
 </style>
