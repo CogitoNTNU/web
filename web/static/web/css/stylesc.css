@@ -293,6 +293,7 @@ a.button {
 
 
 /* FIXED MENU */
+
 #fixedcontainer{
 	position:fixed;
 	right:0;
@@ -303,7 +304,14 @@ a.button {
 	border:solid;
 	border-radius: 30% 0% 0 0;
   	width: 150px;
-  	height: 100px;
+	height: 100px;
+	display:block;
+}
+
+@media screen and (max-width: 480px) {
+    #fixedcontainer {
+        display:none;
+    }
 }
 
 .fixedcontent {

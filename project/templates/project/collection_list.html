@@ -6,11 +6,15 @@
 
 <!DOCTYPE html>
 <html>
+    
 <body>
 	<div class="content-wrapper">
         <div class="portfolio-items-wrapper">
             {% for collection in collection_list %}
                 {% for project in collection.projects.all %}
+                <head>
+                <meta name="viewport" content="width=device-width, initial-scale=0.2">
+                </head>
                     <div class="portfolio-item-wrapper">
                         <div class="portfolio-img-background" style="background-image:url(/media/{{project.thumbnail.name}})">	</div>
                         <div class="img-text-wrapper">
