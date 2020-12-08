@@ -14,7 +14,7 @@
 <div class="nav-wrapper">
     <div class="left-side">
         <a href="{% url 'home' %}">
-            <img src="{% static "web/img/logo.svg" %}" width=90px>
+            <img id = "hjemlogo" src="{% static "web/img/logo.svg" %}" width=90px>
         </a>
         <div class="brand">
             <div class="nav-link-wrapper2"><!-- to make it an active state -->
@@ -44,3 +44,21 @@
         </div>
     </div>
 </div>
+<style>
+    @media screen and (max-width: 1500px){
+        .nav-wrapper {
+            width: 100vw!important;
+            height:20vh;
+        }
+        .nav-wrapper .left-side .brand .nav-link-wrapper2 a{
+            font-size:70px;
+            display:none;
+        }
+        #hjemlogo{
+            width:120px;
+        }
+        .nav-link-wrapper .left-side div{
+            
+        }
+    }
+</style>

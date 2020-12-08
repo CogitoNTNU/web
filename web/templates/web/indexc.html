@@ -5,11 +5,10 @@
 
 <!DOCTYPE html>
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=0.4">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
 	<div class="container">
-
-		<div id="showcase-wrapper" height="100vh;">
+		<div id="showcase-wrapper">
 			<div class="left-side-wrapper">
 				<div id="container2">
 					<p id="bold" style="font-family: Montserrat !important;">Vi gjør <span
@@ -22,13 +21,13 @@
 				</div>
 				<p style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjon som jobber for å
 				fremme læring og interesse for kunstig intelligens på alle nivåer. Dette gjør vi gjennom arrangementer som kurs, foredrag og hackathons samt prosjekter som gjennomføres hvert semester.</p>
+				<div class= "grid">
 				<a href="about" class="button">OM OSS </a>
 				<a href="projects" class="button">PROSJEKTER </a>
-
 				<a href="\news" class="button"> NYHETER </a>
-
+				</div>
 			</div>
-			<div class="right-side-wrapper">
+			<div class="right-side-wrapper">	
 				<img src="{% static "web/img/Ingensirkel.gif" %}" alt="this slowpoke moves" width=800px id = "gif">
 			</div>
 		</div>
@@ -51,7 +50,7 @@
 		<div id="showcase3-wrapper">
 			<div class="container">
 				<div class="box">
-					<p>"Vi i Cogito ønsker deg som er nysgjerrig på AI og ønsker å lære om det i en sosial setting, uansett erfaringsnivå."</p>
+					<p>"Vi i Cogito ser etter deg som er nysgjerrig på AI og ønsker å lære mer om det i en sosial setting, uansett erfaringsnivå."</p>
 
 					<div id="espen">
 						<div id="box-espen1">
@@ -110,10 +109,26 @@
 				display: none!important;
 			}
 		}
-		@media screen and (max-width: 1200px){
+		@media screen and (max-width: 1500px){
 			.showcase2-wrapper {
-				width: 50%!important;
+				width: 50vw!important;
 				clear:left;
+			}
+			.left-side-wrapper {
+				height:50vh;
+				width: 100vw!important;
+				clear:left;
+				font-size:40px;
+			}
+			.button{
+				display:none;
+			}
+			#showcase-wrapper .left-side-wrapper{
+				padding-left:50px;
+				padding-top:0px;
+			}
+			#container2{
+				margin-top:20px;
 			}
 		}
 		</style>
