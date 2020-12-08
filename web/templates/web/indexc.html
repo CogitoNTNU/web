@@ -19,8 +19,9 @@
 
 				</div>
 				<p style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjonsom jobber for å
-				fremme læring og interesse for kunstig intelligens på alle nivåer.</p>
-                <a href="about" class="button">OM OSS </a>
+				fremme læring og interesse for kunstig intelligens på alle nivåer. Dette gjør vi gjennom arrangementer som kurs, foredrag og hackathons samt prosjekter som gjennomføres hvert semester.</p>
+				<a href="about" class="button">OM OSS </a>
+				<a href="projects" class="button">PROSJEKTER </a>
 				<a href="\news" class="button"> NYHETER </a>
 
 			</div>
@@ -31,13 +32,13 @@
 
 		<div id="showcase2-wrapper">
 			<div class="container">
-				<p>Vi er en frivillig <span>studentorganisasjon</span> som jobber for å fremme læring og interesse for
-					kunstig intelligens.</p>
+				<p> Vårt mål er å være en åpen <span>studentorganisasjon</span> der alle som er nysgjerrige kan delta	.
+				</p>
 			</div>
 			<div class="grid">
 				<img src="{% static "web/img/teaching.jpg" %}" width=300 height=300>
-				<img src="{% static "web/img/cogitocrew.jpg" %}" width=450 height=450>
-				<img src="{% static "web/img/teaching.jpg" %}" width=300 height=300>
+				<img src="{% static "web/img/cogitocrew.jpg" %}" width=550 height=450>
+				<img src="{% static "web/img/koselig_bilde.jpg" %}" width=300 height=300>
 
 			</div>
 		</div>
@@ -45,15 +46,14 @@
 		<div id="showcase3-wrapper">
 			<div class="container">
 				<div class="box">
-					<p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua."</p>
+					<p>"Vi i Cogito ønsker deg som er nysgjerrig på AI og ønsker å lære om det i en sosial setting, uansett erfaringsnivå."</p>
 
 					<div id="espen">
 						<div id="box-espen1">
 							<img src="{% static "web/img/espen.png" %}">
 						</div>
 						<div class="box-espen2">
-							<p><strong>Espen Boman Fosseide</strong></p>
+							<p><strong>Espen Fosseide</strong></p>
 							<p style="color:rgb(204,204,204)">Styreleder</p>
 						</div>
 					</div>
@@ -64,6 +64,7 @@
 			</div>
 		</div>
 		<!--Prosjekter-->
+		<!--
 		<div id="showcase4-wrapper">
 			<div class="container">
 				<h1><span>Lorem ipsum</span> - dolor sit amet consectetur</h1>
@@ -71,11 +72,16 @@
 				</div>
 			</div>
 		</div>
-
-		<h1 class="endtext">
-			<span>Lorem ipsum</span> dolor sit amet consectetur
-		</h1>
-
+		
+		<div id="showcase3-wrapper">
+			<div class="container">
+				
+			<h1 class="endtext">
+				<span>Lorem ipsum</span> dolor sit amet consectetur
+			</h1>
+			</div>
+		</div>
+		-->
 		<!-- fixed social media menu -->
 		<div id="fixedcontainer">
 			<ul class="fixedcontent">
@@ -90,7 +96,7 @@
 
 
 	</div>
-
+	<!-- slideshow
 	<script src="{% static 'web/js/slideshow.js' %}">
 	</script>
 
@@ -101,11 +107,12 @@
 		console.log("testtttsttststs");
 		CreateProject("{{ project.title }}", "/media/{{ project.thumbnail.name }}", "projects/project/{{ project.pk }}", "");
 	</script>
-	<!--<a href="/projects">
+		<a href="/projects">
 			<img src="/media/{{ project.thumbnail.name }}" class="thumbnail" height=250 width=250>
-		</a>-->
+		</a>
 	{% endif %}
 	{% endfor %}
+	-->
 </body>
 
 </html>
