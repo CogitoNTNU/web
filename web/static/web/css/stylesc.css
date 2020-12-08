@@ -54,8 +54,9 @@ a{
 
 .nav-wrapper .right-side div{
 	margin-right:20px;
-	font-size:0.9em; /*percent of what it normally would be*/
+	font-size:1.6em; /*percent of what it normally would be*/
 	text-transform:uppercase;
+	line-height:1;
 }
 
 .nav-link-wrapper{
@@ -95,6 +96,11 @@ a{
 	padding:0px;
 }
 
+.showcase-wrapper .grid{
+	display:grid;
+	grid-template-columns:1fr 1fr 1fr; /*3 in a row*/
+}
+
 #showcase-wrapper .left-side-wrapper{
 	padding-left:100px;
 	padding-top:70px;
@@ -102,6 +108,11 @@ a{
 	align-items:center;
 	justify-content:center;
 	margin-left:20px;*/
+}
+
+.showcase-wrapper .left-side-wrapper .grid{
+	display:grid;
+	grid-template-columns:1fr 1fr 1fr; /*3 in a row*/
 }
 
 #showcase-wrapper .left-side-wrapper #bold{
@@ -179,13 +190,14 @@ a.button {
 
 #showcase2-wrapper .grid{
 	display:flex;
-	margin-left:300px;
-	margin-right:300px;
+	width:100vw;
+	margin:auto;
 	justify-content:space-between;	
 }
 
 #showcase2-wrapper .grid img{
 	border-radius:50%;
+	margin: auto;
 }
 
 
@@ -293,6 +305,7 @@ a.button {
 
 
 /* FIXED MENU */
+
 #fixedcontainer{
 	position:fixed;
 	right:0;
@@ -303,7 +316,8 @@ a.button {
 	border:solid;
 	border-radius: 30% 0% 0 0;
   	width: 150px;
-  	height: 100px;
+	height: 100px;
+	display:block;
 }
 
 .fixedcontent {
@@ -383,6 +397,8 @@ footer{
 	transition:1s;
 	font-weight:600;
 	color:transparent;
+	line-height: 1.5;
+	font-size: 20px;
 	
 }
 

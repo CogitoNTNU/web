@@ -1,8 +1,14 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'web/css/footer.css' %}">
 
+<link rel="stylesheet" type="text/css" href="{% static 'web/css/footer.css' %}">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
 <div class="footer cogito_ft_lgray">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=0.2">
+    </head>
     <div class="ui container">
         <a class="logo" href="https://cogito-ntnu.no/" id="cogito" aria-label="Gå til forsiden">
             <img alt="Cogito NTNUs logo" class="image" src="{% static "web/img/logo.svg" %}">
@@ -46,4 +52,34 @@
     <div class="copyright">© {% now "Y" %} Cogito NTNU</div>
     </br>
 
+    
 </div>
+
+<style>
+@media screen and (max-width: 1500px){
+    .sponsor {
+        width: 30vw!important;
+        height:10vh!important;
+    }
+    .sponsor-img{
+        width:30vw;
+        height: 5vh;
+    }
+    .footer .logo img{
+        margin-top: 100px;
+        width: 10vw;
+        height: 10vh;
+    }
+    .footer .name{
+        margin-top:350px;
+        font-size:40px;
+        line-height: 1;
+        margin-left:0;
+    }
+    .item{
+        width: 15vw;
+        height: 3vh ;
+        font-size:30px;
+    }
+    }
+</style>

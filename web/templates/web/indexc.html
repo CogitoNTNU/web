@@ -1,12 +1,13 @@
 {% extends "web/base.html" %}
 {% load static %}
 {% block body %}
+
+
 <!DOCTYPE html>
 <html>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <body>
 	<div class="container">
-
 		<div id="showcase-wrapper">
 			<div class="left-side-wrapper">
 				<div id="container2">
@@ -18,26 +19,26 @@
 				<div class="container3">
 
 				</div>
-				<p style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjonsom jobber for å
+				<p style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjon som jobber for å
 				fremme læring og interesse for kunstig intelligens på alle nivåer. Dette gjør vi gjennom arrangementer som kurs, foredrag og hackathons samt prosjekter som gjennomføres hvert semester.</p>
+				<div class= "grid">
 				<a href="about" class="button">OM OSS </a>
 				<a href="projects" class="button">PROSJEKTER </a>
-
 				<a href="\news" class="button"> NYHETER </a>
-
+				</div>
 			</div>
-			<div class="right-side-wrapper">
-				<img src="{% static "web/img/Ingensirkel.gif" %}" alt="this slowpoke moves" width=800px>
+			<div class="right-side-wrapper">	
+				<img src="{% static "web/img/Ingensirkel.gif" %}" alt="this slowpoke moves" width=800px id = "gif">
 			</div>
 		</div>
 
 		<div id="showcase2-wrapper">
 			<div class="container">
-
-				<p> Vårt mål er å være en åpen <span>studentorganisasjon</span> der alle som er nysgjerrige kan delta	.
+				<p> 				
+					Vårt mål er å være en åpen <span>studentorganisasjon</span> der alle som er nysgjerrige kan delta.
 				</p>
 			</div>
-			<div class="grid">
+			<div class="grid" id = "grid_pics">
 				<img src="{% static "web/img/teaching.jpg" %}" width=300 height=300>
 				<img src="{% static "web/img/cogitocrew.jpg" %}" width=550 height=450>
 				<img src="{% static "web/img/koselig_bilde.jpg" %}" width=300 height=300>
@@ -49,7 +50,7 @@
 		<div id="showcase3-wrapper">
 			<div class="container">
 				<div class="box">
-					<p>"Vi i Cogito ønsker deg som er nysgjerrig på AI og ønsker å lære om det i en sosial setting, uansett erfaringsnivå."</p>
+					<p>"Vi i Cogito ser etter deg som er nysgjerrig på AI og ønsker å lære mer om det i en sosial setting, uansett erfaringsnivå."</p>
 
 					<div id="espen">
 						<div id="box-espen1">
@@ -97,7 +98,40 @@
 				</li>
 			</ul>
 		</div>
-
+		<style>
+		@media screen and (max-width: 1500px) {
+			#fixedcontainer {
+				display: none!important;
+			}
+		  }
+		@media screen and (max-width: 1500px){
+			#gif {
+				display: none!important;
+			}
+		}
+		@media screen and (max-width: 1500px){
+			.showcase2-wrapper {
+				width: 50vw!important;
+				clear:left;
+			}
+			.left-side-wrapper {
+				height:50vh;
+				width: 100vw!important;
+				clear:left;
+				font-size:40px!important;
+			}
+			.button{
+				display:none;
+			}
+			#showcase-wrapper .left-side-wrapper{
+				padding-left:50px;
+				padding-top:0px;
+			}
+			#container2{
+				margin-top:20px;
+			}
+		}
+		</style>
 
 	</div>
 
