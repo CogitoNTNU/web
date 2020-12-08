@@ -56,7 +56,7 @@ a{
 	margin-right:20px;
 	font-size:1.6em; /*percent of what it normally would be*/
 	text-transform:uppercase;
-	line-height:1.5;
+	line-height:1;
 }
 
 .nav-link-wrapper{
