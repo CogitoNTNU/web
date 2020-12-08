@@ -29,17 +29,17 @@
 
 			</div>
 			<div class="right-side-wrapper">
-				<img src="{% static "web/img/Ingensirkel.gif" %}" alt="this slowpoke moves" width=800px>
+				<img src="{% static "web/img/Ingensirkel.gif" %}" alt="this slowpoke moves" width=800px id = "gif">
 			</div>
 		</div>
 
 		<div id="showcase2-wrapper">
 			<div class="container">
-
-					<p> Vårt mål er å være en åpen <span>studentorganisasjon</span> der alle som er nysgjerrige kan delta.
+				<p> 				
+					Vårt mål er å være en åpen <span>studentorganisasjon</span> der alle som er nysgjerrige kan delta.
 				</p>
 			</div>
-			<div class="grid">
+			<div class="grid" id = "grid_pics">
 				<img src="{% static "web/img/teaching.jpg" %}" width=300 height=300>
 				<img src="{% static "web/img/cogitocrew.jpg" %}" width=550 height=450>
 				<img src="{% static "web/img/koselig_bilde.jpg" %}" width=300 height=300>
@@ -99,7 +99,24 @@
 				</li>
 			</ul>
 		</div>
-
+		<style>
+		@media screen and (max-width: 1600px) {
+			#fixedcontainer {
+				display: none!important;
+			}
+		  }
+		@media screen and (max-width: 1600px){
+			#gif {
+				display: none!important;
+			}
+		}
+		@media screen and (max-width: 1600px){
+			.showcase2-wrapper {
+				width: 50%!important;
+				clear:left;
+			}
+		}
+		</style>
 
 	</div>
 

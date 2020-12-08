@@ -179,13 +179,14 @@ a.button {
 
 #showcase2-wrapper .grid{
 	display:flex;
-	margin-left:300px;
-	margin-right:300px;
+	width:100%;
+	margin:auto;
 	justify-content:space-between;	
 }
 
 #showcase2-wrapper .grid img{
 	border-radius:50%;
+	margin: auto;
 }
 
 
@@ -306,12 +307,6 @@ a.button {
   	width: 150px;
 	height: 100px;
 	display:block;
-}
-
-@media screen and (max-width: 480px) {
-    #fixedcontainer {
-        display:none;
-    }
 }
 
 .fixedcontent {
