@@ -1,174 +1,174 @@
+// slideshow can be customized at the bottom of this js file.
+// modifying anything else in this file may or may not create an abomination
+
+// IF SLIDESHOW ISN'T SHOWING UP/LOOKING ALRIGHT:
+// don't have multiple slideshows on one page. this code only handles one
+// remember to include slideshow.css, can be done with putting <link rel="stylesheet" type="text/css" href="/static/web/css/slideshow.css"> inside of <head>
+// Copy-paste this into your html file:
+/*
+
+	<div id="slideshow"></div>
+	<script src="{% static 'web/js/slideshow.js' %}">
+	</script>
+	{% for project in projects %}
+	{% if project.thumbnail %}
+	<script>
+		// gets name, img, link, desc from django database
+		CreateProject("{{ project.title }}", "/media/{{ project.thumbnail.name }}", "projects/project/{{ project.pk }}", "");
+	</script>
+	{% endif %}
+	{% endfor %}
+	<script>
+		ResetAll();
+	</script>
+
+*/
+// The <div id="slideshow"></div> may be moved to mostly anywhere in the document.
+
 // =========== FUNCTIONS ==========
 
 function ResetAll()
 {
-    GetProjects();
     ResetSlideshow();
-    SetProjectPoses(0);
-}
-function GetProjects()
-{
-    /* PSEUDOCODE
-    projects = [];
-    for (var i = 0; i < { % PROJECT_COUNT % }; i++)
-    {
-        var newProj = {};
-        newProj["title"] = { % PROJECT_TITLE % }
-        newProj["desc"] = { % PROJECT_DESC % }
-        newProj["img"] = { % PROJECT_IMG % }
-        newProj["link"] = { % PROJECT_LINK % }
-        projects.push(newProj);
-    }
-    */
 }
 function ResetSlideshow()
 {
-    GetSlideshow();
-    slideshowEL.innerHTML = "";
-    currentProject = Math.floor(projects.length/2);
-    AddProjects();
-    SetProjectPoses();
+    currentProject = 0;
+    SetupSlideshow();
 }
-function AddProjects()
-{
-    for (var i = 0; i < projects.length; i++)
-    {
-        AddProject(i);
-    }
-}
-function AddProject(i)
-{  // i is index of the project in projects variable
-    var projectEL = document.createElement("div");
-    projectEL.index = i;
-    projectEL.className = "project";
-
-    var s = projectEL.style;
-    s.backgroundColor = "rgb("+(40*i)+","+(255-40*i)+","+(128+Math.sin(i)*40)+")";
-    s.width = projectWidth+"px";
-    s.height = projectHeight+"px";
-    s.position = "absolute";
-    s.display = "inline-block";
-    s.cursor = "pointer";
-    s.textAlign = "center"; 
-
-    var pixelPos = GetTargetPixelPosition(projectEL);
-    s.left = pixelPos+"px";
-
-    projectEL.pixelPos = pixelPos;
-
-    AddElementsToProject(projectEL, i);
-
-    slideshowEL.appendChild(projectEL);
-}
-function AddElementsToProject(pEL, i)
-{
-    var project = projects[i];
-
-    var titleEL = document.createElement("div");
-    titleEL.innerText = project["title"];
-
-    var imgEL = document.createElement("img");
-    imgEL.style.width = "100%";
-    imgEL.style.height = projectImgHeight*100+"%";
-
-    imgEL.src = project["img"];
-
-    var descEL = document.createElement("div");
-    descEL.innerText = project["desc"];
-
-    pEL.appendChild(imgEL);
-    pEL.appendChild(titleEL);
-    pEL.appendChild(descEL);
-}
-function GetSlideshow()
+function SetupSlideshow()
 {  // Updates slideshowEL to find the slideshow div in HTML
     bodyEL = document.body;
     slideshowEL = document.getElementById("slideshow");
     if (slideshowEL == null) console.error("ERROR: couldn't find slideshow element. Did you forget to add a <div id='slideshow'> in the HTML?");
-    projectELs = slideshowEL.children;
-}
-function SwitchToProject(e)
-{
-    console.log("Switched to "+e.target.index);
-    var newProjectEL = e.target;
-    if (newProjectEL.className != "project")
-    newProjectEL = newProjectEL.parentNode;
-    currentProject = newProjectEL.index; // The index of the project that will be centered
-    SetProjectPoses();
-}
-function SetProjectPoses()
-{
-    for (var i = 0; i < projectELs.length; i++)
-    {
-        SetProjectPos(projectELs[i]);
-    }   
-    //InterpolateAnimation();
-}
-function SetProjectPos(projectEL)
-{
-    var pixelPos = GetTargetPixelPosition(projectEL);
-    projectEL.style.left = pixelPos+"px";
-}
-function GetTargetPixelPosition(projectEL)
-{
-    var midPos = Math.floor(bodyEL.clientWidth/2);
-    var adjustToCenter = Math.floor(projectWidth/2);
-    var index = projectEL.index;
-    var absPos = index-currentProject;
+    slideshowEL.innerHTML = "";
+    explanationEL = document.createElement("div");
+    contentWrapperEL = document.createElement("div");
+    textWrapperEL = document.createElement("div");
+    imgWrapperEL = document.createElement("div");
+    imgEL = document.createElement("img");
+    titleEL = document.createElement("div");
+    descEL = document.createElement("div");
 
-    if (IsOverflowing(absPos))
-    {
-        // Overflowing. Checks if it doesn't overflow if wrapped around.
-        var tempPos = absPos + projects.length;
-        if (!IsOverflowing(tempPos)) absPos = tempPos;
-        else
-        {
-            tempPos = absPos - projects.length;
-            if (!IsOverflowing(tempPos)) absPos = tempPos;
-        }
-    }
-    var overflow = IsOverflowing(absPos);
+    lButtonWrapperEL = document.createElement("div");
+    lButtonEL = document.createElement("img");
+    rButtonWrapperEL = document.createElement("div");
+    rButtonEL = document.createElement("img");
 
-    if (absPos == 0)
-    {
-        projectEL.removeEventListener("click", SwitchToProject);
-        projectEL.addEventListener("click", OpenProject);
-    }
-    else
-    {
-        projectEL.removeEventListener("click", OpenProject)
-        projectEL.addEventListener("click", SwitchToProject);
-    }  
-    var opacity = 1-(Math.abs(absPos)/visibleSideProjects)*(1-minOpacity)
-    if (absPos != 0 && opacity > maxOpacity) opacity = maxOpacity;
-    console.log("opacity is "+opacity);
-    projectEL.style.opacity = opacity;
+    // Setting ids for elements so slideshow.css can modify their style
+    //slideshowEL.id = "slideshow";  // already set in html
+    explanationEL.id = "slideExplanation";
+    lButtonWrapperEL.id = "slideLButtonWrapper";
+    rButtonWrapperEL.id = "slideRButtonWrapper";
+    lButtonEL.id = "slideLButton";
+    rButtonEL.id = "slideRButton";
+    contentWrapperEL.id = "slideContentWrapper";
+    imgWrapperEL.id = "slideImgWrapper";
+    textWrapperEL.id = "slideTextWrapper";
+    titleEL.id = "slideTitle";
+    descEL.id = "slideDesc";
+    imgEL.id = "slideImg";
 
+    lButtonWrapperEL.className = "slideButtonWrapper";
+    rButtonWrapperEL.className = "slideButtonWrapper";
+    lButtonEL.className = "slideButton";
+    rButtonEL.className = "slideButton";
 
-    projectEL.overflow = overflow;
-    if (overflow) projectEL.style.display = "none";
-    else projectEL.style.display = "inline-block";
-    var finalPos = midPos-adjustToCenter+absPos*(projectWidth*1.1);
-    return finalPos;
+    lButtonEL.src = buttonImage;
+    rButtonEL.src = buttonImage;
+    explanationEL.innerText = explanation;
+
+    var explanationHeight = explanationSize+explanationPadding*2;
+    var slideshowHeight = projectHeight+explanationHeight;
+
+    slideshowEL.style.width = projectWidth+"px";
+    slideshowEL.style.height = slideshowHeight+"px";
+
+    explanationEL.style.paddingTop = explanationPadding+"px";
+    explanationEL.style.paddingBottom = explanationPadding+"px";
+    explanationEL.style.fontSize = explanationSize+"px";
+    explanationEL.style.height = explanationHeight+"px";
+    
+    contentWrapperEL.style.height = projectHeight+"px";
+    contentWrapperEL.addEventListener("click", OpenProject);
+
+    var imgWrapperWidth = relImgWidth*projectWidth;
+    var textWrapperWidth = (1-relImgWidth)*projectWidth;
+    imgWrapperEL.style.width = imgWrapperWidth+"px";
+
+    textWrapperEL.style.width = textWrapperWidth+"px";
+    textWrapperEL.style.height = projectHeight+"px";
+    textWrapperEL.style.marginLeft = imgWrapperWidth+"px";
+
+    titleEL.style.height = titleHeight+"px";
+    titleEL.style.fontSize = titleSize*titleHeight+"px";
+    var paddingTitleTop = (1-titleSize)/2*titleHeight;
+    var padding = textPadding/2*textWrapperWidth;
+    titleEL.style.paddingTop = paddingTitleTop+"px";
+    titleEL.style.paddingLeft = padding+"px";
+
+    descEL.style.height = projectHeight-titleHeight+"px";
+    descEL.style.padding = padding+"px";
+
+    var buttonWrapperMarginTop = projectHeight/2-buttonSize/2;
+    
+    lButtonWrapperEL.style.marginLeft = -buttonSize*(1+buttonDistance)+"px";
+    lButtonWrapperEL.style.marginTop = buttonWrapperMarginTop+"px";
+    lButtonWrapperEL.style.width = buttonSize+"px";
+    lButtonWrapperEL.style.height = buttonSize+"px";
+
+    rButtonWrapperEL.style.marginLeft = projectWidth+buttonSize*buttonDistance+"px";
+    rButtonWrapperEL.style.marginTop = buttonWrapperMarginTop+"px";
+    rButtonWrapperEL.style.width = buttonSize+"px";
+    rButtonWrapperEL.style.height = buttonSize+"px";
+
+    lButtonEL.addEventListener("click", ClickLeft);
+    rButtonEL.addEventListener("click", ClickRight);
+
+    lButtonWrapperEL.appendChild(lButtonEL);
+    rButtonWrapperEL.appendChild(rButtonEL);
+    textWrapperEL.appendChild(titleEL);
+    textWrapperEL.appendChild(descEL);
+    imgWrapperEL.appendChild(imgEL);
+    contentWrapperEL.appendChild(textWrapperEL);
+    contentWrapperEL.appendChild(imgWrapperEL);
+    slideshowEL.appendChild(explanationEL);
+    slideshowEL.appendChild(lButtonWrapperEL);  // lButton before contentWrapper
+    slideshowEL.appendChild(rButtonWrapperEL);  // rButton before contentWrapper
+    slideshowEL.appendChild(contentWrapperEL);
+
+    ShowCurrentProject();
 }
-function IsOverflowing(pos)
+function ClickLeft()
 {
-    return (pos < -visibleSideProjects || pos > visibleSideProjects);
+    ChangeProject(-1);
 }
-function OpenProject(e)
+function ClickRight()
 {
-    var projectEL = e.target;
-    console.log(projectEL);
-    var index = projectEL.index;
-    if (index == null)
-    {
-        projectEL = projectEL.parentNode;
-        index = projectEL.index;
-    }
-    var p = projects[index];
+    ChangeProject(1);
+}
+function ChangeProject(by)
+{
+    currentProject += by;
+    if (currentProject < 0) currentProject = projects.length-1;
+    else if (currentProject >= projects.length) currentProject = 0;
+    ShowCurrentProject();
+}
+function ShowCurrentProject()
+{
+    var project = projects[currentProject];
+    var img = project["img"];
+    if (img == "") imgEL.src = defaultImg;
+    else imgEL.src = img;
+    titleEL.innerText = project["title"];
+    descEL.innerText = project["desc"];
+    slideshowEL.link = project["link"];
+}
+function OpenProject()
+{
+    var p = projects[currentProject];
     var link = p["link"];
     window.location.href = link;
-
 }
 function CreateProject(title, img, link, desc)
 {
@@ -178,33 +178,45 @@ function CreateProject(title, img, link, desc)
     newObj["link"] = link;
     newObj["desc"] = desc;
     projects.push(newObj);
-    ResetAll();
 }
 
 // ========== GLOBAL VARIABLES ==========
 var currentProject; // Stores index of the current project in slideshow
 var bodyEL;
-var slideshowEL;
-var projectELs;  // Stores elements
-var interpolationSpeed = 0.05;
-var animationInterval = 16;  // in ms, how long to wait between position set
+var slideshowEL;  // contains contentWrapperEL, lButtonWrapperEL, and rButtonWrapperEL
+var explanationEL;  // the thing above content
+var contentWrapperEL;  // contains textWrapperEL and imgWrapperEL
+var textWrapperEL;  // contains titleEL and descEL
+var imgWrapperEL;  // contains imgEL
+var imgEL;
+var titleEL;
+var descEL;
+var lButtonWrapperEL;  // contains lButtonEL
+var lButtonEL;
+var rButtonWrapperEL;  // you can probably figure out what this contains
+var rButtonEL;
 
-var projectWidth = 300;
-var projectHeight = 600;
-var projectImgHeight = 0.8;
-var minOpacity = 0.3;
-var maxOpacity = 0.5;  // Center project always has opacity of 1
-var visibleSideProjects = 2;  // How many extra projects should display on each side of the current project preview
+
+
+// ========== CONFIG/CUSTOMIZATION ==========
+var explanation = "Noen av våre prosjekter";
+var defaultImg = "/static/web/img/logo.svg";
+var relImgWidth = 0.4;  // Fraction of projectWidth, how much space should the image take? (0-1)
+var explanationSize = 50;  // font size in pixels
+var explanationPadding = 40;  // pixels
+var projectWidth = 800;  // How many pixels width should image and text make up together
+var projectHeight = 350;  // Same, but for height
+var titleHeight = 50;  // Pixels
+var titleSize = 0.7;  // font size, as a fraction of title height (0-1)
+var textPadding = 0.1;  // how large fraction of the textarea should be padding? (0-1)
+var buttonSize = 100;  // Pixels
+var buttonDistance = 0.2;  // distance from slideshow, as a fraction of its size (anything really)
+var buttonImage = "https://image.flaticon.com/icons/png/512/61/61791.png";  // TODO: get copyright free image
 
 var projects =  // Some fancy django function to get projects from database?
 [
     {"title":"Fake News Generator", "img":"", "link":"https://google.com", "desc":"Vi mekka en sånn derre AI greie som produsere fake tweets av Donald Trump"},
     {"title":"Cogitron", "img":"", "link":"https://google.com", "desc":"Cogitron e en sånn derre robot som utforske omgivelsan og nice greier"},
-    {"title":"Testprosjekt", "img":"", "link":"https://google.com", "desc":"Det her e egentlig ikke et prosjekt, bare no æ la te for å test slideshow"},
+    {"title":"Testprosjekt som har et veldig langt navn for å teste hvordan den oppfører seg når navnet er veldig langt", "img":"", "link":"https://google.com", "desc":"Det her e egentlig ikke et prosjekt, bare no æ la te for å test slideshow. I tillegg har den en veldig lang description sånn at æ kan få testa koss det ser ut på nettsida, vil den overflowe eller bare kutt teksten? Se neste episode av torbjørns bizarre adventure for å finn ut kordan html tolke det her"},
     {"title":"Testprosjek2", "img":"", "link":"https://google.com", "desc":"Samme med den her egentlig"}
 ];
-
-// ========== INITIALIZATION ==========
-document.addEventListener("scroll", SetProjectPoses);
-window.addEventListener("resize", SetProjectPoses);
-ResetAll();
