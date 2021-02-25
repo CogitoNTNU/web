@@ -156,13 +156,24 @@ function ChangeProject(by)
 }
 function ShowCurrentProject()
 {
-    var project = projects[currentProject];
-    var img = project["img"];
-    if (img == "") imgEL.src = defaultImg;
-    else imgEL.src = img;
-    titleEL.innerText = project["title"];
-    descEL.innerText = project["desc"];
-    slideshowEL.link = project["link"];
+    if (projects.length > 0)
+    {
+        var project = projects[currentProject];
+        var img = project["img"];
+        if (img == "") imgEL.src = defaultImg;
+        else imgEL.src = img;
+        titleEL.innerText = project["title"];
+        descEL.innerHTML = project["desc"];
+        slideshowEL.link = project["link"];
+    } else
+    {
+        NoProjectsFound();
+    }
+}
+function NoProjectsFound()
+{
+    // No projects
+    slideshowEL.innerHTML = "Error: No projects found in database";
 }
 function OpenProject()
 {
@@ -215,8 +226,4 @@ var buttonImage = "https://image.flaticon.com/icons/png/512/61/61791.png";  // T
 
 var projects =  // Some fancy django function to get projects from database?
 [
-    {"title":"Fake News Generator", "img":"", "link":"https://google.com", "desc":"Vi mekka en sånn derre AI greie som produsere fake tweets av Donald Trump"},
-    {"title":"Cogitron", "img":"", "link":"https://google.com", "desc":"Cogitron e en sånn derre robot som utforske omgivelsan og nice greier"},
-    {"title":"Testprosjekt som har et veldig langt navn for å teste hvordan den oppfører seg når navnet er veldig langt", "img":"", "link":"https://google.com", "desc":"Det her e egentlig ikke et prosjekt, bare no æ la te for å test slideshow. I tillegg har den en veldig lang description sånn at æ kan få testa koss det ser ut på nettsida, vil den overflowe eller bare kutt teksten? Se neste episode av torbjørns bizarre adventure for å finn ut kordan html tolke det her"},
-    {"title":"Testprosjek2", "img":"", "link":"https://google.com", "desc":"Samme med den her egentlig"}
 ];
