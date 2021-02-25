@@ -28,6 +28,7 @@ urlpatterns = [
     path('profiles/', include('user_profile.urls')),
     path('projects/', include('project.urls')),
     path('verv/', include('verv.urls')),
+    path('tweets/', include('twitter_bot.urls')),
     ContentBox.url('about'),
     ContentBox.url('about/statutes'),
     ContentBox.url('about/business'),

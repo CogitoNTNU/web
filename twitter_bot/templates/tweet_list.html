@@ -1,0 +1,38 @@
+{% extends "web/base.html" %}
+{% block body %}
+<style type="text/css">
+    .centered {
+        margin: auto;
+    }
+    .outer {
+        border: 1px solid grey;
+        width: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 30px;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mt-3 left">
+            {% for tweet in object_list %}
+                <div class="outer">
+                    <h2 class="centered">Donald Trump</h2>
+                    <div class="centered">{{ tweet.content }}</div>
+                    <h4>Likes: {{ tweet.likes }}</h4>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% if is_paginated %}
+    <div class="ui pagination menu">
+        {% if paginator.num_pages > 1 %}
+            {% for i in paginator.page_range %}
+                <a class="{% if i == page_obj.number %}active{% endif %} item"
+                    href="?page={{ i }}" aria-label="Gå til side {{i}}">{{ i }}</a>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endif %}
+{% endblock %}
