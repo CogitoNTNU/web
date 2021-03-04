@@ -222,7 +222,7 @@ var titleSize = 0.7;  // font size, as a fraction of title height (0-1)
 var textPadding = 0.1;  // how large fraction of the textarea should be padding? (0-1)
 var buttonSize = 100;  // Pixels
 var buttonDistance = 0.2;  // distance from slideshow, as a fraction of its size (anything really)
-var buttonImage = "https://image.flaticon.com/icons/png/512/61/61791.png";  // TODO: get copyright free image
+var buttonImage = "/static/web/img/slidebutton.png";
 
 var projects =  // Some fancy django function to get projects from database?
 [
