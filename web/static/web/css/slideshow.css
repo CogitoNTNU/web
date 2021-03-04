@@ -1,6 +1,6 @@
-@media only screen and (max-width : 600px) {
+@media only screen and (max-width : 900px) {
     /* Hides entire slideshow when on mobile, as that gets pretty wonky */
-    #slideshow {
+    #slideshow, #slideshow * {
         display : none;
     }
 }
