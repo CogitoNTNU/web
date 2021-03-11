@@ -6,6 +6,10 @@
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/static/web/css/slideshow.css">
+</head>
 <body>
 	<div class="container">
 		<div id="showcase-wrapper">
@@ -135,24 +139,20 @@
 
 	</div>
 
-	<!-- slideshow
+	<div id="slideshow"></div>
 	<script src="{% static 'web/js/slideshow.js' %}">
 	</script>
-
 	{% for project in projects %}
 	{% if project.thumbnail %}
 	<script>
-		// name, img, link, desc
-		console.log("testtttsttststs");
-
-		CreateProject("{{ project.title }}", "/media/{{ project.thumbnail.name }}", "projects/project/{{ project.pk }}", "");
+		// gets name, img, link, desc from django database
+		CreateProject('{{ project.title }}', '/media/{{ project.thumbnail.name }}', 'projects/project/{{ project.pk }}', '{{ project.description|safe|linebreaks }}');
 	</script>
-		<a href="/projects">
-			<img src="/media/{{ project.thumbnail.name }}" class="thumbnail" height=250 width=250>
-		</a>
 	{% endif %}
 	{% endfor %}
-	-->
+	<script>
+		ResetAll();
+	</script>
 
 </body>
 
