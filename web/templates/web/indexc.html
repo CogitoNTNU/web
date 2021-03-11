@@ -131,6 +131,7 @@
 		CreateProject('{{ project.title }}', '/media/{{ project.thumbnail.name }}', 'projects/project/{{ project.pk }}', '{{ project.description|safe|linebreaks }}');
 	</script>
 	{% endif %}
+	{% endif %}
 	{% endfor %}
 	<script>
 		ResetAll();
