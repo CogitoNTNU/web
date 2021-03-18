@@ -125,10 +125,13 @@
 	{% for project in projects %}
 
 		{% if project.thumbnail %}
+		{% spaceless %}
 		<script>
 			// gets name, img, link, desc from django database
-			CreateProject('{{ project.title }}', '/media/{{ project.thumbnail.name }}', 'projects/project/{{ project.pk }}', '{{ project.description|safe }}');
+			CreateProject('{{ project.title }}', '/media/{{ project.thumbnail.name }}', 'projects/project/{{ project.pk }}', '{{ project.description|safe|linebreaks }}');
 		</script>
+
+		{% endspaceless %}
 
 	
 	{% endif %}
