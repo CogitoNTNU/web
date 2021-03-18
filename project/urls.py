@@ -1,5 +1,6 @@
 from django.urls import path
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
+
 
 from project.models import Project, Collection
 from project.views import ProjectAdminDetailView, accept_applicant, reject_applicant, DeleteProjectView, \
@@ -20,4 +21,6 @@ urlpatterns = [
     path('project/<int:pk>/apply/', apply_to_collection, name='apply_to_collection'),
     path('project/<int:pk>/', DetailView.as_view(model=Project), name='project'),
     path('project/new/', CreateProjectView.as_view(), name='project_form'),
+   
+    path('project/cogitron', TemplateView.as_view(template_name="web/cogitron.html"))
 ]
