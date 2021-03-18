@@ -6,7 +6,6 @@
 // remember to include slideshow.css, can be done with putting <link rel="stylesheet" type="text/css" href="/static/web/css/slideshow.css"> inside of <head>
 // Copy-paste this into your html file:
 /*
-
 	<div id="slideshow"></div>
 	<script src="{% static 'web/js/slideshow.js' %}">
 	</script>
@@ -21,7 +20,6 @@
 	<script>
 		ResetAll();
 	</script>
-
 */
 // The <div id="slideshow"></div> may be moved to mostly anywhere in the document.
 
