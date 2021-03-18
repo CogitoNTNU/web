@@ -179,6 +179,7 @@ function OpenProject()
 {
     var p = projects[currentProject];
     var link = p["link"];
+    if (link == "") return;
     window.location.href = link;
 }
 function CreateProject(title, img, link, desc)
