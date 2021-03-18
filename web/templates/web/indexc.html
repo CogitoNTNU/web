@@ -130,7 +130,7 @@
 			// gets name, img, link, desc from django database
 			CreateProject('{{ project.title }}', '/media/{{ project.thumbnail.name }}', 'projects/project/{{ project.pk }}', '{{ project.description|safe|linebreaks }}');
 		</script>
-		{% spaceless %}
+		{% endspaceless %}
 	
 	{% endif %}
 	{% endfor %}
