@@ -123,13 +123,13 @@
 	<script src="{% static 'web/js/slideshow.js' %}">
 	</script>
 	{% for project in projects %}
-	{% if  forloop.counter <= 4 %}
-	{% if project.thumbnail %}
-	 
-	<script>
-		// gets name, img, link, desc from django database
-		CreateProject('{{ project.title }}', '/media/{{ project.thumbnail.name }}', 'projects/project/{{ project.pk }}', '{{ project.description|safe|linebreaks }}');
-	</script>
+
+		{% if project.thumbnail %}
+		<script>
+			// gets name, img, link, desc from django database
+			CreateProject('{{ project.title }}', '/media/{{ project.thumbnail.name }}', 'projects/project/{{ project.pk }}', '{{ project.description|safe }}');
+		</script>
+
 	{% endif %}
 	{% endif %}
 	{% endfor %}
