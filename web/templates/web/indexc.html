@@ -21,7 +21,7 @@
 					<p>
 				</div>
 				<div class="container3">
-					<p style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjon som jobber for å
+					<p id = "ingress" style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjon som jobber for å
 					fremme læring og interesse for kunstig intelligens på alle nivåer. Dette gjør vi gjennom arrangementer som kurs, foredrag og hackathons samt prosjekter som gjennomføres hvert semester.</p>
 					<div class= "grid">
 						<a href="about" class="button">OM OSS </a>
@@ -52,10 +52,10 @@
 
 		<div id="showcase3-wrapper">
 			<div class="container">
-				<div class="box">
+				<div id  = "Espen" class="box">
 					<p>"Vi i Cogito ser etter deg som er nysgjerrig på AI og ønsker å lære mer om det i en sosial setting, uansett erfaringsnivå."</p>
 
-					<div id="espen">
+					<div>
 						<div id="box-espen1">
 							<img src="{% static "web/img/espen.png" %}">
 						</div>
@@ -66,7 +66,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="box">
+				<div id= "cogitron" class="box">
 					<img src="{% static "web/img/Cogitron.jpg" %}" width=500>
 				</div>
 			</div>
@@ -102,17 +102,43 @@
 			</ul>
 		</div>
 		<style>
-		@media screen and (max-width: 1500px) {
+		@media screen and (max-width: 480px) {
 			#fixedcontainer {
 				display: none!important;
 			}
 		  }
-		@media screen and (max-width: 1500px){
+		@media screen and (max-width: 480px){
 			#gif {
 				display: none!important;
 			}
 			.button{
 				display:none;
+			}
+			#grid_pics{
+				width:100vw;
+			}
+			#bold{
+				width:100wv;
+				height:20wh;
+				font-size: 70px;
+			}
+			#ingress{
+				width:100wv;
+				height:20wh;
+				font-size: 50px;
+			}
+			#Espen{
+				width:100wv;
+				height:20wh;
+			}
+			#cogitron{
+				display:none;
+			}
+			#showcase3-wrapper .container .box{
+				width:200wv;
+			}
+			#Espen{
+				display: none;
 			}
 		}
 		</style>
