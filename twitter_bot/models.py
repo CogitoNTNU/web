@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import F
 
 
 class Tweet(models.Model):
@@ -7,9 +8,11 @@ class Tweet(models.Model):
     tweet_id = models.IntegerField(primary_key=True)
 
     class Meta:
-        ordering = ['likes']
+        ordering = ['-likes']
 
     def __stf__(self):
         return self.content
+
+
 
 
