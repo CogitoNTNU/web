@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     'single_page',
     'uptake',
     'verv',
-
+    'twitter_bot',
     'ckeditor',
     'contentbox',
     'dataporten',
