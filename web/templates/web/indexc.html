@@ -6,8 +6,12 @@
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/static/web/css/slideshow.css">
+</head>
 <body>
-	<div class="container">
+	<div class="container2">
 		<div id="showcase-wrapper">
 			<div class="left-side-wrapper">
 				<div id="container2">
@@ -17,14 +21,13 @@
 					<p>
 				</div>
 				<div class="container3">
-
-				</div>
-				<p style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjon som jobber for å
-				fremme læring og interesse for kunstig intelligens på alle nivåer. Dette gjør vi gjennom arrangementer som kurs, foredrag og hackathons samt prosjekter som gjennomføres hvert semester.</p>
-				<div class= "grid">
-				<a href="about" class="button">OM OSS </a>
-				<a href="projects" class="button">PROSJEKTER </a>
-				<a href="\news" class="button"> NYHETER </a>
+					<p id = "ingress" style="font-family: Montserrat !important;">Cogito NTNU er en frivillig studentorganisasjon som jobber for å
+					fremme læring og interesse for kunstig intelligens på alle nivåer. Dette gjør vi gjennom arrangementer som kurs, foredrag og hackathons samt prosjekter som gjennomføres hvert semester.</p>
+					<div class= "grid">
+						<a href="about" class="button">OM OSS </a>
+						<a href="projects" class="button">PROSJEKTER </a>
+						<a href="\news" class="button"> NYHETER </a>
+					</div>
 				</div>
 			</div>
 			<div class="right-side-wrapper">	
@@ -49,10 +52,10 @@
 
 		<div id="showcase3-wrapper">
 			<div class="container">
-				<div class="box">
+				<div id  = "Espen" class="box">
 					<p>"Vi i Cogito ser etter deg som er nysgjerrig på AI og ønsker å lære mer om det i en sosial setting, uansett erfaringsnivå."</p>
 
-					<div id="espen">
+					<div>
 						<div id="box-espen1">
 							<img src="{% static "web/img/espen.png" %}">
 						</div>
@@ -63,7 +66,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="box">
+				<div id= "cogitron" class="box">
 					<img src="{% static "web/img/Cogitron.jpg" %}" width=500>
 				</div>
 			</div>
@@ -99,60 +102,69 @@
 			</ul>
 		</div>
 		<style>
-		@media screen and (max-width: 1500px) {
+		@media screen and (max-width: 480px) {
 			#fixedcontainer {
 				display: none!important;
 			}
 		  }
-		@media screen and (max-width: 1500px){
+		@media screen and (max-width: 480px){
 			#gif {
 				display: none!important;
-			}
-		}
-		@media screen and (max-width: 1500px){
-			.showcase2-wrapper {
-				width: 50vw!important;
-				clear:left;
-			}
-			.left-side-wrapper {
-				height:50vh;
-				width: 100vw!important;
-				clear:left;
-				font-size:40px!important;
 			}
 			.button{
 				display:none;
 			}
-			#showcase-wrapper .left-side-wrapper{
-				padding-left:50px;
-				padding-top:0px;
+			#grid_pics{
+				width:100vw;
 			}
-			#container2{
-				margin-top:20px;
+			#bold{
+				width:100wv;
+				height:20wh;
+				font-size: 70px;
+			}
+			#ingress{
+				width:100wv;
+				height:20wh;
+				font-size: 50px;
+			}
+			#Espen{
+				width:100wv;
+				height:20wh;
+			}
+			#cogitron{
+				display:none;
+			}
+			#showcase3-wrapper .container .box{
+				width:200wv;
+			}
+			#Espen{
+				display: none;
 			}
 		}
 		</style>
 
 	</div>
 
-	<!-- slideshow
+	<div id="slideshow"></div>
 	<script src="{% static 'web/js/slideshow.js' %}">
 	</script>
-
 	{% for project in projects %}
-	{% if project.thumbnail %}
-	<script>
-		// name, img, link, desc
-		console.log("testtttsttststs");
 
-		CreateProject("{{ project.title }}", "/media/{{ project.thumbnail.name }}", "projects/project/{{ project.pk }}", "");
-	</script>
-		<a href="/projects">
-			<img src="/media/{{ project.thumbnail.name }}" class="thumbnail" height=250 width=250>
-		</a>
+		{% if project.thumbnail %}
+		{% spaceless %}
+		<script>
+			// gets name, img, link, desc from django database
+			CreateProject('{{ project.title }}', '/media/{{ project.thumbnail.name }}', 'projects/project/{{ project.pk }}', '{{ project.description|safe|linebreaks }}');
+		</script>
+
+		{% endspaceless %}
+
+	
 	{% endif %}
 	{% endfor %}
-	-->
+	<script>
+		ResetAll();
+	</script>
 
 </body>
 
