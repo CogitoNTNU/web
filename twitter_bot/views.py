@@ -15,6 +15,17 @@ class TweetList(generic.ListView):
     paginate_by = 4
 
     def get_queryset(self):
+        try:
+            go = Tweet.objects.all()[:1].get()
+        except ObjectDoesNotExist:
+            with open("twitter_bot/templates/tweets.json") as f:
+                p = 0
+                data = json.load(f)
+                d = {}
+                for i in data['tweets']:
+                    d["Tweet{}".format(p)] = Tweet.objects.create(content=i, tweet_id=p)
+                    p += 1
+
         tweet = self.model.objects.all()
         return tweet
 
@@ -26,16 +37,4 @@ def like_tweet(request, pk):
     tweet.save()
     print('dank')
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-try:
-    go = Tweet.objects.all()[:1].get()
-except ObjectDoesNotExist:
-    with open("twitter_bot/templates/tweets.json") as f:
-        p = 0
-        data = json.load(f)
-        d = {}
-        for i in data['tweets']:
-            d["Tweet{}".format(p)] = Tweet.objects.create(content=i, tweet_id=p)
-            p += 1
 
