@@ -86,7 +86,7 @@
 		<div class="flex-container2">
             {% for tweet in object_list %}
 			<div class="tweet-container">
-				<a href="../../web/templates/web/indexc.html" class="cogito_logo" style="display:inline-block" ><img src="{% static "web/img/brain_transparent.png" %}" height=25px>	</a>
+				<a href="../../web/templates/web/indexc.html" class="cogito_logo" style="display:inline-block;padding-top: 12px" ><img src="{% static "web/img/brain_transparent.png" %}" height=25px>	</a>
 				<div class="tweet-background">
 					<div class="tweet-text">
 						<h1 style="font-family:arial; font-size:medium; line-height:0.5; display:inline-block; font-size:15px">Tonald Drump</h1>
@@ -95,19 +95,21 @@
 						<h1 style="font-style:normal; font-size:medium; line-height:1"> {{ tweet.content }} </h1>
 					</div>
 				</div>
-				<a onclick="location.href='{% url 'like-tweet' pk=tweet.tweet_id %}'" class="cogito_logo" style="display:inline-block;cursor: pointer" ><img src="{% static "web/img/heart_trans.png" %}" height=17px>	</a>
-                {{ tweet.likes }}
+				<a onclick="location.href='{% url 'like-tweet' pk=tweet.tweet_id %}'" class="cogito_logo" style="display:inline-block;cursor: pointer;position: absolute;left: 90.5%;padding-top: 8px" ><img src="{% static "web/img/heart_trans.png" %}" height=17px>	</a>
+                <a style="position: absolute;left: 92%;padding-top: 12px;color: black">{{ tweet.likes }}</a>
 			</div>{% endfor %}
             {% if is_paginated %}
             <div class="ui pagination menu" style="align-items: center;width: 50%;margin: 0 auto">
                 {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo;</a>
+                    <a href="?page=1">&laquo;Første side&nbsp;</a>
                     <a class="item" href="?page={{ page_obj.previous_page_number }}"><</a>
+                {% else %}
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 {% endif %}
                 <a class="active item" style="text-align: center">Side {{ page_obj.number }} av {{ page_obj.paginator.num_pages }}</a>
                 {% if page_obj.has_next %}
                     <a class="item" href="?page={{ page_obj.next_page_number }}">></a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a>
+                    <a href="?page={{ page_obj.paginator.num_pages }}">&nbsp;Siste Side&raquo;</a>
                 {% endif %}
             </div>
             {% endif %}

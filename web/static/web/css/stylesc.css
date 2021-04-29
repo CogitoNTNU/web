@@ -123,7 +123,7 @@ header .nav-links a:hover{
 }
 
 .nav-link-wrapper{
-	height:22px;
+	height:27px;
 	border-bottom:1px solid transparent;
 	transition:border-bottom 0.5s;
 }
@@ -158,6 +158,8 @@ header .nav-links a:hover{
 	background-color:rgb(239,239,237);
 	position:absolute;
 	padding:5%;
+	padding-top: 0;
+	padding-bottom: 2%;
 }
 
 #showcase-wrapper .left-side-wrapper{
