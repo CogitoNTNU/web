@@ -13,3 +13,18 @@
     width : 60%;
     margin : auto;
 }
+
+.scrollParent {
+    position : relative;  /* Needed for overflow: hidden */
+    overflow : hidden;
+}
+.scroll {
+    overflow : hidden;
+}
+img.scroll {
+    min-width : 100%;
+    min-height : 100%;
+
+    left : 50%;  /* Requires position:absolute */
+    transform : translateX(-50%);  /* Requires position:absolute */
+}
